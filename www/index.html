@@ -9,155 +9,118 @@
 			</script>
 	</head>
 	<body>
-		<table width="100%" boder="0" ID="Table1">
-			<tr>
-				<td width="150">
-					<img src="images/aeryn.jpg" alt="Aeryn" border="0" width="100">
-				</td>
-				<td valign="top">
-					<h1>Aeryn - C++ Testing Framework</h1>
-					<a href="http://www.aeryn.co.uk/">http://www.aeryn.co.uk</a>
+		<p align= "center">
+			<a href="#what_is_aeryn">What is Aeryn?</a> | <a href="#what_do_i_need_to_build_aeryn">
+				What do I need to build Aeryn?</a> | <a href="#download">Download</a> 
+				| <a href="#license">License</a> | <a href="#documentation">
+				Documentation</a> | <a href="#contact">Contact</a> | <a href="#contributors">Contributors</a>
+				| <a href="#whos_using_aeryn"> Who's Using Aeryn?</a>		
+		</p>
+		<p>
+			<h1>Aeryn - C++ Testing Framework</h1>
+			<a href="http://www.aeryn.co.uk/">http://www.aeryn.co.uk</a>
+			<br>
+			<br>
+			Created by Paul Grenyer
+			<br>
+			<br>
+			<br>
+		</p>
+		<p>
+			<b><a name="what_is_aeryn">What is Aeryn</a></b>
+			<br>
+			<br>
+			Aeryn is a C++ testing framework. Although it is primarily intended for unit 
+			testing, Aeryn is adaptable enough to handle integration testing and can be 
+			adapted for most other forms of C++ testing.
+			<br>
+			<br>
+			Aeryn is intended to be lightweight with minimal&nbsp;code needed to create a 
+			test fixture. Unlike other testing frameworks Aeryn does not require all test 
+			fixtures to be inherited from a particular class. Test fixtures can be 
+			standalone functions or standalone classes.
+			<br>
+			<br>
+			Aeryn is adaptable via context objects which can be passed to test fixtures 
+			prior to running and via its call back reporting interface.
+			<br>
+			<br>
+			<br>
+		</p>
+		<p>
+			<b><a name="what_do_i_need_to_build_aeryn">What do I need to build Aeryn?</a></b>
+			<br>
+			<br>
+			Aeryn uses up-to-date C++ techniques, including member function templates and 
+			therefore requires a modern compiler. It has been tested on, and provides <a href="http://www.gnu.org/software/make/">
+				make</a> files or project files for the following compilers:
+			<br>
+			<br>
+			<li>
+				<a href="http://msdn.microsoft.com/visualc/">Microsoft Visual C++ 7.1</a>
+			<li>
+				<a href="http://www.mingw.org/">MinGW</a>
+			<li>
+				<a href="http://gcc.gnu.org/">GNU G++</a>
+			<li>
+				<a href="http://www.apple.com/macosx/features/xcode/">XCode</a>
+				<br>
+				<br>
+				It <i>may</i> be possible to get Aeryn to compile on Microsoft Visual C++ 6.0.
+				<br>
+				<br>
+				<br>
+		</P>
+		<p>
+			<b><a name="License">License</a></b>
+			<br>
+			<br>
+			Aeryn is released under the <a href="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</a>.
+			<br>
+			<br>
+			<br>
+		</p>
+		<p>
+			<b><a name="contact">Contact</a></b>
+			<br>
+			<br>
+			You can contact me at the following email address, <b>paul (at) paulgrenyer.co.uk</b>
+			and my website address is: <a href="http://www.paulgrenyer.co.uk/">http://www.paulgrenyer.co.uk/</a>
+			<br>
+			<br>
+			<br>
+		</p>
+		<p>
+			<b><a name="contributors">Contributors</a></b>
+			<br>
+			<br>
+			<ul>
+				<li><a href="http://homepage.ntlworld.com/rbyadf/">Adrian Fagg</a></li>
+				<li><a href="http://www.goodliffe.net/">Pete Goodliffe</a></li>
+				<li><a href="http://www.curbralan.com">Kevlin Henney</a></li>
+				<li><a href="http://www.all-the-johnsons.co.uk/">Paul Johnson</a></li>
+				<li><a href="http://www.justsoftwaresolutions.co.uk">Anthony Williams</a></li>
+				<li><a href="http://www.russel.org.uk">Russel Winder</li>
+			</ul>
+			<br>
+		</P>
+		<p>
+			<b><a name="whos_using_aeryn">Who's using Aeryn?</a></b>
+			<br>
+			<br>
+			<ul>
+				<li>
+					<a href="http://www.jaggersoft.com/">Jon Jagger</a> - Independant software 
+					consultant.
 					<br>
 					<br>
-					Created by Paul Grenyer
-				</td>
-			</tr>
-		</table>
-		<br>
-		<br>
-		<table width="100%" border="0" ID="Table2">
-			<tr>
-				<td align="center">
-					<a href="#what_is_aeryn">What is Aeryn?</a> | <a href="#what_do_i_need_to_build_aeryn">
-						What do I need to build Aeryn?</a> | <a href="#download">Download</a> | <a href="#license">
-						License</a> | <a href="#documentation">Documentation</a> | <a href="#contact">Contact</a>
-					| <a href="#contributors">Contributors</a> | <a href="#whos_using_aeryn">Who's 
-						Using Aeryn?</a>
-					<br>
-					<br>
-				</td>
-			</tr>
-			<tr>
-				<td valign="top">
-					<p>
-						<b><a name="what_is_aeryn">What is Aeryn</a></b>
-						<br>
-						<br>
-						Aeryn is a C++ testing framework. Although it is primarily intended for unit 
-						testing, Aeryn is adaptable enough to handle integration testing and can be 
-						adapted for most other forms of C++ testing.
-						<br>
-						<br>
-						Aeryn is intended to be lightweight with minimal&nbsp;code needed to create a 
-						test fixture. Unlike other testing frameworks Aeryn does not require all test 
-						fixtures to be inherited from a particular class. Test fixtures can be 
-						standalone functions or standalone classes.
-						<br>
-						<br>
-						Aeryn is adaptable via context objects which can be passed to test fixtures 
-						prior to running and via its call back reporting interface.
-						<br>
-						<br>
-						<br>
-					</p>
-					<p>
-						<b><a name="what_do_i_need_to_build_aeryn">What do I need to build Aeryn?</a></b>
-						<br>
-						<br>
-						Aeryn uses up-to-date C++ techniques, including member function templates and 
-						therefore requires a modern compiler. It has been tested on, and provides <a href="http://www.gnu.org/software/make/">
-							make</a> files or project files for the following compilers:
-						<br>
-						<br>
-						<li>
-							<a href="http://msdn.microsoft.com/visualc/">Microsoft Visual C++ 7.1</a>
-						<li>
-							<a href="http://www.mingw.org/">MinGW 3.2.3</a>
-						<li>
-							<a href="http://gcc.gnu.org/">GNU G++ 3.2.3</a>
-						<li>
-							<a href="http://www.apple.com/macosx/features/xcode/">XCode 1.5</a>
-							<br>
-							<br>
-							It <i>may</i> be possible to get Aeryn to compile on Microsoft Visual C++ 6.0.
-							<br>
-							<br>
-							<br>
-					<P></P>
-					<p>
-						<b><a name="Download">Download</a></b>
-						<br>
-						<br>
-					</p>
-					<p>
-						<b><a name="License">License</a></b>
-						<br>
-						<br>
-						Aeryn is released under the <a href="http://www.gnu.org/copyleft/lesser.html">GNU 
-							Lesser General Public License</a>.
-						<br>
-						<br>
-						<br>
-					</p>
-					<p>
-						<b><a name="documentation">Documentation</a></b>
-						<br>
-						<br>
-						<b><a name="contact">Contact</a></b>
-						<br>
-						<br>
-						You can contact me at the following email address, <b>paul (at) paulgrenyer.co.uk</b>
-						and my website address is: <a href="http://www.paulgrenyer.co.uk/">http://www.paulgrenyer.co.uk/</a>
-						<br>
-						<br>
-						<br>
-						<b><a name="contributors">Contributors</a></b>
-						<br>
-					</p>
-					</li>
-					<ul>
-						<li>
-							<a href="http://homepage.ntlworld.com/rbyadf/">Adrian Fagg</a>
-						<li>
-							<a href="http://www.goodliffe.net/">Pete Goodliffe</a>
-						<li>
-							<a href="http://www.curbralan.com">Kevlin Henney</a>
-						<li>
-							<a href="http://www.all-the-johnsons.co.uk/">Paul Johnson</a>
-						<li>
-							<a href="http://www.justsoftwaresolutions.co.uk">Anthony Williams</a>
-						<li>
-							<a href="http://www.russel.org.uk">Russel Winder</li>
-					</ul>
-					<P>
-						<br>
-					</P>
-					<P></P>
-					<p>
-						<b><a name="whos_using_aeryn">Who's using Aeryn?</a></b>
-						<br>
-						<br>
-						<ul>
-							<li>
-								<a href="http://www.jaggersoft.com/">Jon Jagger</a> - Independant software 
-								consultant.
-								<br>
-								<br>
-							<li>
-								<a href="http://www.akaipro.com/">Akai Digital Technology Group</a> - 
-								Developers of audio equipment for the professional music industry.
-							</li>
-						</ul>
-					<P>
-						<br>
-					</P>
-					<P></P>
-				</td>
-				<td valign="bottom" width="200">
-					<img src="images/aeryn.jpg" alt="Aeryn" border="0" width="100">
-				</td>
-			</tr>
-		</table>
-		<hr>
+				</li>
+				<li>
+					<a href="http://www.akaipro.com/">Akai Digital Technology Group</a> - 
+					Developers of audio equipment for the professional music industry.
+				</li>
+			</ul>
+			<br>
+		</P>
 	</body>
 </html>
