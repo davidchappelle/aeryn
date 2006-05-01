@@ -40,7 +40,7 @@ namespace Aeryn
 	{
 		/**	\brief Aeryn copyright message. */
 		const std::string header =	"\n"
-									"Aeryn 2.1.1 (c) Paul Grenyer 2005\n"
+									"Aeryn 2.1.2 (c) Paul Grenyer 2005\n"
 									"http://www.aeryn.co.uk/\n";	
 
 		/**	\brief Default test set name. */
