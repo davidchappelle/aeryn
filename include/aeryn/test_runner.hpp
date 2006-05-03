@@ -201,7 +201,7 @@ namespace Aeryn
 		 *	\return 0 if all tests pass, -1 if any fail.
 		 */
 		int Run
-			();
+			() const;
 		
 		/**	\brief Runs all the tests with the specified report.
 		 *
@@ -209,22 +209,64 @@ namespace Aeryn
 		 *	\return 0 if all tests pass, -1 if any fail.
 		 */
 		int Run
-			(  IReport& report );	
+			(  IReport& report ) const;	
+
+		/**	\brief Runs the named test with the default report (minimal).
+		*
+		*	\param name The name of the test to run.
+		*	\return 0 if all tests pass, -1 if any fail.
+		*/
+		int RunByName
+			(  const std::string& name ) const;	
+		
+		/**	\brief Runs the named test the test with the specified report.
+		 *
+		 *	\param name The name of the test to run.
+		 *	\param report The report.
+		 *	\return 0 if all tests pass, -1 if any fail.
+		 */
+		int RunByName
+			(  const std::string& name, IReport& report ) const;	
 
 	private:
 		/**	\brief Gives the number of test cases. */
 		unsigned long TestCount
 			() const;
 		
+		/**	\brief Runs a test case and updates test counters.
+		 *
+		 *	\param failureCount A counter for failed tests.
+		 *	\param missingCount A counter for missing tests.
+		 *	\param test The test case to run.
+		 *	\param report The report the results are written to.
+		 */
+		void RunTest
+			( unsigned long& failureCount,
+			  unsigned long& missingCount,
+			  const TestCase& test,
+			  IReport& report ) const;
+		
 		/**	\brief Runs a test case.
 		 *
 		 *	\param test The test case to run.
 		 *	\param report The report the results are written to.
-		 *	\return true PASS if testr passed, MISSING if test is missing otherwise FAILED.
+		 *	\return true PASS if tests passed, MISSING if test is missing otherwise FAILED.
 		 */
 		Result RunTest
 			( const TestCase& test,
-			  IReport& report );
+			  IReport& report ) const;
+
+		/**	\brief Finds a test by name.
+		 *
+		 *	\param name The name of the test to find.
+		 *	\return The test if found.
+		 *	\throws NotFound if the test cannot be found.
+		 */
+		TestCase Find
+			( const std::string& name ) const;
+
+		bool IsTestNameUnique
+			( const std::string& name ) const;
 	};
 }
 

@@ -100,6 +100,9 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath=".\add_tests.cpp">
+			</File>
+			<File
 				RelativePath=".\context_object_test.cpp">
 			</File>
 			<File
@@ -119,6 +122,9 @@
 			</File>
 			<File
 				RelativePath=".\test_func_test.cpp">
+			</File>
+			<File
+				RelativePath=".\test_runner_test.cpp">
 			</File>
 			<File
 				RelativePath=".\throws_exception_test.cpp">
@@ -157,6 +163,9 @@
 			</File>
 			<File
 				RelativePath=".\test_func_test.hpp">
+			</File>
+			<File
+				RelativePath=".\test_runner_test.hpp">
 			</File>
 			<File
 				RelativePath=".\throws_exception_test.hpp">

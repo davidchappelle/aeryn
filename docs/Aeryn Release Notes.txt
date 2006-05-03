@@ -1,3 +1,9 @@
+Aeryn 2.1.2
+===========
+
+Added ability to run tests by name.
+
+
 Aeryn 2.1.1
 ===========
 

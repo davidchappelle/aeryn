@@ -24,7 +24,7 @@
 
 #include "../tests/add_tests.hpp"
 #include <aeryn/test_runner.hpp>
-#include <aeryn/test_registry.hpp>
+#include <aeryn/test_name_not_found.hpp>
 
 #include <iostream>
 #include <string>
@@ -49,10 +49,20 @@
 int main( int argc, char *argv[] )
 {
 	using namespace Aeryn;
+	int result = -1;
 
-	TestRunner testRunner;
-	Aeryn::AddTests( testRunner );
+	try
+	{
+		TestRunner testRunner;
+		Aeryn::AddTests( testRunner );
 	
-	TestRunner::IReportPtr report( TestRunner::CreateReport( argc, argv ) );
-	return testRunner.Run( *report.get() );	
+		TestRunner::IReportPtr report( TestRunner::CreateReport( argc, argv ) );
+		result = testRunner.Run( *report.get() );	
+	}
+	catch( const Exception& e )
+	{
+		std::cout << e.What() << std::endl;
+	}
+
+	return result;
 }

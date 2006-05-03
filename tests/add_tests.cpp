@@ -20,7 +20,7 @@
 
 /** \file add_tests.cpp
   *  \brief AddTest definition.
- */	
+  */	
 
 #include "verbose_report_test.hpp"
 #include "minimal_report_test.hpp"
@@ -30,6 +30,7 @@
 #include "throws_exception_test.hpp"
 #include "context_object_test.hpp"
 #include "simple_date_test.hpp"
+#include "test_runner_test.hpp"
 
 #include "add_tests.hpp"
 
@@ -110,6 +111,15 @@ namespace Aeryn
 		TestCase()
 	};
 
+	/**	\brief Array of TestRunner tests. */
+	TestCase testRunnerTests[] =
+	{
+		TestCase( TestCase( USE_NAME( TestRunnerTest::RunByNameTest ) ) ),
+		TestCase( TestCase( USE_NAME( TestRunnerTest::RunByNameTestNotFoundTest ) ) ),	
+		TestCase( TestCase( USE_NAME( TestRunnerTest::DuplicateTestNameFoundTest ) ) ),			
+		TestCase()
+	};
+
 	void AddTests
 	( 
 		Aeryn::TestRunner& testRunner 
@@ -121,5 +131,6 @@ namespace Aeryn
 		testRunner.Add( "Throws Exception Tests", throwsExceptionTests );		
 		testRunner.Add( "Context object tests", contextObjectTests );	
 		testRunner.Add( USE_NAME( simpleDateTests ) );
+		testRunner.Add( USE_NAME( testRunnerTests ) );
 	}	
 }

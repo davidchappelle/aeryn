@@ -29,6 +29,8 @@
 #include <aeryn/verbose_report.hpp>
 #include <aeryn/xcode_report.hpp>
 #include <aeryn/missing_test.hpp>
+#include <aeryn/test_name_not_found.hpp>
+#include <aeryn/duplicate_test_name_found.hpp>
 
 #include <numeric>
 #include <cassert>
@@ -40,7 +42,7 @@ namespace Aeryn
 	{
 		/**	\brief Aeryn copyright message. */
 		const std::string header =	"\n"
-									"Aeryn 2.1.2 (c) Paul Grenyer 2005\n"
+									"Aeryn 2.1.2 (c) Paul Grenyer 2005-2006\n"
 									"http://www.aeryn.co.uk/\n";	
 
 		/**	\brief Default test set name. */
@@ -154,7 +156,7 @@ namespace Aeryn
 
 	//////////////////////////////////////////////////////////////////////////
 	int TestRunner::Run
-		()
+		() const
 	{
 		MinimalReport report;
 		return Run( report );
@@ -164,7 +166,7 @@ namespace Aeryn
 	int TestRunner::Run
 	( 
 		IReport& report
-	)
+	) const
 	{
 		const unsigned long testCout	= TestCount();
 		unsigned long failureCount		= 0;
@@ -183,26 +185,7 @@ namespace Aeryn
 
 			for( ; current != end; ++current )
 			{
-				report.BeginTest( current->Name() );
-
-				switch( RunTest( *current, report ) )
-				{
-				case FAILED:
-					++failureCount;
-					break;
-
-				case PASSED:
-					break;
-
-				case MISSING:
-					++missingCount;
-					break;
-
-				default:
-					assert( !"Unknown result type." );
-				};				
-
-				report.EndTest( current->Name() );
+				RunTest( failureCount, missingCount, *current, report );
 			}
 
 			report.EndTestSet( currentTestSet->second );
@@ -210,6 +193,48 @@ namespace Aeryn
 		
 		report.EndTesting( testCout, failureCount, missingCount );
 
+		return failureCount != 0 ? -1 : 0;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	int TestRunner::RunByName
+		(  const std::string& name ) const
+	{
+		MinimalReport report;
+		return RunByName( name, report );
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////
+	int TestRunner::RunByName
+	(  
+		const std::string& name, 
+		IReport& report 
+	) const
+	{
+		const unsigned long testCout	= TestCount();
+		unsigned long failureCount		= 0;
+		unsigned long missingCount		= 0;
+
+		report.BeginTesting( header, testCout );
+
+		TestCase test = Find( name );
+		if ( !test.IsNull() )
+		{
+			if ( IsTestNameUnique( name ) )
+			{
+				throw DuplicateTestNameFound( name );
+			}
+			
+			RunTest( failureCount, missingCount, test, report );
+		}
+		else
+		{
+			throw TestNameNotFound( name );
+		}
+
+		report.EndTesting( testCout, failureCount, missingCount );
+		
 		return failureCount != 0 ? -1 : 0;
 	}
 
@@ -224,11 +249,42 @@ namespace Aeryn
 	}
 
 	//////////////////////////////////////////////////////////////////////////
+	void TestRunner::RunTest
+	( 
+		unsigned long& failureCount,
+		unsigned long& missingCount,
+		const TestCase& test,
+		IReport& report 
+	) const
+	{
+		report.BeginTest( test.Name() );
+
+		switch( RunTest( test, report ) )
+		{
+		case FAILED:
+			++failureCount;
+			break;
+
+		case PASSED:
+			break;
+
+		case MISSING:
+			++missingCount;
+			break;
+
+		default:
+			assert( !"Unknown result type." );
+		};				
+
+		report.EndTest( test.Name() );
+	}
+
+	//////////////////////////////////////////////////////////////////////////
 	TestRunner::Result TestRunner::RunTest
 	(
 		const TestCase& test,
 		IReport& report 
-	)
+	) const
 	{
 		Result result = FAILED;
 		
@@ -258,6 +314,58 @@ namespace Aeryn
 
 		return result;
 	}	
+
+	//////////////////////////////////////////////////////////////////////////
+	TestCase TestRunner::Find
+		( const std::string& name ) const
+	{
+		TestSetCont::const_iterator currentTestSet	= testSets_.begin();
+		TestSetCont::const_iterator endTestSet		= testSets_.end();
+
+		for( ; currentTestSet != endTestSet; ++currentTestSet )
+		{
+			TestCaseCont::const_iterator current	= currentTestSet->first.begin();
+			TestCaseCont::const_iterator end		= currentTestSet->first.end();
+
+			for( ; current != end; ++current )
+			{
+				if ( name == current->Name() )
+				{
+					return *current;
+				}
+			}
+		}
+		
+		return TestCase();
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	bool TestRunner::IsTestNameUnique
+	( 
+		const std::string& name 
+	) const
+	{
+		TestSetCont::size_type count = 0;
+		
+		TestSetCont::const_iterator currentTestSet	= testSets_.begin();
+		TestSetCont::const_iterator endTestSet		= testSets_.end();
+
+		for( ; currentTestSet != endTestSet; ++currentTestSet )
+		{
+			TestCaseCont::const_iterator current	= currentTestSet->first.begin();
+			TestCaseCont::const_iterator end		= currentTestSet->first.end();
+
+			for( ; current != end; ++current )
+			{
+				if ( name == current->Name() )
+				{
+					++count;
+				}
+			}
+		}
+
+		return count > 1;
+	}
 
 	//////////////////////////////////////////////////////////////////////////	
 }

@@ -100,6 +100,12 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath="..\include\aeryn\duplicate_test_name_found.hpp">
+			</File>
+			<File
+				RelativePath="..\src\exception.cpp">
+			</File>
+			<File
 				RelativePath="..\src\failed.cpp">
 			</File>
 			<File
@@ -139,6 +145,9 @@
 				RelativePath="..\src\test_funcs.cpp">
 			</File>
 			<File
+				RelativePath="..\src\test_name_not_found.cpp">
+			</File>
+			<File
 				RelativePath="..\src\test_registry.cpp">
 			</File>
 			<File
@@ -160,6 +169,12 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
 				RelativePath="..\include\aeryn\does_not_throw_exception.hpp">
+			</File>
+			<File
+				RelativePath="..\src\duplicate_test_name_found.cpp">
+			</File>
+			<File
+				RelativePath="..\include\aeryn\exception.hpp">
 			</File>
 			<File
 				RelativePath="..\include\aeryn\failed.hpp">
@@ -207,6 +222,9 @@
 				RelativePath="..\include\aeryn\test_funcs.hpp">
 			</File>
 			<File
+				RelativePath="..\include\aeryn\test_name_not_found.hpp">
+			</File>
+			<File
 				RelativePath="..\include\aeryn\test_registry.hpp">
 			</File>
 			<File
@@ -227,9 +245,6 @@
 			<Filter
 				Name="details"
 				Filter="">
-				<File
-					RelativePath="..\tests\add_tests.cpp">
-				</File>
 				<File
 					RelativePath="..\include\aeryn\details\func_name.hpp">
 				</File>
