@@ -100,7 +100,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath="..\include\aeryn\duplicate_test_name_found.hpp">
+				RelativePath="..\src\duplicate_test_set_name_found.cpp">
 			</File>
 			<File
 				RelativePath="..\src\exception.cpp">
@@ -154,6 +154,9 @@
 				RelativePath="..\src\test_runner.cpp">
 			</File>
 			<File
+				RelativePath="..\src\test_set_name_not_found.cpp">
+			</File>
+			<File
 				RelativePath="..\src\use_name.cpp">
 			</File>
 			<File
@@ -172,6 +175,12 @@
 			</File>
 			<File
 				RelativePath="..\src\duplicate_test_name_found.cpp">
+			</File>
+			<File
+				RelativePath="..\include\aeryn\duplicate_test_name_found.hpp">
+			</File>
+			<File
+				RelativePath="..\include\aeryn\duplicate_test_set_name_found.hpp">
 			</File>
 			<File
 				RelativePath="..\include\aeryn\exception.hpp">

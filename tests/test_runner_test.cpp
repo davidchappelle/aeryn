@@ -1,7 +1,7 @@
 
 /*
  *  Aeryn - C++ Testing Framework
- *  Copyright (C) 2005 Paul Grenyer
+ *  Copyright (C) 2006 Paul Grenyer
  *  
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,9 @@
 #include <aeryn/is_equal.hpp>
 #include <aeryn/failed.hpp>
 #include <aeryn/test_name_not_found.hpp>
+#include <aeryn/test_set_name_not_found.hpp>
 #include <aeryn/duplicate_test_name_found.hpp>
+#include <aeryn/duplicate_test_set_name_found.hpp>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -43,15 +45,22 @@ namespace Aeryn
 		{
 		}
 
+		/**	\brief Fake report object used to monitor tests. */
 		class Report : public IReport
 		{
 		public:
+			/**	\typedef Container type for test name store. */
 			typedef std::vector< std::string > StoreType;
 
 		private:
+			/**	\brief Store for names of run tests. */
 			StoreType store_;
 			
 		public:
+			/**	\brief Returns store of names of tests run.
+			 *
+			 *	\return Store of names of tests run.
+			 */
 			StoreType Store() const
 			{
 				return store_;
@@ -115,6 +124,7 @@ namespace Aeryn
 			}
 		};
 
+		/**	Set of ten test cases for use in RunByName tests. */
 		const TestCase tests[] = {	TestCase( "Test1", TestFunc ),
 									TestCase( "Test2", TestFunc ),
 									TestCase( "Test3", TestFunc ),
@@ -126,6 +136,30 @@ namespace Aeryn
 									TestCase( "Test9", TestFunc ),
 									TestCase( "Test10", TestFunc ),
 									TestCase() };
+
+		/**	Test set for us in RunByTestSetName tests. */
+		const TestCase testSet1[] = {	TestCase( "Test1", TestFunc ),
+										TestCase( "Test2", TestFunc ),
+										TestCase( "Test3", TestFunc ),
+										TestCase( "Test4", TestFunc ),
+										TestCase( "Test5", TestFunc ),
+										TestCase() };
+
+		/**	Test set for us in RunByTestSetName tests. */
+		const TestCase testSet2[] = {	TestCase( "Test6", TestFunc ),
+										TestCase( "Test7", TestFunc ),
+										TestCase( "Test8", TestFunc ),
+										TestCase( "Test9", TestFunc ),
+										TestCase( "Test10", TestFunc ),
+										TestCase() };
+
+		/**	Test set for us in RunByTestSetName tests. */
+		const TestCase testSet3[] = {	TestCase( "Test11", TestFunc ),
+										TestCase( "Test12", TestFunc ),
+										TestCase( "Test13", TestFunc ),
+										TestCase( "Test14", TestFunc ),
+										TestCase( "Test15", TestFunc ),
+										TestCase() };
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
@@ -144,7 +178,7 @@ namespace Aeryn
 			testRunner.RunByName( "Test10", report );
 
 			Report::StoreType store = report.Store();
-			IS_EQUAL(  5 , static_cast< unsigned int >( store.size() ) );
+			IS_EQUAL(  static_cast< unsigned int >( 5 ) , static_cast< unsigned int >( store.size() ) );
 			IS_EQUAL( "Test2", store[0] );
 			IS_EQUAL( "Test4", store[1] );
 			IS_EQUAL( "Test6", store[2] );
@@ -196,6 +230,81 @@ namespace Aeryn
 		catch( const DuplicateTestNameFound& e )
 		{
 			IS_EQUAL( "Duplicate test name found: \"Test1\"", e.What() );
+		}
+		catch( const Exception& e )
+		{
+			FAILED( e.What().c_str() );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void TestRunnerTest::RunByTestSetNameTest()
+	{
+		try
+		{
+			TestRunner testRunner;
+			testRunner.Add( "Test set 1", testSet1 );
+			testRunner.Add( "Test set 2", testSet2 );
+			testRunner.Add( "Test set 3", testSet3 );
+
+			Report report;
+			testRunner.RunByTestSetName( "Test set 2", report );
+
+			Report::StoreType store = report.Store();
+			IS_EQUAL(  static_cast< unsigned int >( 5 ), static_cast< unsigned int >( store.size() ) );
+			IS_EQUAL( "Test6", store[0] );
+			IS_EQUAL( "Test7", store[1] );
+			IS_EQUAL( "Test8", store[2] );
+			IS_EQUAL( "Test9", store[3] );
+			IS_EQUAL( "Test10", store[4] );
+		}
+		catch( const Exception& e )
+		{
+			FAILED( e.What().c_str() );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void TestRunnerTest::RunByTestSetNameTestNotFoundTest()
+	{
+		try
+		{
+			TestRunner testRunner;
+			testRunner.Add( "Test set 1", testSet1 );
+			testRunner.Add( "Test set 2", testSet2 );
+			testRunner.Add( "Test set 3", testSet3 );
+
+			Report report;
+			testRunner.RunByTestSetName( "Test set 4", report );
+			FAILED( "Succeeded in running unknown test set!" );
+		}
+		catch( const TestSetNameNotFound& e )
+		{
+			IS_EQUAL( "Failed to find \"Test set 4\"", e.What() );
+		}
+		catch( const Exception& e )
+		{
+			FAILED( e.What().c_str() );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void TestRunnerTest::DuplicateTestSetNameFoundTest()
+	{
+		try
+		{
+			TestRunner testRunner;
+			testRunner.Add( "Test set 1", testSet1 );
+			testRunner.Add( "Test set 2", testSet2 );
+			testRunner.Add( "Test set 2", testSet3 );
+
+			Report report;
+			testRunner.RunByTestSetName( "Test set 2", report );
+			FAILED( "Failed to find duplicate test set name!" );
+		}
+		catch( const DuplicateTestSetNameFound& e )
+		{
+			IS_EQUAL( "Duplicate test set name found: \"Test set 2\"", e.What() );
 		}
 		catch( const Exception& e )
 		{

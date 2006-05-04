@@ -3,6 +3,9 @@ Aeryn 2.1.2
 
 Added ability to run tests by name.
 
+Added ability to run tests by test set name.
+
+
 
 Aeryn 2.1.1
 ===========

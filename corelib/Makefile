@@ -21,6 +21,7 @@ ROOT_PATH = ..
 LIB_OBJS = \
 	exception.o \
 	duplicate_test_name_found.o \
+	duplicate_test_set_name_found.o \
 	failed.o \
 	ireport.o \
 	is_equal.o \
@@ -35,6 +36,7 @@ LIB_OBJS = \
 	test_failure.o \
 	test_funcs.o \
 	test_name_not_found.o \
+	test_set_name_not_found.o \
 	test_registry.o \
 	test_runner.o \
 	use_name.o \

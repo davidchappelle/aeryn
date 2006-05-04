@@ -215,6 +215,8 @@ namespace Aeryn
 		*
 		*	\param name The name of the test to run.
 		*	\return 0 if all tests pass, -1 if any fail.
+		*	\throw TestNameNotFound if the test name can't be found.
+		*	\throw DuplicateTestNameFound if the test name specified is not unique.
 		*/
 		int RunByName
 			(  const std::string& name ) const;	
@@ -224,14 +226,51 @@ namespace Aeryn
 		 *	\param name The name of the test to run.
 		 *	\param report The report.
 		 *	\return 0 if all tests pass, -1 if any fail.
+		 *	\throw TestNameNotFound if the test name can't be found.
+		 *	\throw DuplicateTestNameFound if the test name specified is not unique.
 		 */
 		int RunByName
 			(  const std::string& name, IReport& report ) const;	
+
+		/**	\brief Runs the named test set with the specified report.
+		 *
+		 *	\param name The name of the test set to run.
+		 *	\return 0 if all tests pass, -1 if any fail.
+		 *	\throw TestSetNameNotFound if the test set name can't be found.
+		 *	\throw DuplicateTestSetNameFound if the test set name specified is not unique.
+		 */
+		int RunByTestSetName
+			( const std::string& name ) const;
+		
+		/**	\brief Runs the named test set with the specified report.
+		 *
+		 *	\param name The name of the test set to run.
+		 *	\param report The report.
+		 *	\return 0 if all tests pass, -1 if any fail.
+		 *	\throw TestSetNameNotFound if the test set name can't be found.
+		 *	\throw DuplicateTestSetNameFound if the test set name specified is not unique.
+		 */
+		 int RunByTestSetName
+			( const std::string& name,
+			  IReport& report ) const;
 
 	private:
 		/**	\brief Gives the number of test cases. */
 		unsigned long TestCount
 			() const;
+
+		/**	\brief Runs a test set and updates test counters.
+		 *
+		 *	\param failureCount A counter for failed tests.
+		 *	\param missingCount A counter for missing tests.
+		 *	\param testSet The test set to run.
+		 *	\param report The report the results are written to.
+		 */
+		void RunTestSet
+			( unsigned long& failureCount,
+			  unsigned long& missingCount,
+			  const TestSet& testSet,
+			  IReport& report ) const;
 		
 		/**	\brief Runs a test case and updates test counters.
 		 *
@@ -259,13 +298,30 @@ namespace Aeryn
 		/**	\brief Finds a test by name.
 		 *
 		 *	\param name The name of the test to find.
-		 *	\return The test if found.
-		 *	\throws NotFound if the test cannot be found.
+		 *	\return The test if found otherwise TestCase().
 		 */
-		TestCase Find
+		TestCase FindTest
 			( const std::string& name ) const;
 
+		/**	\brief Determines if the specified test name is uniquie.
+		 *
+		 *	\param name The test name to search for.
+		 *	\return true if the name is unique, otherwose false.
+		 */
 		bool IsTestNameUnique
+			( const std::string& name ) const;
+
+		/**	\brief Finds a test set by name.
+		 *
+		 *	\param name The name of the test set to find.
+		 *	\param testSet A reference to a TestSet object to take the test set if found.
+		 *	\return True if the test set is found, otherwise false.
+		*/
+		bool FindTestSetByName
+			( const std::string& name, 
+			  TestSet& testSet ) const;
+
+		bool IsTestSetNameUnique
 			( const std::string& name ) const;
 	};
 }

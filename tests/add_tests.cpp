@@ -116,7 +116,10 @@ namespace Aeryn
 	{
 		TestCase( TestCase( USE_NAME( TestRunnerTest::RunByNameTest ) ) ),
 		TestCase( TestCase( USE_NAME( TestRunnerTest::RunByNameTestNotFoundTest ) ) ),	
-		TestCase( TestCase( USE_NAME( TestRunnerTest::DuplicateTestNameFoundTest ) ) ),			
+		TestCase( TestCase( USE_NAME( TestRunnerTest::DuplicateTestNameFoundTest ) ) ),		
+		TestCase( TestCase( USE_NAME( TestRunnerTest::RunByTestSetNameTest ) ) ),
+		TestCase( TestCase( USE_NAME( TestRunnerTest::RunByTestSetNameTestNotFoundTest ) ) ),
+		TestCase( TestCase( USE_NAME( TestRunnerTest::DuplicateTestSetNameFoundTest ) ) ),
 		TestCase()
 	};
 

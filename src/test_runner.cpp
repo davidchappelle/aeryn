@@ -30,7 +30,9 @@
 #include <aeryn/xcode_report.hpp>
 #include <aeryn/missing_test.hpp>
 #include <aeryn/test_name_not_found.hpp>
+#include <aeryn/test_set_name_not_found.hpp>
 #include <aeryn/duplicate_test_name_found.hpp>
+#include <aeryn/duplicate_test_set_name_found.hpp>
 
 #include <numeric>
 #include <cassert>
@@ -178,17 +180,7 @@ namespace Aeryn
 
 		for( ; currentTestSet != endTestSet; ++currentTestSet )
 		{
-			report.BeginTestSet( currentTestSet->second );
-					
-			TestCaseCont::const_iterator current	= currentTestSet->first.begin();
-			TestCaseCont::const_iterator end		= currentTestSet->first.end();
-
-			for( ; current != end; ++current )
-			{
-				RunTest( failureCount, missingCount, *current, report );
-			}
-
-			report.EndTestSet( currentTestSet->second );
+			RunTestSet( failureCount, missingCount, *currentTestSet, report );			
 		}
 		
 		report.EndTesting( testCout, failureCount, missingCount );
@@ -218,10 +210,10 @@ namespace Aeryn
 
 		report.BeginTesting( header, testCout );
 
-		TestCase test = Find( name );
+		TestCase test = FindTest( name );
 		if ( !test.IsNull() )
 		{
-			if ( IsTestNameUnique( name ) )
+			if ( !IsTestNameUnique( name ) )
 			{
 				throw DuplicateTestNameFound( name );
 			}
@@ -246,6 +238,71 @@ namespace Aeryn
 								testSets_.end(), 
 								0, 
 								AccumTestCount< TestCaseCont::size_type, TestSet > );		
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	int TestRunner::RunByTestSetName
+	( 
+		const std::string& name 
+	) const
+	{
+		MinimalReport report;
+		return RunByTestSetName( name, report );
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	int TestRunner::RunByTestSetName
+	( 
+		const std::string& name,
+		IReport& report 
+	) const
+	{
+		const unsigned long testCout	= TestCount();
+		unsigned long failureCount		= 0;
+		unsigned long missingCount		= 0;
+
+		report.BeginTesting( header, testCout );
+
+		TestSet testSet;
+		if ( FindTestSetByName( name, testSet ) )
+		{
+			if ( !IsTestSetNameUnique( name ) )
+			{
+				throw DuplicateTestSetNameFound( name );
+			}
+			
+			RunTestSet( failureCount, missingCount, testSet, report );
+		}
+		else
+		{
+			throw TestSetNameNotFound( name );
+		}
+
+		report.EndTesting( testCout, failureCount, missingCount );
+
+		return failureCount != 0 ? -1 : 0;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void TestRunner::RunTestSet
+	( 
+		unsigned long& failureCount,
+		unsigned long& missingCount,
+		const TestSet& testSet,
+		IReport& report 
+	) const
+	{
+		report.BeginTestSet( testSet.second );
+
+		TestCaseCont::const_iterator current	= testSet.first.begin();
+		TestCaseCont::const_iterator end		= testSet.first.end();
+
+		for( ; current != end; ++current )
+		{
+			RunTest( failureCount, missingCount, *current, report );
+		}
+
+		report.EndTestSet( testSet.second );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -316,7 +373,7 @@ namespace Aeryn
 	}	
 
 	//////////////////////////////////////////////////////////////////////////
-	TestCase TestRunner::Find
+	TestCase TestRunner::FindTest
 		( const std::string& name ) const
 	{
 		TestSetCont::const_iterator currentTestSet	= testSets_.begin();
@@ -345,7 +402,7 @@ namespace Aeryn
 		const std::string& name 
 	) const
 	{
-		TestSetCont::size_type count = 0;
+		TestCaseCont::size_type count = 0;
 		
 		TestSetCont::const_iterator currentTestSet	= testSets_.begin();
 		TestSetCont::const_iterator endTestSet		= testSets_.end();
@@ -364,7 +421,50 @@ namespace Aeryn
 			}
 		}
 
-		return count > 1;
+		return count <= 1;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	bool TestRunner::FindTestSetByName
+	( 
+		const std::string& name, 
+		TestSet& testSet 
+	) const
+	{
+		TestSetCont::const_iterator current	= testSets_.begin();
+		TestSetCont::const_iterator end		= testSets_.end();
+
+		for(; current != end; ++current )
+		{
+			if ( name == current->second )
+			{
+				testSet = *current;
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////
+	bool TestRunner::IsTestSetNameUnique
+		( const std::string& name ) const
+	{
+		TestSetCont::size_type count = 0;
+
+		TestSetCont::const_iterator current	= testSets_.begin();
+		TestSetCont::const_iterator end		= testSets_.end();
+
+		for( ; current != end; ++current )
+		{
+			if ( name == current->second )
+			{
+				++count;
+			}		
+		}
+
+		return count <= 1;
 	}
 
 	//////////////////////////////////////////////////////////////////////////	

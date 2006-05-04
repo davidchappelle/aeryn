@@ -1,7 +1,7 @@
 
 /*
  *  Aeryn - C++ Testing Framework
- *  Copyright (C) 2005 Paul Grenyer
+ *  Copyright (C) 2006 Paul Grenyer
  *  
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -39,6 +39,15 @@ namespace Aeryn
 
 		/** \brief Tests the DulicateTestNameFound exception. */
 		static void DuplicateTestNameFoundTest();
+
+		/**	\brief Tests run by test set name functionality. */
+		static void RunByTestSetNameTest();
+
+		/** \brief Tests run by test set name functionality when the test set name specified doesn't exist. */
+		static void RunByTestSetNameTestNotFoundTest();
+
+		/** \brief Tests the DulicateTestSetNameFound exception. */
+		static void DuplicateTestSetNameFoundTest();
 
 	private:
 		/**	\brief Private constructor to prevent instantiation of class without
