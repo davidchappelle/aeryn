@@ -27,6 +27,7 @@ LIB_OBJS = \
 	terse_report_test.o \
 	test_failure_test.o \
 	test_func_test.o \
+	test_runner_test.o \
 	throws_exception_test.o \
 	verbose_report_test.o
 

@@ -44,6 +44,10 @@ namespace Aeryn
 		explicit Exception
 			( const std::string& msg );
 
+		/**	\brief Destructor. */
+		virtual ~Exception
+			();
+
 		/**	\brief Returns exception message.
 		 *
 		 *	\return The exception message.

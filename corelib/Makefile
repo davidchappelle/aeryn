@@ -19,6 +19,8 @@ LIB_NAME = aeryn_core
 ROOT_PATH = ..
 
 LIB_OBJS = \
+	exception.o \
+	duplicate_test_name_found.o \
 	failed.o \
 	ireport.o \
 	is_equal.o \
@@ -32,11 +34,14 @@ LIB_OBJS = \
 	test_case.o \
 	test_failure.o \
 	test_funcs.o \
+	test_name_not_found.o \
 	test_registry.o \
 	test_runner.o \
 	use_name.o \
 	verbose_report.o \
-	xcode_report.o 
+	xcode_report.o \
+	
+	
 
 default : all
 
