@@ -31,6 +31,7 @@
 #include <aeryn/test_set_name_not_found.hpp>
 #include <aeryn/duplicate_test_name_found.hpp>
 #include <aeryn/duplicate_test_set_name_found.hpp>
+#include <aeryn/command_line_parser.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -305,6 +306,73 @@ namespace Aeryn
 		catch( const DuplicateTestSetNameFound& e )
 		{
 			IS_EQUAL( "Duplicate test set name found: \"Test set 2\"", e.What() );
+		}
+		catch( const Exception& e )
+		{
+			FAILED( e.What().c_str() );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void TestRunnerTest::ComandLineParserTestsTest()
+	{
+		try
+		{
+			TestRunner testRunner;
+			testRunner.Add( USE_NAME( tests ) );
+
+			const int argc = 11;
+			char *argv[] = {	"commandline",
+								"-t", "Test2",
+								"-t", "Test4",
+								"-t", "Test6",
+								"-t", "Test8",
+								"-t", "Test10" };
+
+			CommandLineParser commandLineParser( argc, argv );			
+			Report report;
+			testRunner.Run( commandLineParser, report );		
+
+			Report::StoreType store = report.Store();
+			IS_EQUAL(  static_cast< unsigned int >( 5 ) , static_cast< unsigned int >( store.size() ) );
+			IS_EQUAL( "Test2", store[0] );
+			IS_EQUAL( "Test4", store[1] );
+			IS_EQUAL( "Test6", store[2] );
+			IS_EQUAL( "Test8", store[3] );
+			IS_EQUAL( "Test10", store[4] );
+		}
+		catch( const Exception& e )
+		{
+			FAILED( e.What().c_str() );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void TestRunnerTest::ComandLineParserTestSetTest()
+	{
+		try
+		{
+			TestRunner testRunner;
+			testRunner.Add( "Test set 1", testSet1 );
+			testRunner.Add( "Test set 2", testSet2 );
+			testRunner.Add( "Test set 3", testSet3 );
+
+			const int argc = 3;
+			char *argv[] = {	"commandline",
+								"-ts", 
+								"Test set 2" };
+
+			CommandLineParser commandLineParser( argc, argv );			
+			Report report;
+			testRunner.Run( commandLineParser, report );		
+
+			Report::StoreType store = report.Store();
+			IS_EQUAL(  static_cast< unsigned int >( 5 ), static_cast< unsigned int >( store.size() ) );
+			IS_EQUAL( "Test6", store[0] );
+			IS_EQUAL( "Test7", store[1] );
+			IS_EQUAL( "Test8", store[2] );
+			IS_EQUAL( "Test9", store[3] );
+			IS_EQUAL( "Test10", store[4] );
 		}
 		catch( const Exception& e )
 		{

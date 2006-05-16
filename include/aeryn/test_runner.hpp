@@ -37,6 +37,9 @@
 
 namespace Aeryn
 {
+	//////////////////////////////////////////////////////////////////////////
+	class CommandLineParser;
+	
 	/**	\brief Stores and runs all tests.
 	 *
 	 *	Test cases must be added to a test runner in order to be run.
@@ -254,7 +257,37 @@ namespace Aeryn
 			( const std::string& name,
 			  IReport& report ) const;
 
+		 /** \brief Runs the tests specified by the command line.
+		  *
+		  *	If no test or test sets are specified all test are run.
+		  *
+		  *	\param commandLine Command line parser..
+		  *
+		  *	\return 0 if all tests pass, -1 if any fail.
+		  *	\throw TestSetNameNotFound if the test set name can't be found.
+		  *	\throw DuplicateTestSetNameFound if the test set name specified is not unique.
+		  */
+		 int Run
+			 ( const CommandLineParser& commandLine ) const;
+		 
+		 /** \brief Runs the tests specified by the command line with the specified report.
+		  *
+		  *	If no test or test sets are specified all test are run.
+		  *
+		  *	\param commandLine Command line parser..
+		  *	\param report The report.
+		  *	\return 0 if all tests pass, -1 if any fail.
+		  *	\throw TestSetNameNotFound if the test set name can't be found.
+		  *	\throw DuplicateTestSetNameFound if the test set name specified is not unique.
+		  */
+		 int Run
+			 ( const CommandLineParser& commandLine,
+			   IReport& report ) const;
+
 	private:
+		static IReportPtr CreateReport
+			( const std::string& reportName );
+
 		/**	\brief Gives the number of test cases. */
 		unsigned long TestCount
 			() const;

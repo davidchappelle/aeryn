@@ -35,13 +35,13 @@ namespace Aeryn
 		()
 	{
 		const int argc = 13;
-		const char *argv[] = {	"commandline",
-								"-t", "test 1",
-								"-t", "test 2",
-								"-t", "test 3",
-								"-ts", "test set 1",
-								"-ts", "test set 2",
-								"-r", "report" };
+		char *argv[] = {	"commandline",
+							"-t", "test 1",
+							"-t", "test 2",
+							"-t", "test 3",
+							"-ts", "test set 1",
+							"-ts", "test set 2",
+							"-r", "report" };
 
 		CommandLineParser commandLineParser( argc, argv );
 

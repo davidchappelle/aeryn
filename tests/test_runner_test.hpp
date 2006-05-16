@@ -49,6 +49,12 @@ namespace Aeryn
 		/** \brief Tests the DulicateTestSetNameFound exception. */
 		static void DuplicateTestSetNameFoundTest();
 
+		/** \brief Tests running tests using CommandLineParser. */
+		static void ComandLineParserTestsTest();
+
+		/** \brief Tests running test sets using CommandLineParser. */
+		static void ComandLineParserTestSetTest();
+
 	private:
 		/**	\brief Private constructor to prevent instantiation of class without
 		 *	non-static member functions. 

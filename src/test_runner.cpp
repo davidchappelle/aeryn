@@ -33,6 +33,7 @@
 #include <aeryn/test_set_name_not_found.hpp>
 #include <aeryn/duplicate_test_name_found.hpp>
 #include <aeryn/duplicate_test_set_name_found.hpp>
+#include <aeryn/command_line_parser.h>
 
 #include <numeric>
 #include <cassert>
@@ -79,25 +80,34 @@ namespace Aeryn
 
 		if ( argc == 2 )
 		{
-			if ( strcmp(argv[1], "terse" ) == 0 )
-			{
-				report.reset( new TerseReport( std::cout ) );
-			}
-			else if ( strcmp(argv[1], "verbose" ) == 0 )
-			{
-				report.reset( new VerboseReport );
-			}
-			else if ( strcmp(argv[1], "xcode" ) == 0 )
-			{
-				report.reset( new XcodeReport<>( std::cout, "bin/TestPassCookie.txt" ) );
-			}			
-			else 
-			{
-				std::cerr << "Unrecognised command line argument '" << argv[1] << "'\n";
-			}
+			report = CreateReport( argv[1] );
 		}
-
+		
 		assert( report.get() );
+		return report;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	TestRunner::IReportPtr TestRunner::CreateReport
+	( 
+		const std::string& reportName
+	)
+	{
+		std::auto_ptr< IReport > report( new MinimalReport );
+		
+		if ( reportName == "terse"  )
+		{
+			report.reset( new TerseReport( std::cout ) );
+		}
+		else if ( reportName == "verbose" )
+		{
+			report.reset( new VerboseReport );
+		}
+		else if ( reportName == "xcode" )
+		{
+			report.reset( new XcodeReport<>( std::cout, "bin/TestPassCookie.txt" ) );
+		}			
+		
 		return report;
 	}
 	
@@ -306,6 +316,55 @@ namespace Aeryn
 	}
 
 	//////////////////////////////////////////////////////////////////////////
+	int TestRunner::Run
+	( 
+		const CommandLineParser& commandLine 
+	) const
+	{
+		TestRunner::IReportPtr report( CreateReport( commandLine.Report() ) );
+		return Run( commandLine, *report.get() );
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	int TestRunner::Run
+	( 
+		const CommandLineParser& commandLine,
+		IReport& report 
+	) const
+	{
+		const CommandLineParser::SizeType testCount		= commandLine.TestCount();
+		const CommandLineParser::SizeType testSetCount	= commandLine.TestSetCount();
+
+		if ( testCount == 0 && testSetCount == 0)
+		{
+			return Run( report );
+		}
+
+		int result = 0;
+		CommandLineParser::ConstItr current = commandLine.TestBegin();
+		CommandLineParser::ConstItr end		= commandLine.TestEnd();
+		for( ; current != end; ++current )
+		{
+			if ( RunByName( *current, report ) == -1 )
+			{
+				result = -1;
+			}
+		}
+
+		current = commandLine.TestSetBegin();
+		end		= commandLine.TestSetEnd();
+		for( ; current != end; ++current )
+		{
+			if ( RunByTestSetName( *current, report ) )
+			{
+				result = -1;
+			}
+		}
+
+		return result;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
 	void TestRunner::RunTest
 	( 
 		unsigned long& failureCount,
@@ -469,3 +528,5 @@ namespace Aeryn
 
 	//////////////////////////////////////////////////////////////////////////	
 }
+
+

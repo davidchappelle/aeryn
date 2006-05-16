@@ -40,7 +40,7 @@ namespace Aeryn
 	CommandLineParser::CommandLineParser
 	( 
 		int argc, 
-		const char *argv[ ] 
+		char *argv[ ] 
 	)
 	: commandLine_(),
 	  report_(),
@@ -50,7 +50,7 @@ namespace Aeryn
 		assert( argc > 0 );
 		commandLine_ = ExtactCommandLine( argc, argv );		
 
-		int i = 0;
+		int i = 1;
 		while( i < argc )
 		{
 			std::string param( argv[i] );
@@ -133,7 +133,7 @@ namespace Aeryn
 	std::string CommandLineParser::ExtactCommandLine
 	( 
 		int argc, 
-		const char *argv[ ] 
+		char *argv[ ] 
 	) const
 	{
 		std::string result;
@@ -151,7 +151,7 @@ namespace Aeryn
 	( 
 		int& i, 
 		int argc, 
-		const char *argv[ ], 
+		char *argv[ ], 
 		std::string& param 
 	)
 	{

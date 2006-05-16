@@ -25,6 +25,7 @@
 #include "../tests/add_tests.hpp"
 #include <aeryn/test_runner.hpp>
 #include <aeryn/test_name_not_found.hpp>
+#include <aeryn/command_line_parser.h>
 
 #include <iostream>
 #include <string>
@@ -54,10 +55,9 @@ int main( int argc, char *argv[] )
 	try
 	{
 		TestRunner testRunner;
-		Aeryn::AddTests( testRunner );
-	
-		TestRunner::IReportPtr report( TestRunner::CreateReport( argc, argv ) );
-		result = testRunner.Run( *report.get() );	
+		Aeryn::AddTests( testRunner );	
+		CommandLineParser comandLine( argc, argv );
+		result = testRunner.Run( comandLine );	
 	}
 	catch( const Exception& e )
 	{

@@ -77,7 +77,7 @@ namespace Aeryn
 		 *	The first command-line argument is always argv[1] and the last one is argv[argc – 1]. 
 		 */
 		CommandLineParser
-			( int argc, const char *argv[ ] );
+			( int argc, char *argv[ ] );
 
 		/**	\brief Returns command with which the program is invoked.
 		 *
@@ -146,7 +146,7 @@ namespace Aeryn
 		 *	\return first argument from the command line.
 		 */
 		std::string ExtactCommandLine
-			( int argc, const char *argv[ ] ) const;
+			( int argc, char *argv[ ] ) const;
 
 		/**	\brief Gets the next param from the command line.
 		 *
@@ -165,7 +165,7 @@ namespace Aeryn
 		 *	\return True if there is another parameter, otherwise false.
 		 */
 		bool GetNextParam
-			( int& i, int argc, const char *argv[ ], std::string& param );
+			( int& i, int argc, char *argv[ ], std::string& param );
 
 	};
 }
