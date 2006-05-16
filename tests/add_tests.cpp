@@ -31,6 +31,7 @@
 #include "context_object_test.hpp"
 #include "simple_date_test.hpp"
 #include "test_runner_test.hpp"
+#include "command_line_parser_test.h"
 
 #include "add_tests.hpp"
 
@@ -123,6 +124,13 @@ namespace Aeryn
 		TestCase()
 	};
 
+	/**	\brief Array of ComandLineParser tests. */
+	TestCase commandLineParserTests[] =
+	{
+		TestCase( TestCase( USE_NAME( CommandLineParserTest ) ) ),
+		TestCase()
+	};
+
 	void AddTests
 	( 
 		Aeryn::TestRunner& testRunner 
@@ -135,5 +143,6 @@ namespace Aeryn
 		testRunner.Add( "Context object tests", contextObjectTests );	
 		testRunner.Add( USE_NAME( simpleDateTests ) );
 		testRunner.Add( USE_NAME( testRunnerTests ) );
+		testRunner.Add( USE_NAME( commandLineParserTests ) );
 	}	
 }

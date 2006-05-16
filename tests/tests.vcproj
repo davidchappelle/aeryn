@@ -103,6 +103,9 @@
 				RelativePath=".\add_tests.cpp">
 			</File>
 			<File
+				RelativePath=".\command_line_parser_test.cpp">
+			</File>
+			<File
 				RelativePath=".\context_object_test.cpp">
 			</File>
 			<File
@@ -139,6 +142,9 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
 				RelativePath=".\add_tests.hpp">
+			</File>
+			<File
+				RelativePath=".\command_line_parser_test.h">
 			</File>
 			<File
 				RelativePath=".\context_object_test.hpp">

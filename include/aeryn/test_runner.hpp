@@ -303,10 +303,10 @@ namespace Aeryn
 		TestCase FindTest
 			( const std::string& name ) const;
 
-		/**	\brief Determines if the specified test name is uniquie.
+		/**	\brief Determines if the specified test name is unique.
 		 *
 		 *	\param name The test name to search for.
-		 *	\return true if the name is unique, otherwose false.
+		 *	\return true if the name is unique, otherwise false.
 		 */
 		bool IsTestNameUnique
 			( const std::string& name ) const;
@@ -321,6 +321,11 @@ namespace Aeryn
 			( const std::string& name, 
 			  TestSet& testSet ) const;
 
+		/**	\brief Determines if the specified test set name is unique.
+		 *
+		 *	\param name The test set name to search for.
+		 *	\return true if the name is unique, otherwise false.
+		 */
 		bool IsTestSetNameUnique
 			( const std::string& name ) const;
 	};

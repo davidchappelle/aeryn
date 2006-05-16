@@ -20,6 +20,7 @@ ROOT_PATH = ..
 
 LIB_OBJS = \
 	add_tests.o \
+	command_line_parser_test.o \
 	context_object_test.o \
 	minimal_report_test.o \
 	simple_date.o \
