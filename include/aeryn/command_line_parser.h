@@ -30,7 +30,16 @@
 
 namespace Aeryn
 {
-	/**	\brief CommandLineParser tests */
+	/**	\brief CommandLineParser tests 
+	 *
+	 *	Reads test names, test set names and a report name from the command line.
+	 *
+	 *	Test names are preceded by -t.
+	 *	Test set names are preceded by -ts.
+	 *	Reports are preceded by -4.
+	 *
+	 *	Example: -t "test 1" -ts "Test set 1" -r minimal
+	 */
 	class CommandLineParser
 	{
 	private:
@@ -43,12 +52,18 @@ namespace Aeryn
 		/**	Name of report to use */
 		std::string report_;
 
+		/** A store for test names. */
 		StringStore tests_;
+
+		/** A store for test set names. */
 		StringStore testSets_;
 
 	public:
 		/**	\brief String store const iterator. */
 		typedef StringStore::const_iterator ConstItr;
+
+		/**	\brief String store size type. */
+		typedef StringStore::size_type SizeType;
 
 		/**	\brief Constructor
 		 *	
@@ -78,19 +93,61 @@ namespace Aeryn
 		std::string Report
 			() const;
 
+		/**	\brief Returns the number of tests.
+		 *
+		 *	\return The number of tests read from the command line.
+		 */
+		SizeType TestCount
+			() const;
+
+		/**	\brief Returns the begin iterator for the list of tests.
+		 *
+		 *	\return The begin iterator for the list of tests read from the command line.
+		 */
 		ConstItr TestBegin
 			() const;
 
+		/**	\brief Returns the end iterator for the list of tests.
+		 *
+		 *	\return The end iterator for the list of tests read from the command line.
+		 */
 		ConstItr TestEnd
 			() const;
 
+		/**	\brief Returns the number of tests sets.
+		 *
+		 *	\return The number of test sets read from the command line.
+		 */
+		SizeType TestSetCount
+			() const;
+
+		/**	\brief Returns the begin iterator for the list of test sets.
+		 *
+		 *	\return The begin iterator for the list of test sets read from the command line.
+		 */
 		ConstItr TestSetBegin
 			() const;
 
+		/**	\brief Returns the end iterator for the list of test sets.
+		 *
+		 *	\return The end iterator for the list of test sets read from the command line.
+		 */
 		ConstItr TestSetEnd
 			() const;
 
 	private:
+		/** \brief Extracts the first argument from the command line.
+		 *
+		 *	\param argc An integer that contains the count of arguments that follow in argv. 
+		 *
+		 *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
+		 *	user of the program.
+		 *
+		 *	\return first argument from the command line.
+		 */
+		std::string ExtactCommandLine
+			( int argc, const char *argv[ ] ) const;
+
 		/**	\brief Gets the next param from the command line.
 		 *
 		 *	Gets the next parameter from the commanline, if there is one, and increments

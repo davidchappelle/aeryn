@@ -54,12 +54,10 @@ namespace Aeryn
 		IS_EQUAL( report, expectedReport );	
 
 		IS_EQUAL(	static_cast< int >( 3 ), 
-					static_cast< int >(	std::distance(	commandLineParser.TestBegin(), 
-														commandLineParser.TestEnd() ) ) );
+					static_cast< int >(	commandLineParser.TestCount()  ) );
 
 		IS_EQUAL(	static_cast< int >( 2 ), 
-					static_cast< int >(	std::distance(	commandLineParser.TestSetBegin(), 
-														commandLineParser.TestSetEnd() ) ) );
+					static_cast< int >(	commandLineParser.TestSetCount() ) );
 
 		int i = 0;
 		CommandLineParser::ConstItr current = commandLineParser.TestBegin();

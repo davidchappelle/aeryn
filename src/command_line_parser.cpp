@@ -48,11 +48,7 @@ namespace Aeryn
 	  testSets_()
 	{
 		assert( argc > 0 );
-
-		if ( argc > 0)
-		{
-			commandLine_ = std::string( argv[0] );
-		}
+		commandLine_ = ExtactCommandLine( argc, argv );		
 
 		int i = 0;
 		while( i < argc )
@@ -92,6 +88,13 @@ namespace Aeryn
 	}
 
 	//////////////////////////////////////////////////////////////////////////
+	CommandLineParser::SizeType CommandLineParser::TestCount
+		() const
+	{
+		return tests_.size();
+	}
+
+	//////////////////////////////////////////////////////////////////////////
 	CommandLineParser::ConstItr CommandLineParser::TestBegin
 		() const
 	{
@@ -106,6 +109,13 @@ namespace Aeryn
 	}
 
 	//////////////////////////////////////////////////////////////////////////
+	CommandLineParser::SizeType CommandLineParser::TestSetCount
+		() const
+	{
+		return testSets_.size();
+	}
+
+	//////////////////////////////////////////////////////////////////////////
 	CommandLineParser::ConstItr CommandLineParser::TestSetBegin
 		() const
 	{
@@ -117,6 +127,23 @@ namespace Aeryn
 		() const
 	{
 		return testSets_.end();
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	std::string CommandLineParser::ExtactCommandLine
+	( 
+		int argc, 
+		const char *argv[ ] 
+	) const
+	{
+		std::string result;
+		
+		if ( argc > 0)
+		{
+			result = std::string( argv[0] );
+		}
+
+		return result;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
