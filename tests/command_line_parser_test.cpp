@@ -43,7 +43,7 @@ namespace Aeryn
 								"-ts", "test set 2",
 								"-r", "report" };
 
-		CommandLineParser commandLineParser( argc, const_cast< char *[] >(argv) );
+		CommandLineParser commandLineParser( argc, argv );
 
 		const std::string expectedCommandLine( argv[0] );
 		const std::string commandLine( commandLineParser.CommandLine() );

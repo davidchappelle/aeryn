@@ -47,30 +47,34 @@ namespace Aeryn
 	  tests_(),
 	  testSets_()
 	{
-		assert( argc > 0 );
-		commandLine_ = ExtactCommandLine( argc, argv );		
-
-		int i = 1;
-		while( i < argc )
+		StringStore commandArgs;
+		for( int i = 0; i < argc; ++i )
 		{
-			std::string param( argv[i] );
+			commandArgs.push_back( argv[i] );
+		}
 
-			if ( testSwitch == param && GetNextParam( i, argc, argv, param ) )
-			{
-				tests_.push_back( param );
-			}
-			else if ( testSetSwitch == param && GetNextParam( i, argc, argv, param ) )
-			{
-				testSets_.push_back( param );
-			}
-			else if ( reportSwitch == param && GetNextParam( i, argc, argv, param ) )
-			{
-				report_ = param;				
-			}
+		Process( commandArgs );
 
-			++i;
-		}	
+	}
 
+	//////////////////////////////////////////////////////////////////////////
+	CommandLineParser::CommandLineParser
+	( 
+		int argc, 
+		const char *argv[ ] 
+	)
+	: commandLine_(),
+	  report_(),
+	  tests_(),
+	  testSets_()
+	{
+		StringStore commandArgs;
+		for( int i = 0; i < argc; ++i )
+		{
+			commandArgs.push_back( argv[i] );
+		}
+
+		Process( commandArgs );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -130,37 +134,61 @@ namespace Aeryn
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	std::string CommandLineParser::ExtactCommandLine
+	void CommandLineParser::Process
 	( 
-		int argc, 
-		char *argv[ ] 
-	) const
+		const StringStore& commandArgs 
+	)
 	{
-		std::string result;
-		
-		if ( argc > 0)
+		if ( commandArgs.empty() )
 		{
-			result = std::string( argv[0] );
+			return;
 		}
 
-		return result;
+		commandLine_ = commandArgs[0];
+
+		if ( commandArgs.size() > 2 )
+		{
+			StringStore::const_iterator current = commandArgs.begin();
+			StringStore::const_iterator end		= commandArgs.end();
+			while( current != end )
+			{
+				std::string param( *current );
+				
+				if ( testSwitch == param && GetNextParam( current, end, param ) )
+				{
+					tests_.push_back( param );
+				}
+				else if ( testSetSwitch == param && GetNextParam( current, end, param ) )
+				{
+					testSets_.push_back( param );
+				}
+				else if ( reportSwitch == param && GetNextParam( current, end, param ) )
+				{
+					report_ = param;				
+				}
+				else
+				{
+					++current;
+				}
+			}
+		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////
 	bool CommandLineParser::GetNextParam
 	( 
-		int& i, 
-		int argc, 
-		char *argv[ ], 
-		std::string& param 
-	)
+		StringStore::const_iterator& current, 
+		const StringStore::const_iterator& end, 
+		std::string& param
+	) const
 	{
 		bool result = false;
 		
-		if ( i != argc )
+		++current;
+		
+		if ( current != end )
 		{
-			++i;
-			param = std::string( argv[i] );
+			param = *current;
 			result = true;
 		}
 

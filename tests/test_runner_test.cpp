@@ -199,7 +199,7 @@ namespace Aeryn
 			testRunner.RunByName( "Test8", report );
 			testRunner.RunByName( "Test10", report );
 
-			IS_EQUAL( 5, report.TestCount() );			
+			IS_EQUAL( static_cast< unsigned int >( 5 ), static_cast< unsigned int >( report.TestCount() ) );			
 			Report::StoreType store = report.Store();
 			IS_EQUAL(  static_cast< unsigned int >( 5 ) , static_cast< unsigned int >( store.size() ) );
 			IS_EQUAL( "Test2", store[0] );
@@ -273,7 +273,7 @@ namespace Aeryn
 			Report report;
 			testRunner.RunByTestSetName( "Test set 2", report );
 
-			IS_EQUAL( 5, report.TestCount() );
+			IS_EQUAL( static_cast< unsigned int >( 5 ), report.TestCount() );
 			Report::StoreType store = report.Store();
 			IS_EQUAL(  static_cast< unsigned int >( 5 ), static_cast< unsigned int >( store.size() ) );
 			IS_EQUAL( "Test6", store[0] );
@@ -345,12 +345,12 @@ namespace Aeryn
 			testRunner.Add( USE_NAME( tests ) );
 
 			const int argc = 11;
-			char *argv[] = {	"commandline",
-								"-t", "Test2",
-								"-t", "Test4",
-								"-t", "Test6",
-								"-t", "Test8",
-								"-t", "Test10" };
+			const char *argv[] = {	"commandline",
+									"-t", "Test2",
+									"-t", "Test4",
+									"-t", "Test6",
+									"-t", "Test8",
+									"-t", "Test10" };
 
 			CommandLineParser commandLineParser( argc, argv );			
 			Report report;
@@ -381,9 +381,9 @@ namespace Aeryn
 			testRunner.Add( "Test set 3", testSet3 );
 
 			const int argc = 3;
-			char *argv[] = {	"commandline",
-								"-ts", 
-								"Test set 2" };
+			const char *argv[] = {	"commandline",
+									"-ts", 
+									"Test set 2" };
 
 			CommandLineParser commandLineParser( argc, argv );			
 			Report report;

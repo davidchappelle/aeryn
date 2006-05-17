@@ -79,6 +79,20 @@ namespace Aeryn
 		CommandLineParser
 			( int argc, char *argv[ ] );
 
+		/**	\brief Constructor
+		 *	
+		 *	\param argc An integer that contains the count of arguments that follow in argv. 
+		 *	The argc parameter is always greater than or equal to 1. argv 
+		 *
+		 *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
+		 *	user of the program. By convention, argv[0] is the command with which the program is invoked, 
+		 *	argv[1] is the first command-line argument, and so on, until argv[argc], which is always NULL. 
+		 *	See Customizing Command Line Processing for information on suppressing command-line processing. 
+		 *	The first command-line argument is always argv[1] and the last one is argv[argc – 1]. 
+		 */
+		CommandLineParser
+			( int argc, const char *argv[ ] );
+
 		/**	\brief Returns command with which the program is invoked.
 		 *
 		 *	\return The command with which the program is invoked.
@@ -136,17 +150,12 @@ namespace Aeryn
 			() const;
 
 	private:
-		/** \brief Extracts the first argument from the command line.
+		/**	\brief Processes the command line arguments.
 		 *
-		 *	\param argc An integer that contains the count of arguments that follow in argv. 
-		 *
-		 *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
-		 *	user of the program.
-		 *
-		 *	\return first argument from the command line.
+		 *	\param commandArgs The command line argument.
 		 */
-		std::string ExtactCommandLine
-			( int argc, char *argv[ ] ) const;
+		void Process
+			( const StringStore& commandArgs );
 
 		/**	\brief Gets the next param from the command line.
 		 *
@@ -165,7 +174,9 @@ namespace Aeryn
 		 *	\return True if there is another parameter, otherwise false.
 		 */
 		bool GetNextParam
-			( int& i, int argc, char *argv[ ], std::string& param );
+			( StringStore::const_iterator& current, 
+			  const StringStore::const_iterator& end, 
+			  std::string& param ) const;
 
 	};
 }
