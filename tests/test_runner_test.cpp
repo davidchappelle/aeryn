@@ -56,8 +56,18 @@ namespace Aeryn
 		private:
 			/**	\brief Store for names of run tests. */
 			StoreType store_;
+
+			/**	\brief Number of tests run. */
+			unsigned long testCount_;
 			
 		public:
+			/**	Constructor */
+			explicit Report()
+				: store_(),
+				  testCount_(0)
+			{
+			}
+
 			/**	\brief Returns store of names of tests run.
 			 *
 			 *	\return Store of names of tests run.
@@ -65,6 +75,16 @@ namespace Aeryn
 			StoreType Store() const
 			{
 				return store_;
+			}
+
+			/**	\brief Returns the number of tests run.
+			 *
+			 *	\return Returns the number of tests run.
+			 */
+			unsigned long TestCount
+				() const
+			{
+				return testCount_;
 			}
 
 			virtual void BeginTesting
@@ -118,10 +138,11 @@ namespace Aeryn
 			}
 
 			virtual void EndTesting
-				( unsigned long, 
+				( unsigned long testCount, 
 				  unsigned long,
 				  unsigned long )
 			{
+				testCount_ += testCount;
 			}
 		};
 
@@ -178,6 +199,7 @@ namespace Aeryn
 			testRunner.RunByName( "Test8", report );
 			testRunner.RunByName( "Test10", report );
 
+			IS_EQUAL( 5, report.TestCount() );			
 			Report::StoreType store = report.Store();
 			IS_EQUAL(  static_cast< unsigned int >( 5 ) , static_cast< unsigned int >( store.size() ) );
 			IS_EQUAL( "Test2", store[0] );
@@ -251,6 +273,7 @@ namespace Aeryn
 			Report report;
 			testRunner.RunByTestSetName( "Test set 2", report );
 
+			IS_EQUAL( 5, report.TestCount() );
 			Report::StoreType store = report.Store();
 			IS_EQUAL(  static_cast< unsigned int >( 5 ), static_cast< unsigned int >( store.size() ) );
 			IS_EQUAL( "Test6", store[0] );

@@ -214,11 +214,11 @@ namespace Aeryn
 		IReport& report 
 	) const
 	{
-		const unsigned long testCout	= TestCount();
+		unsigned long testCout			= 1;	// Only running 1 test.
 		unsigned long failureCount		= 0;
 		unsigned long missingCount		= 0;
 
-		report.BeginTesting( header, testCout );
+		report.BeginTesting( header, TestCount() );
 
 		TestCase test = FindTest( name );
 		if ( !test.IsNull() )
