@@ -39,7 +39,6 @@ namespace Aeryn
 	//////////////////////////////////////////////////////////////////////////
 	CommandLineParser::CommandLineParser
 	( 
-		int argc, 
 		char *argv[ ] 
 	)
 	: commandLine_(),
@@ -48,9 +47,11 @@ namespace Aeryn
 	  testSets_()
 	{
 		StringStore commandArgs;
-		for( int i = 0; i < argc; ++i )
+		int i = 0;
+		while( argv[i] )
 		{
 			commandArgs.push_back( argv[i] );
+			++i;
 		}
 
 		Process( commandArgs );
@@ -60,7 +61,6 @@ namespace Aeryn
 	//////////////////////////////////////////////////////////////////////////
 	CommandLineParser::CommandLineParser
 	( 
-		int argc, 
 		const char *argv[ ] 
 	)
 	: commandLine_(),
@@ -69,9 +69,11 @@ namespace Aeryn
 	  testSets_()
 	{
 		StringStore commandArgs;
-		for( int i = 0; i < argc; ++i )
+		int i = 0;
+		while( argv[i] )
 		{
 			commandArgs.push_back( argv[i] );
+			++i;
 		}
 
 		Process( commandArgs );

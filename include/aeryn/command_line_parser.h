@@ -67,9 +67,6 @@ namespace Aeryn
 
 		/**	\brief Constructor
 		 *	
-		 *	\param argc An integer that contains the count of arguments that follow in argv. 
-		 *	The argc parameter is always greater than or equal to 1. argv 
-		 *
 		 *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
 		 *	user of the program. By convention, argv[0] is the command with which the program is invoked, 
 		 *	argv[1] is the first command-line argument, and so on, until argv[argc], which is always NULL. 
@@ -77,13 +74,10 @@ namespace Aeryn
 		 *	The first command-line argument is always argv[1] and the last one is argv[argc – 1]. 
 		 */
 		CommandLineParser
-			( int argc, char *argv[ ] );
+			( char *argv[ ] );
 
 		/**	\brief Constructor
 		 *	
-		 *	\param argc An integer that contains the count of arguments that follow in argv. 
-		 *	The argc parameter is always greater than or equal to 1. argv 
-		 *
 		 *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
 		 *	user of the program. By convention, argv[0] is the command with which the program is invoked, 
 		 *	argv[1] is the first command-line argument, and so on, until argv[argc], which is always NULL. 
@@ -91,7 +85,7 @@ namespace Aeryn
 		 *	The first command-line argument is always argv[1] and the last one is argv[argc – 1]. 
 		 */
 		CommandLineParser
-			( int argc, const char *argv[ ] );
+			( const char *argv[ ] );
 
 		/**	\brief Returns command with which the program is invoked.
 		 *

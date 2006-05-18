@@ -34,16 +34,16 @@ namespace Aeryn
 	void CommandLineParserTest
 		()
 	{
-		const int argc = 13;
 		const char *argv[] = {	"commandline",
 								"-t", "test 1",
 								"-t", "test 2",
 								"-t", "test 3",
 								"-ts", "test set 1",
 								"-ts", "test set 2",
-								"-r", "report" };
+								"-r", "report",
+								0 };
 
-		CommandLineParser commandLineParser( argc, argv );
+		CommandLineParser commandLineParser( argv );
 
 		const std::string expectedCommandLine( argv[0] );
 		const std::string commandLine( commandLineParser.CommandLine() );

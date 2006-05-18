@@ -344,15 +344,15 @@ namespace Aeryn
 			TestRunner testRunner;
 			testRunner.Add( USE_NAME( tests ) );
 
-			const int argc = 11;
 			const char *argv[] = {	"commandline",
 									"-t", "Test2",
 									"-t", "Test4",
 									"-t", "Test6",
 									"-t", "Test8",
-									"-t", "Test10" };
+									"-t", "Test10",
+									0 };
 
-			CommandLineParser commandLineParser( argc, argv );			
+			CommandLineParser commandLineParser( argv );			
 			Report report;
 			testRunner.Run( commandLineParser, report );		
 
@@ -380,12 +380,12 @@ namespace Aeryn
 			testRunner.Add( "Test set 2", testSet2 );
 			testRunner.Add( "Test set 3", testSet3 );
 
-			const int argc = 3;
 			const char *argv[] = {	"commandline",
 									"-ts", 
-									"Test set 2" };
+									"Test set 2",
+									0 };
 
-			CommandLineParser commandLineParser( argc, argv );			
+			CommandLineParser commandLineParser( argv );			
 			Report report;
 			testRunner.Run( commandLineParser, report );		
 
