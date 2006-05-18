@@ -168,7 +168,8 @@ namespace Aeryn
 				{
 					report_ = param;				
 				}
-				else
+				
+				if ( current != end )
 				{
 					++current;
 				}
