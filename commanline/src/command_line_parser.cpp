@@ -37,49 +37,6 @@ namespace Aeryn
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
-/*	CommandLineParser::CommandLineParser
-	( 
-		char *argv[ ] 
-	)
-	: commandLine_(),
-	  report_(),
-	  tests_(),
-	  testSets_()
-	{
-		StringStore commandArgs;
-		int i = 0;
-		while( argv[i] )
-		{
-			commandArgs.push_back( argv[i] );
-			++i;
-		}
-
-		Process( commandArgs );
-
-	}*/
-
-	//////////////////////////////////////////////////////////////////////////
-	/*CommandLineParser::CommandLineParser
-	( 
-		const char *argv[ ] 
-	)
-	: commandLine_(),
-	  report_(),
-	  tests_(),
-	  testSets_()
-	{
-		StringStore commandArgs;
-		int i = 0;
-		while( argv[i] )
-		{
-			commandArgs.push_back( argv[i] );
-			++i;
-		}
-
-		Process( commandArgs );
-	}*/
-
-	//////////////////////////////////////////////////////////////////////////
 	std::string CommandLineParser::CommandLine
 		() const
 	{
