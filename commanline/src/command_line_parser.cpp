@@ -33,11 +33,11 @@ namespace Aeryn
 	{
 		const std::string testSwitch( "-t" );
 		const std::string testSetSwitch( "-ts" );
-		const std::string reportSwitch( "-r" );	
+		const std::string reportSwitch( "-r" );			
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	CommandLineParser::CommandLineParser
+/*	CommandLineParser::CommandLineParser
 	( 
 		char *argv[ ] 
 	)
@@ -56,10 +56,10 @@ namespace Aeryn
 
 		Process( commandArgs );
 
-	}
+	}*/
 
 	//////////////////////////////////////////////////////////////////////////
-	CommandLineParser::CommandLineParser
+	/*CommandLineParser::CommandLineParser
 	( 
 		const char *argv[ ] 
 	)
@@ -77,7 +77,7 @@ namespace Aeryn
 		}
 
 		Process( commandArgs );
-	}
+	}*/
 
 	//////////////////////////////////////////////////////////////////////////
 	std::string CommandLineParser::CommandLine

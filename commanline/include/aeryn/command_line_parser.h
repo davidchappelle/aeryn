@@ -73,8 +73,25 @@ namespace Aeryn
 		 *	See Customizing Command Line Processing for information on suppressing command-line processing. 
 		 *	The first command-line argument is always argv[1] and the last one is argv[argc – 1]. 
 		 */
+		template< class T >
 		CommandLineParser
-			( char *argv[ ] );
+			( T *argv[ ] )
+		: commandLine_(),
+		  report_(),
+		  tests_(),
+		  testSets_()
+		{
+			StringStore commandArgs;
+			int i = 0;
+			while( argv[i] )
+			{
+				commandArgs.push_back( argv[i] );
+				++i;
+			}
+
+			Process( commandArgs );
+
+		}
 
 		/**	\brief Constructor
 		 *	
@@ -83,9 +100,9 @@ namespace Aeryn
 		 *	argv[1] is the first command-line argument, and so on, until argv[argc], which is always NULL. 
 		 *	See Customizing Command Line Processing for information on suppressing command-line processing. 
 		 *	The first command-line argument is always argv[1] and the last one is argv[argc – 1]. 
-		 */
+		 
 		CommandLineParser
-			( const char *argv[ ] );
+			( const char *argv[ ] );*/
 
 		/**	\brief Returns command with which the program is invoked.
 		 *
