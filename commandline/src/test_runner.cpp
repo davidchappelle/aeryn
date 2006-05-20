@@ -22,216 +22,23 @@
  *  \brief TestRunner implementation.
  */	
 
+#include "test_set_runner.h"
 #include <aeryn/test_runner.hpp>
-#include <aeryn/test_failure.hpp>
 #include <aeryn/minimal_report.hpp>
 #include <aeryn/terse_report.hpp>
 #include <aeryn/verbose_report.hpp>
 #include <aeryn/xcode_report.hpp>
-#include <aeryn/missing_test.hpp>
 #include <aeryn/test_name_not_found.hpp>
 #include <aeryn/test_set_name_not_found.hpp>
 #include <aeryn/duplicate_test_name_found.hpp>
 #include <aeryn/duplicate_test_set_name_found.hpp>
 #include <aeryn/command_line_parser.h>
-
-#include <numeric>
 #include <cassert>
+
+
 
 namespace Aeryn
 {
-	//////////////////////////////////////////////////////////////////////////
-	namespace 
-	{
-		/**	\brief Aeryn copyright message. */
-		const std::string header =	"\n"
-									"Aeryn 2.1.2 (c) Paul Grenyer 2005-2006\n"
-									"http://www.aeryn.co.uk/\n";	
-
-		/**	\brief Default test set name. */
-		const std::string defaultTestSetName = "";
-
-
-		/**	\brief Predicate used to count number of test cases.
-		 *
-		 *	\param total The total number of test cases counted so far.
-		 *	\param testSet A test set to add to the count.
-		 *	\return The new test case count.
-		 */
-		template< class SizeT, class ValueT >
-		SizeT AccumTestCount
-		( 
-			SizeT total, 
-			const ValueT& testSet  
-		)
-		{
-			return total += testSet.first.size();
-		}
-
-		//////////////////////////////////////////////////////////////////////////
-		class Runner : private Utils::Noncopyable
-		{
-		private:
-			/**	\brief Result of running test indicator. */
-			enum Result
-			{
-				FAILED,
-				PASSED,
-				MISSING
-			};
-
-			const TestSetCont& testSets_;
-			IReport& report_;
-
-		public:
-			explicit Runner
-				( const TestSetCont& testSets, 
-				  IReport& report )
-			: testSets_( testSets ),
-			  report_( report )
-			{
-			}
-
-			int Run()
-			{
-				const unsigned long testCout	= TestCount();
-				unsigned long failureCount		= 0;
-				unsigned long missingCount		= 0;
-				report_.BeginTesting( header, testCout );
-
-				TestSetCont::const_iterator currentTestSet	= testSets_.begin();
-				TestSetCont::const_iterator endTestSet		= testSets_.end();
-
-				for( ; currentTestSet != endTestSet; ++currentTestSet )
-				{
-					RunTestSet( failureCount, missingCount, *currentTestSet, report_ );			
-				}
-
-				report_.EndTesting( testCout, failureCount, missingCount );
-
-				return failureCount != 0 ? -1 : 0;
-			}
-
-		private:
-			/**	\brief Gives the number of test cases. */
-			unsigned long TestCount
-				() const
-			{
-				return std::accumulate(	testSets_.begin(), 
-										testSets_.end(), 
-										0, 
-										AccumTestCount< TestCaseCont::size_type, TestSet > );		
-			}
-
-			/**	\brief Runs a test set and updates test counters.
-			 *
-			 *	\param failureCount A counter for failed tests.
-			 *	\param missingCount A counter for missing tests.
-			 *	\param testSet The test set to run.
-			 *	\param report The report the results are written to.
-			 */
-			void RunTestSet
-			( 
-				unsigned long& failureCount,
-				unsigned long& missingCount,
-				const TestSet& testSet,
-				IReport& report 
-			) const
-			{
-				report.BeginTestSet( testSet.second );
-
-				TestCaseCont::const_iterator current	= testSet.first.begin();
-				TestCaseCont::const_iterator end		= testSet.first.end();
-
-				for( ; current != end; ++current )
-				{
-					RunTest( failureCount, missingCount, *current, report );
-				}
-
-				report.EndTestSet( testSet.second );
-			}
-
-			/**	\brief Runs a test case and updates test counters.
-			 *
-			 *	\param failureCount A counter for failed tests.
-			 *	\param missingCount A counter for missing tests.
-			 *	\param test The test case to run.
-			 *	\param report The report the results are written to.
-			 */
-			void RunTest
-			( 
-				unsigned long& failureCount,
-				unsigned long& missingCount,
-				const TestCase& test,
-				IReport& report 
-			) const
-			{
-				report.BeginTest( test.Name() );
-
-				switch( RunTest( test, report ) )
-				{
-				case FAILED:
-					++failureCount;
-					break;
-
-				case PASSED:
-					break;
-
-				case MISSING:
-					++missingCount;
-					break;
-
-				default:
-					assert( !"Unknown result type." );
-				};				
-
-				report.EndTest( test.Name() );
-			}
-
-			/**	\brief Runs a test case.
-			 *
-			 *	\param test The test case to run.
-			 *	\param report The report the results are written to.
-			 *	\return true PASS if tests passed, MISSING if test is missing otherwise FAILED.
-			 */
-			Result RunTest
-			(
-				const TestCase& test,
-				IReport& report 
-			) const
-			{
-				Result result = FAILED;
-
-				try
-				{
-					test.Run();
-					report.Pass( test.Name() );
-					result = PASSED;
-				}
-				catch( const TestFailure& e )
-				{
-					report.Failure( test.Name(), e );
-				}
-				catch( const TestMissing& e )
-				{
-					report.MissingTest( test.Name(), e );
-					result = MISSING;
-				}
-				catch( const std::exception& e )
-				{
-					report.Error( test.Name(), e.what() );
-				}
-				catch( ... )
-				{
-					report.Error( test.Name(), "!!! Unknown Error !!!" );
-				}	
-
-				return result;
-			}	
-
-		};
-	}
-
 	//////////////////////////////////////////////////////////////////////////
 	TestRunner::IReportPtr TestRunner::CreateReport
 	(
@@ -279,7 +86,6 @@ namespace Aeryn
 		() 
 	: testSets_()
 	{
-		testSets_.reserve( 10 );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -289,14 +95,7 @@ namespace Aeryn
 		const TestCase nullTerminatedArray[]
 	)
 	{
-		TestCaseCont testSet;
-
-		for( unsigned long i = 0; !nullTerminatedArray[i].IsNull(); ++i )
-		{
-			testSet.push_back( nullTerminatedArray[i] );
-		}
-
-		testSets_.push_back( TestSet( testSet, name ) );
+		testSets_.Add( name, nullTerminatedArray );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -305,7 +104,7 @@ namespace Aeryn
 		const TestCase nullTerminatedArray[] 
 	)
 	{
-		Add( defaultTestSetName, nullTerminatedArray );
+		testSets_.Add( nullTerminatedArray );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -315,9 +114,7 @@ namespace Aeryn
 		const TestCase& singleTestCase		
 	)
 	{
-		TestCaseCont testSet;
-		testSet.push_back( singleTestCase );
-		testSets_.push_back( TestSet( testSet, name ) );
+		testSets_.Add( name, singleTestCase );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -326,7 +123,7 @@ namespace Aeryn
 		const TestCase& singleTestCase 
 	)
 	{
-		Add( defaultTestSetName, singleTestCase );
+		testSets_.Add( defaultTestSetName, singleTestCase );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -343,7 +140,7 @@ namespace Aeryn
 		IReport& report
 	) const
 	{
-		Runner runner( testSets_, report );		
+		TestSetRunner runner( testSets_, report );		
 		return runner.Run();
 	}
 
@@ -365,24 +162,22 @@ namespace Aeryn
 	{
 		TestSetCont testSets;
 		std::string testSetName;
-		TestCase test = FindTest( name, testSetName );
+		TestCase test = testSets_.FindTest( name, testSetName );
 		if ( !test.IsNull() )
 		{
-			if ( !IsTestNameUnique( name ) )
+			if ( !testSets_.IsTestNameUnique( name ) )
 			{
 				throw DuplicateTestNameFound( name );
 			}
 
-			TestCaseCont tests;
-			tests.push_back( test );
-			testSets.push_back( TestSet( tests, testSetName ) );
+			testSets.AddTestSet( testSetName, test  );
 		}
 		else
 		{
 			throw TestNameNotFound( name );
 		}
 
-		Runner runner( testSets, report );
+		TestSetRunner runner( testSets, report );
 		return runner.Run();
 	}
 
@@ -404,22 +199,22 @@ namespace Aeryn
 	) const
 	{
 		TestSetCont testSets;		
-		TestSet testSet;
-		if ( FindTestSetByName( name, testSet ) )
+		TestSetCont::TestSet testSet;
+		if ( testSets_.FindTestSetByName( name, testSet ) )
 		{
-			if ( !IsTestSetNameUnique( name ) )
+			if ( !testSets_.IsTestSetNameUnique( name ) )
 			{
 				throw DuplicateTestSetNameFound( name );
 			}
 			
-			testSets.push_back( testSet );
+			testSets.Add( testSet );
 		}
 		else
 		{
 			throw TestSetNameNotFound( name );
 		}
 
-		Runner runner( testSets, report );
+		TestSetRunner runner( testSets, report );
 		return runner.Run();
 	}
 
@@ -436,11 +231,11 @@ namespace Aeryn
 	//////////////////////////////////////////////////////////////////////////
 	int TestRunner::Run
 	( 
-		const CommandLineParser& commandLine,
-		IReport& report 
+		const CommandLineParser& /*commandLine*/,
+		IReport& /*report*/ 
 	) const
 	{
-		const CommandLineParser::SizeType testCount		= commandLine.TestCount();
+	/*	const CommandLineParser::SizeType testCount		= commandLine.TestCount();
 		const CommandLineParser::SizeType testSetCount	= commandLine.TestSetCount();
 
 		if ( testCount == 0 && testSetCount == 0)
@@ -469,174 +264,9 @@ namespace Aeryn
 			}
 		}
 
-		return result;
+		return result;*/
+		return 0;
 	}
-
-	//////////////////////////////////////////////////////////////////////////
-	void TestRunner::RunTest
-	( 
-		unsigned long& failureCount,
-		unsigned long& missingCount,
-		const TestCase& test,
-		IReport& report 
-	) const
-	{
-		report.BeginTest( test.Name() );
-
-		switch( RunTest( test, report ) )
-		{
-		case FAILED:
-			++failureCount;
-			break;
-
-		case PASSED:
-			break;
-
-		case MISSING:
-			++missingCount;
-			break;
-
-		default:
-			assert( !"Unknown result type." );
-		};				
-
-		report.EndTest( test.Name() );
-	}
-
-	//////////////////////////////////////////////////////////////////////////
-	TestRunner::Result TestRunner::RunTest
-	(
-		const TestCase& test,
-		IReport& report 
-	) const
-	{
-		Result result = FAILED;
-		
-		try
-		{
-			test.Run();
-			report.Pass( test.Name() );
-			result = PASSED;
-		}
-		catch( const TestFailure& e )
-		{
-			report.Failure( test.Name(), e );
-		}
-		catch( const TestMissing& e )
-		{
-			report.MissingTest( test.Name(), e );
-			result = MISSING;
-		}
-		catch( const std::exception& e )
-		{
-			report.Error( test.Name(), e.what() );
-		}
-		catch( ... )
-		{
-			report.Error( test.Name(), "!!! Unknown Error !!!" );
-		}	
-
-		return result;
-	}	
-
-	//////////////////////////////////////////////////////////////////////////
-	TestCase TestRunner::FindTest
-	( 
-		const std::string& name,
-		std::string& testSetName 
-	) const
-	{
-		TestSetCont::const_iterator currentTestSet	= testSets_.begin();
-		TestSetCont::const_iterator endTestSet		= testSets_.end();
-
-		for( ; currentTestSet != endTestSet; ++currentTestSet )
-		{
-			TestCaseCont::const_iterator current	= currentTestSet->first.begin();
-			TestCaseCont::const_iterator end		= currentTestSet->first.end();
-
-			for( ; current != end; ++current )
-			{
-				if ( name == current->Name() )
-				{
-					testSetName = currentTestSet->second;
-					return *current;
-				}
-			}
-		}
-		
-		return TestCase();
-	}
-
-	//////////////////////////////////////////////////////////////////////////
-	bool TestRunner::IsTestNameUnique
-	( 
-		const std::string& name 
-	) const
-	{
-		TestCaseCont::size_type count = 0;
-		
-		TestSetCont::const_iterator currentTestSet	= testSets_.begin();
-		TestSetCont::const_iterator endTestSet		= testSets_.end();
-
-		for( ; currentTestSet != endTestSet; ++currentTestSet )
-		{
-			TestCaseCont::const_iterator current	= currentTestSet->first.begin();
-			TestCaseCont::const_iterator end		= currentTestSet->first.end();
-
-			for( ; current != end; ++current )
-			{
-				if ( name == current->Name() )
-				{
-					++count;
-				}
-			}
-		}
-
-		return count <= 1;
-	}
-
-	//////////////////////////////////////////////////////////////////////////
-	bool TestRunner::FindTestSetByName
-	( 
-		const std::string& name, 
-		TestSet& testSet 
-	) const
-	{
-		TestSetCont::const_iterator current	= testSets_.begin();
-		TestSetCont::const_iterator end		= testSets_.end();
-
-		for(; current != end; ++current )
-		{
-			if ( name == current->second )
-			{
-				testSet = *current;
-				return true;
-			}
-		}
-		
-		return false;
-	}
-
-
-	//////////////////////////////////////////////////////////////////////////
-	bool TestRunner::IsTestSetNameUnique
-		( const std::string& name ) const
-	{
-		TestSetCont::size_type count = 0;
-
-		TestSetCont::const_iterator current	= testSets_.begin();
-		TestSetCont::const_iterator end		= testSets_.end();
-
-		for( ; current != end; ++current )
-		{
-			if ( name == current->second )
-			{
-				++count;
-			}		
-		}
-
-		return count <= 1;
-	}	
 }
 
 

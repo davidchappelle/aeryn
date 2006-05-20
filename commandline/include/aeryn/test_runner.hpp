@@ -33,6 +33,7 @@
 #include <aeryn/ireport.hpp>
 #include <aeryn/details/noncopyable.hpp>
 #include <vector>
+#include <numeric>
 #include <ostream>
 
 namespace Aeryn
@@ -40,14 +41,266 @@ namespace Aeryn
 	//////////////////////////////////////////////////////////////////////////
 	class CommandLineParser;
 
-	/**	\brief TestCase container type. */
-	typedef std::vector< TestCase >					TestCaseCont;
+	
 
-	/**	\brief TestSet type. */
-	typedef std::pair< TestCaseCont, std::string >	TestSet;
+	/**	\brief Default test set name. */
+	static const std::string defaultTestSetName = "";
+
+	/**	\brief Predicate used to count number of test cases.
+	*
+	*	\param total The total number of test cases counted so far.
+	*	\param testSet A test set to add to the count.
+	*	\return The new test case count.
+	*/
+	template< class SizeT, class ValueT >
+	SizeT AccumTestCount
+	( 
+		SizeT total, 
+		const ValueT& testSet  
+	)
+	{
+		return total += testSet.first.size();
+	}
+
+	
+
+	
 
 	/**	\brief TestSet container. */
-	typedef std::vector< TestSet >					TestSetCont;	
+	class TestSetCont : private Utils::Noncopyable
+	{
+	public:
+		/**	\brief TestCase container type. */
+		typedef std::vector< TestCase >					TestCaseCont;
+
+		/**	\brief TestSet type. */
+		typedef std::pair< TestCaseCont, std::string >	TestSet;		
+
+	private:
+		typedef std::vector< TestSet > CONT;
+		CONT testSets_;
+
+	public:
+		typedef CONT::const_iterator const_iterator;
+		typedef CONT::size_type size_type;
+
+		explicit TestSetCont()
+			: testSets_()
+		{
+		}
+
+		/**	\brief Adds a test set and gives it a name. 
+		 *
+		 *	\param name The test set name.
+		 *	\param nullTerminatedArray A null terminated array of TestCase's.
+		 */
+		void Add
+			( const std::string& name,
+			  const TestCase nullTerminatedArray[] )
+		{
+			TestCaseCont testSet;
+
+			for( unsigned long i = 0; !nullTerminatedArray[i].IsNull(); ++i )
+			{
+				testSet.push_back( nullTerminatedArray[i] );
+			}
+
+			testSets_.push_back( TestSet( testSet, name ) );
+		}
+
+		/**	\brief Adds a test set.
+		 *
+		 *	\param nullTerminatedArray A null terminated array of TestCase's.
+		 */
+		void Add
+			( const TestCase nullTerminatedArray[] )
+		{
+			Add( defaultTestSetName, nullTerminatedArray );
+		}
+
+		/**	\brief Adds a single test case and gives it a name. 
+		 *
+		 *	\param name The test case name.
+		 *	\param singleTestCase A null terminated array of TestCase's.
+		 */
+		void Add
+			( const std::string& name, 
+			  const TestCase& singleTestCase )
+		{
+			TestCaseCont testSet;
+			testSet.push_back( singleTestCase );
+			testSets_.push_back( TestSet( testSet, name ) );
+		}
+
+		/**	\brief Adds a single test case.
+		 *
+		 *	\param singleTestCase A null terminated array of TestCase's.
+		 */
+		void Add
+			( const TestCase& singleTestCase )
+		{
+			Add( defaultTestSetName, singleTestCase );
+		}
+
+		void Add
+			( const TestSet& testSet )
+		{
+			testSets_.push_back( testSet );
+		}
+
+		void AddTestSet
+			( const std::string& testSetName,
+			  const TestCase& test )
+		{
+			TestCaseCont tests;
+			tests.push_back( test );
+			testSets_.push_back( TestSet( tests, testSetName ) );
+		}
+
+		/**	\brief Gives the number of test cases. */
+		size_type TestCount
+			() const
+		{
+			return std::accumulate(	testSets_.begin(), 
+									testSets_.end(), 
+									0, 
+									AccumTestCount< TestCaseCont::size_type, TestSet > );		
+		}
+
+		const_iterator Begin
+			() const
+		{
+			return testSets_.begin();
+		}
+
+		const_iterator End
+			() const
+		{
+			return testSets_.end();
+		}
+
+		/**	\brief Finds a test by name.
+		 *
+		 *	\param name The name of the test to find.
+		 *	\param testSetName A reference to a string to take the name of the test set
+		 *	that the test belongs too.
+		 *	\return The test if found otherwise TestCase().
+		 */
+		TestCase FindTest
+		( 
+			const std::string& name,
+			std::string& testSetName 
+		) const
+		{
+			TestSetCont::const_iterator currentTestSet	= testSets_.begin();
+			TestSetCont::const_iterator endTestSet		= testSets_.end();
+
+			for( ; currentTestSet != endTestSet; ++currentTestSet )
+			{
+				TestCaseCont::const_iterator current	= currentTestSet->first.begin();
+				TestCaseCont::const_iterator end		= currentTestSet->first.end();
+
+				for( ; current != end; ++current )
+				{
+					if ( name == current->Name() )
+					{
+						testSetName = currentTestSet->second;
+						return *current;
+					}
+				}
+			}
+
+			return TestCase();
+		}
+
+		/**	\brief Determines if the specified test name is unique.
+		 *
+		 *	\param name The test name to search for.
+		 *	\return true if the name is unique, otherwise false.
+		 */
+		bool IsTestNameUnique
+		( 
+			const std::string& name 
+		) const
+		{
+			TestCaseCont::size_type count = 0;
+
+			TestSetCont::const_iterator currentTestSet	= testSets_.begin();
+			TestSetCont::const_iterator endTestSet		= testSets_.end();
+
+			for( ; currentTestSet != endTestSet; ++currentTestSet )
+			{
+				TestCaseCont::const_iterator current	= currentTestSet->first.begin();
+				TestCaseCont::const_iterator end		= currentTestSet->first.end();
+
+				for( ; current != end; ++current )
+				{
+					if ( name == current->Name() )
+					{
+						++count;
+					}
+				}
+			}
+
+			return count <= 1;
+		}
+
+		/**	\brief Finds a test set by name.
+		 *
+		 *	\param name The name of the test set to find.
+		 *	\param testSet A reference to a TestSet object to take the test set if found.
+		 *	\return True if the test set is found, otherwise false.
+		 */
+		bool FindTestSetByName
+		( 
+			const std::string& name, 
+			TestSet& testSet 
+		) const
+		{
+			TestSetCont::const_iterator current	= testSets_.begin();
+			TestSetCont::const_iterator end		= testSets_.end();
+
+			for(; current != end; ++current )
+			{
+				if ( name == current->second )
+				{
+					testSet = *current;
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+
+		/**	\brief Determines if the specified test set name is unique.
+		 *
+		 *	\param name The test set name to search for.
+		 *	\return true if the name is unique, otherwise false.
+		 */
+		bool IsTestSetNameUnique
+		( 
+			const std::string& name 
+		) const
+		{
+			TestSetCont::size_type count = 0;
+
+			TestSetCont::const_iterator current	= testSets_.begin();
+			TestSetCont::const_iterator end		= testSets_.end();
+
+			for( ; current != end; ++current )
+			{
+				if ( name == current->second )
+				{
+					++count;
+				}		
+			}
+
+			return count <= 1;
+		}	
+
+
+	};
 	
 	/**	\brief Stores and runs all tests.
 	 *
@@ -287,67 +540,6 @@ namespace Aeryn
 	private:
 		static IReportPtr CreateReport
 			( const std::string& reportName );
-
-		/**	\brief Runs a test case and updates test counters.
-		 *
-		 *	\param failureCount A counter for failed tests.
-		 *	\param missingCount A counter for missing tests.
-		 *	\param test The test case to run.
-		 *	\param report The report the results are written to.
-		 */
-		void RunTest
-			( unsigned long& failureCount,
-			  unsigned long& missingCount,
-			  const TestCase& test,
-			  IReport& report ) const;
-		
-		/**	\brief Runs a test case.
-		 *
-		 *	\param test The test case to run.
-		 *	\param report The report the results are written to.
-		 *	\return true PASS if tests passed, MISSING if test is missing otherwise FAILED.
-		 */
-		Result RunTest
-			( const TestCase& test,
-			  IReport& report ) const;
-
-		/**	\brief Finds a test by name.
-		 *
-		 *	\param name The name of the test to find.
-		 *	\param testSetName A reference to a string to take the name of the test set
-		 *	that the test belongs too.
-		 *	\return The test if found otherwise TestCase().
-		 */
-		TestCase FindTest
-			( const std::string& name,
-			  std::string& testSetName ) const;
-
-		/**	\brief Determines if the specified test name is unique.
-		 *
-		 *	\param name The test name to search for.
-		 *	\return true if the name is unique, otherwise false.
-		 */
-		bool IsTestNameUnique
-			( const std::string& name ) const;
-
-		/**	\brief Finds a test set by name.
-		 *
-		 *	\param name The name of the test set to find.
-		 *	\param testSet A reference to a TestSet object to take the test set if found.
-		 *	\return True if the test set is found, otherwise false.
-		*/
-		bool FindTestSetByName
-			( const std::string& name, 
-			  TestSet& testSet ) const;
-
-		/**	\brief Determines if the specified test set name is unique.
-		 *
-		 *	\param name The test set name to search for.
-		 *	\return true if the name is unique, otherwise false.
-		 */
-		bool IsTestSetNameUnique
-			( const std::string& name ) const;
-
 	};
 }
 

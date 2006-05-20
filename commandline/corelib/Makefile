@@ -38,6 +38,7 @@ LIB_OBJS = \
 	test_funcs.o \
 	test_name_not_found.o \
 	test_set_name_not_found.o \
+	test_set_runner.o \
 	test_registry.o \
 	test_runner.o \
 	use_name.o \
