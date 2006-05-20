@@ -37,6 +37,7 @@ LIB_OBJS = \
 	test_failure.o \
 	test_funcs.o \
 	test_name_not_found.o \
+	test_set_cont.o \
 	test_set_name_not_found.o \
 	test_set_runner.o \
 	test_registry.o \

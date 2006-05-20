@@ -25,8 +25,9 @@
 #ifndef AERYN_TEST_SET_RUNNER_H
 #define AERYN_TEST_SET_RUNNER_H
 
+#include "test_set_cont.h"
 #include <aeryn/details/noncopyable.hpp>
-#include <aeryn/test_runner.hpp> // this must go.
+#include <aeryn/ireport.hpp>
 
 namespace Aeryn
 {

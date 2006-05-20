@@ -160,6 +160,9 @@
 				RelativePath="..\src\test_runner.cpp">
 			</File>
 			<File
+				RelativePath="..\src\test_set_cont.cpp">
+			</File>
+			<File
 				RelativePath="..\src\test_set_name_not_found.cpp">
 			</File>
 			<File
@@ -247,6 +250,9 @@
 			</File>
 			<File
 				RelativePath="..\include\aeryn\test_runner.hpp">
+			</File>
+			<File
+				RelativePath="..\src\test_set_cont.h">
 			</File>
 			<File
 				RelativePath="..\src\test_set_runner.h">

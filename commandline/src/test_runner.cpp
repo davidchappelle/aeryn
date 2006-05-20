@@ -23,6 +23,7 @@
  */	
 
 #include "test_set_runner.h"
+#include "test_set_cont.h"
 #include <aeryn/test_runner.hpp>
 #include <aeryn/minimal_report.hpp>
 #include <aeryn/terse_report.hpp>
@@ -84,7 +85,12 @@ namespace Aeryn
 	//////////////////////////////////////////////////////////////////////////
 	TestRunner::TestRunner
 		() 
-	: testSets_()
+	: testSets_( new TestSetCont )
+	{
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	TestRunner::~TestRunner()
 	{
 	}
 
@@ -95,7 +101,7 @@ namespace Aeryn
 		const TestCase nullTerminatedArray[]
 	)
 	{
-		testSets_.Add( name, nullTerminatedArray );
+		testSets_->AddTests( name, nullTerminatedArray );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -104,7 +110,7 @@ namespace Aeryn
 		const TestCase nullTerminatedArray[] 
 	)
 	{
-		testSets_.Add( nullTerminatedArray );
+		testSets_->AddTests( nullTerminatedArray );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -114,7 +120,7 @@ namespace Aeryn
 		const TestCase& singleTestCase		
 	)
 	{
-		testSets_.Add( name, singleTestCase );
+		testSets_->AddTest( name, singleTestCase );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -123,7 +129,7 @@ namespace Aeryn
 		const TestCase& singleTestCase 
 	)
 	{
-		testSets_.Add( defaultTestSetName, singleTestCase );
+		testSets_->AddTest( singleTestCase );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -140,7 +146,7 @@ namespace Aeryn
 		IReport& report
 	) const
 	{
-		TestSetRunner runner( testSets_, report );		
+		TestSetRunner runner( *testSets_.get(), report );		
 		return runner.Run();
 	}
 
@@ -162,10 +168,10 @@ namespace Aeryn
 	{
 		TestSetCont testSets;
 		std::string testSetName;
-		TestCase test = testSets_.FindTest( name, testSetName );
+		TestCase test = testSets_->FindTest( name, testSetName );
 		if ( !test.IsNull() )
 		{
-			if ( !testSets_.IsTestNameUnique( name ) )
+			if ( !testSets_->IsTestNameUnique( name ) )
 			{
 				throw DuplicateTestNameFound( name );
 			}
@@ -200,14 +206,14 @@ namespace Aeryn
 	{
 		TestSetCont testSets;		
 		TestSetCont::TestSet testSet;
-		if ( testSets_.FindTestSetByName( name, testSet ) )
+		if ( testSets_->FindTestSetByName( name, testSet ) )
 		{
-			if ( !testSets_.IsTestSetNameUnique( name ) )
+			if ( !testSets_->IsTestSetNameUnique( name ) )
 			{
 				throw DuplicateTestSetNameFound( name );
 			}
 			
-			testSets.Add( testSet );
+			testSets.AddTestSet( testSet );
 		}
 		else
 		{

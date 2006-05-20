@@ -58,8 +58,8 @@ namespace Aeryn
 		unsigned long missingCount		= 0;
 		report_.BeginTesting( header, testCout );
 
-		TestSetCont::const_iterator currentTestSet	= testSets_.Begin();
-		TestSetCont::const_iterator endTestSet		= testSets_.End();
+		TestSetCont::ConstItr currentTestSet	= testSets_.Begin();
+		TestSetCont::ConstItr endTestSet		= testSets_.End();
 
 		for( ; currentTestSet != endTestSet; ++currentTestSet )
 		{
