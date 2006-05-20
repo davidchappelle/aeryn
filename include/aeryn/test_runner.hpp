@@ -361,6 +361,7 @@ namespace Aeryn
 		 */
 		bool IsTestSetNameUnique
 			( const std::string& name ) const;
+
 	};
 }
 

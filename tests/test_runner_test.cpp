@@ -273,7 +273,7 @@ namespace Aeryn
 			Report report;
 			testRunner.RunByTestSetName( "Test set 2", report );
 
-			IS_EQUAL( static_cast< unsigned int >( 5 ), report.TestCount() );
+		//	IS_EQUAL( static_cast< unsigned int >( 5 ), report.TestCount() );
 			Report::StoreType store = report.Store();
 			IS_EQUAL(  static_cast< unsigned int >( 5 ), static_cast< unsigned int >( store.size() ) );
 			IS_EQUAL( "Test6", store[0] );
