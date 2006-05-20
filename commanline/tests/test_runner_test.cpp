@@ -59,12 +59,16 @@ namespace Aeryn
 
 			/**	\brief Number of tests run. */
 			unsigned long testCount_;
+
+			/**	\brief Store for the name of the test set that's run. */
+			std::string testSetName_;
 			
 		public:
 			/**	Constructor */
 			explicit Report()
 				: store_(),
-				  testCount_(0)
+				  testCount_(0),
+				  testSetName_()
 			{
 			}
 
@@ -87,6 +91,16 @@ namespace Aeryn
 				return testCount_;
 			}
 
+			/**	\brief Returns the name of the test set run.
+			*
+			*	\return Returns the name of the test set run.
+			*/
+			std::string TestSetName
+				() const
+			{
+				return testSetName_;
+			}
+
 			virtual void BeginTesting
 				( const std::string&,
 				  unsigned long )
@@ -94,8 +108,9 @@ namespace Aeryn
 			}
 
 			virtual void BeginTestSet
-				( const std::string& )
+				( const std::string& testSetName )
 			{
+				testSetName_ = testSetName;
 			}
 
 			virtual void BeginTest
@@ -199,7 +214,8 @@ namespace Aeryn
 			testRunner.RunByName( "Test8", report );
 			testRunner.RunByName( "Test10", report );
 
-			IS_EQUAL( static_cast< unsigned int >( 5 ), static_cast< unsigned int >( report.TestCount() ) );			
+			IS_EQUAL( static_cast< unsigned int >( 5 ), static_cast< unsigned int >( report.TestCount() ) );
+			IS_EQUAL( "Tests", report.TestSetName() );
 			Report::StoreType store = report.Store();
 			IS_EQUAL(  static_cast< unsigned int >( 5 ) , static_cast< unsigned int >( store.size() ) );
 			IS_EQUAL( "Test2", store[0] );
@@ -273,7 +289,8 @@ namespace Aeryn
 			Report report;
 			testRunner.RunByTestSetName( "Test set 2", report );
 
-		//	IS_EQUAL( static_cast< unsigned int >( 5 ), report.TestCount() );
+			IS_EQUAL( static_cast< unsigned int >( 5 ), report.TestCount() );
+			IS_EQUAL( "Test set 2", report.TestSetName() );
 			Report::StoreType store = report.Store();
 			IS_EQUAL(  static_cast< unsigned int >( 5 ), static_cast< unsigned int >( store.size() ) );
 			IS_EQUAL( "Test6", store[0] );

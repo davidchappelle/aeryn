@@ -39,6 +39,15 @@ namespace Aeryn
 {
 	//////////////////////////////////////////////////////////////////////////
 	class CommandLineParser;
+
+	/**	\brief TestCase container type. */
+	typedef std::vector< TestCase >					TestCaseCont;
+
+	/**	\brief TestSet type. */
+	typedef std::pair< TestCaseCont, std::string >	TestSet;
+
+	/**	\brief TestSet container. */
+	typedef std::vector< TestSet >					TestSetCont;	
 	
 	/**	\brief Stores and runs all tests.
 	 *
@@ -108,15 +117,6 @@ namespace Aeryn
 	class TestRunner : private Utils::Noncopyable
 	{
 	private:
-		/**	\brief TestCase container type. */
-		typedef std::vector< TestCase >					TestCaseCont;
-
-		/**	\brief TestSet type. */
-		typedef std::pair< TestCaseCont, std::string >	TestSet;
-
-		/**	\brief TestSet container. */
-		typedef std::vector< TestSet >					TestSetCont;	
-
 		/**	\brief Result of running test indicator. */
 		enum Result
 		{
@@ -288,23 +288,6 @@ namespace Aeryn
 		static IReportPtr CreateReport
 			( const std::string& reportName );
 
-		/**	\brief Gives the number of test cases. */
-		unsigned long TestCount
-			() const;
-
-		/**	\brief Runs a test set and updates test counters.
-		 *
-		 *	\param failureCount A counter for failed tests.
-		 *	\param missingCount A counter for missing tests.
-		 *	\param testSet The test set to run.
-		 *	\param report The report the results are written to.
-		 */
-		void RunTestSet
-			( unsigned long& failureCount,
-			  unsigned long& missingCount,
-			  const TestSet& testSet,
-			  IReport& report ) const;
-		
 		/**	\brief Runs a test case and updates test counters.
 		 *
 		 *	\param failureCount A counter for failed tests.
@@ -331,10 +314,13 @@ namespace Aeryn
 		/**	\brief Finds a test by name.
 		 *
 		 *	\param name The name of the test to find.
+		 *	\param testSetName A reference to a string to take the name of the test set
+		 *	that the test belongs too.
 		 *	\return The test if found otherwise TestCase().
 		 */
 		TestCase FindTest
-			( const std::string& name ) const;
+			( const std::string& name,
+			  std::string& testSetName ) const;
 
 		/**	\brief Determines if the specified test name is unique.
 		 *
