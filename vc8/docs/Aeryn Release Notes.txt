@@ -1,0 +1,58 @@
+Aeryn 2.1.2
+===========
+
+Added ability to run tests by name.
+
+Added ability to run tests by test set name.
+
+Added a command line parser so test names, test tests and report names can be specified at the command line.
+
+
+
+Aeryn 2.1.1
+===========
+
+Added IsEqual and IsNotEqual overload to correctly compare char*.
+
+Removed trailing semi-colon from test condition macros to force user to put it in.
+
+Moved Throws Exception tests to own file.
+
+Split IS_TRUE/IS_FALSE and IS_EQUAL/IS_NOT_EQUAL into own headers.
+
+Changed file naming convention (introduced underscores and changed .h to .hpp).
+
+Added DOES_NOT_THROW_EXCEPTION and tests.
+
+Removed calculator and tests and replaced with simple_date and tests.
+
+Reimplemented IS_EQUAL in terms of == and IS_NOT_EQUAL in terms of !=.
+
+Changed format of failure messages for verbose and minimal reports to be compatible with MSVC.
+
+Made Aeryn namespace correct.
+
+Made THROWS_EXCEPTION report incorrect exception types.
+
+Added Terse Report supplied by Pete Goodliffe.
+
+Added TestRegistry.
+
+Licensed under LGPL.
+
+Fixed examples for new header files.
+
+Changed IS_EQUAL message to 'a' does not equal 'b'.
+
+Added test_failure.hpp to throws_exception headers.
+
+Added platform.h.
+
+Made all reports compiler specific and removed gcc report.
+
+Made GCCReport a template than can inherit from any of the other reports.
+
+Added MISSING_TEST test condition macro.
+
+Added Doxygen comments.
+
