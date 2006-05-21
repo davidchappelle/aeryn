@@ -64,7 +64,7 @@ namespace Aeryn
 		  const TestSetCont& testSets );	
 	
 	/**	\brief Constructs a test set from the supplied command line object. */
-	class CommandLineTestSetBuilder
+	class CommandLineTestSetBuilder : private Utils::Noncopyable
 	{
 	private:
 		/**	\brief A map of test case containers. */
