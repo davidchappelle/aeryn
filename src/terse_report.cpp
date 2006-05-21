@@ -34,6 +34,14 @@ namespace Aeryn
 		const std::string separator = std::string( 60, '-' ); 	
 	}
 
+	//////////////////////////////////////////////////////////////////////////
+	std::string TerseReport::Name
+		()
+	{
+		return "terse";
+	}
+
+	//////////////////////////////////////////////////////////////////////////
 	TerseReport::TerseReport
 	( 
 		std::ostream& out,
@@ -43,6 +51,7 @@ namespace Aeryn
 	{
 	}
 
+	//////////////////////////////////////////////////////////////////////////
 	void TerseReport::BeginTesting
 	( 
 		const std::string& header,
@@ -53,6 +62,7 @@ namespace Aeryn
 		out_ << separator << "\n";
 	}
 
+	//////////////////////////////////////////////////////////////////////////
 	void TerseReport::BeginTestSet
 	( 
 		const std::string& 
@@ -60,6 +70,7 @@ namespace Aeryn
 	{
 	}
 
+	//////////////////////////////////////////////////////////////////////////
 	void TerseReport::BeginTest
 	( 
 		const std::string& 
@@ -67,6 +78,7 @@ namespace Aeryn
 	{
 	}
 
+	//////////////////////////////////////////////////////////////////////////
 	void TerseReport::Pass
 	(
 		const std::string&
@@ -75,6 +87,7 @@ namespace Aeryn
 		err_ << ".";
 	}
 
+	//////////////////////////////////////////////////////////////////////////
 	void TerseReport::Failure
 	( 
 		const std::string& testName,
@@ -87,7 +100,7 @@ namespace Aeryn
 		errorString_ << FormatFailure< COMPILER >::Out( failure );
 	}
 
-	
+	//////////////////////////////////////////////////////////////////////////
 	void TerseReport::MissingTest
 	(  
 		const std::string&,
@@ -97,6 +110,7 @@ namespace Aeryn
 		err_ << "N";
 	}
 
+	//////////////////////////////////////////////////////////////////////////
 	void TerseReport::Error
 	( 
 		const std::string& testName,
@@ -110,6 +124,7 @@ namespace Aeryn
 		errorString_ << "\n";	
 	}
 
+	//////////////////////////////////////////////////////////////////////////
 	void TerseReport::EndTest
 	(
 		const std::string&
@@ -117,6 +132,7 @@ namespace Aeryn
 	{
 	}
 
+	//////////////////////////////////////////////////////////////////////////
 	void TerseReport::EndTestSet
 	(
 		const std::string&
@@ -124,6 +140,7 @@ namespace Aeryn
 	{
 	}
 
+	//////////////////////////////////////////////////////////////////////////
 	void TerseReport::EndTesting
 	(
 		unsigned long testCount, 
@@ -158,6 +175,7 @@ namespace Aeryn
 		err_ << ".\n\n";
 	}
 
+	//////////////////////////////////////////////////////////////////////////
 	void TerseReport::WriteTestDetails
 	( 
 		const std::string& testName 
@@ -172,6 +190,8 @@ namespace Aeryn
 			errorString_ << "\n";	
 		}
 	}
+
+	//////////////////////////////////////////////////////////////////////////	
 
 }
 

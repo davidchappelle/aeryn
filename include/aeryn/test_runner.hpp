@@ -34,8 +34,45 @@
 #include <aeryn/details/noncopyable.hpp>
 #include <memory>
 
+#include <aeryn/minimal_report.hpp>
+#include <aeryn/terse_report.hpp>
+#include <aeryn/verbose_report.hpp>
+#include <aeryn/xcode_report.hpp>
+
 namespace Aeryn
-{
+{	
+	class ReportFactory : private Utils::Noncopyable
+	{
+
+	public:
+		/**	\brief Report smart pointer.
+		 *
+		 *	Used to automatically manage dynamically allocated report objects.
+		 */
+		typedef std::auto_ptr< IReport > IReportPtr;
+
+		IReportPtr Create( const std::string& name )
+		{
+			IReportPtr report( new MinimalReport );
+
+			if ( name == TerseReport::Name()  )
+			{
+				report.reset( new TerseReport( std::cout ) );
+			}
+			else if ( name == VerboseReport::Name() )
+			{
+				report.reset( new VerboseReport );
+			}
+			else if ( name == XcodeReport<>::Name() )
+			{
+				report.reset( new XcodeReport<>( std::cout, "bin/TestPassCookie.txt" ) );
+			}			
+
+			return report;
+		}
+	};
+
+
 	//////////////////////////////////////////////////////////////////////////
 	class CommandLineParser;	
 
@@ -114,12 +151,6 @@ namespace Aeryn
 		std::auto_ptr< TestSetCont >	testSets_;				
 
 	public:
-		/**	\brief Report smart pointer.
-		 *
-		 *	Used to automatically manage dynamically allocated report objects.
-		 */
-		typedef std::auto_ptr< IReport > IReportPtr;
-		
 		/**	\brief Default constructor. */
 		explicit TestRunner
 			();
@@ -252,7 +283,7 @@ namespace Aeryn
 		 *
 		 *	\return An IReportPtr pointing to an instance of a report.
 		 */
-		static IReportPtr CreateReport
+		static ReportFactory::IReportPtr CreateReport
 			( const std::string& reportName );		
 	};
 }

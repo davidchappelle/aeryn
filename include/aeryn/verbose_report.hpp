@@ -48,6 +48,13 @@ namespace Aeryn
 		std::ostream& out_;
 				
 	public:
+		/**	\brief Returns the name of the report.
+		 *
+		 *	\return The name of the report.
+		 */
+		static std::string Name
+			();
+
 		/**	\brief Constructor.
 		 *
 		 *	\param out The output stream to write the report to.

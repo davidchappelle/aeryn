@@ -49,6 +49,16 @@ namespace Aeryn
 	class XcodeReport : public BaseReportT
 	{
 	public:
+		/**	\brief Returns the name of the report.
+		 *
+		 *	\return The name of the report.
+		 */
+		static std::string Name
+			()
+		{
+			return "xcode";
+		}
+
 		/**	\brief Constructor.
 		 *
 		 *	\param out The output stream to write the report to.

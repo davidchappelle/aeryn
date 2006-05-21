@@ -26,36 +26,18 @@
 #include "test_set_cont.hpp"
 #include "command_line_test_set_builder.hpp"
 #include <aeryn/test_runner.hpp>
-#include <aeryn/minimal_report.hpp>
-#include <aeryn/terse_report.hpp>
-#include <aeryn/verbose_report.hpp>
-#include <aeryn/xcode_report.hpp>
 #include <cassert>
 
 namespace Aeryn
 {
 	//////////////////////////////////////////////////////////////////////////
-	TestRunner::IReportPtr TestRunner::CreateReport
+	ReportFactory::IReportPtr TestRunner::CreateReport
 	( 
 		const std::string& reportName
 	)
 	{
-		std::auto_ptr< IReport > report( new MinimalReport );
-		
-		if ( reportName == "terse"  )
-		{
-			report.reset( new TerseReport( std::cout ) );
-		}
-		else if ( reportName == "verbose" )
-		{
-			report.reset( new VerboseReport );
-		}
-		else if ( reportName == "xcode" )
-		{
-			report.reset( new XcodeReport<>( std::cout, "bin/TestPassCookie.txt" ) );
-		}			
-		
-		return report;
+		ReportFactory factory;
+		return factory.Create( reportName );
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
@@ -179,7 +161,7 @@ namespace Aeryn
 		const CommandLineParser& commandLine 
 	) const
 	{
-		TestRunner::IReportPtr report( CreateReport( commandLine.Report() ) );
+		ReportFactory::IReportPtr report( CreateReport( commandLine.Report() ) );
 		return Run( commandLine, *report.get() );
 	}
 
