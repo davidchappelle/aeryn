@@ -41,7 +41,7 @@ namespace Aeryn
 
 	// Forward declared so test_set_cont.h can stay private.
 	class TestSetCont;
-	
+
 	/**	\brief Stores and runs all tests.
 	 *
 	 *	Test cases must be added to a test runner in order to be run.
@@ -277,7 +277,7 @@ namespace Aeryn
 
 	private:
 		static IReportPtr CreateReport
-			( const std::string& reportName );
+			( const std::string& reportName );		
 	};
 }
 

@@ -122,7 +122,8 @@ namespace Aeryn
 		TestCase( TestCase( USE_NAME( TestRunnerTest::RunByTestSetNameTestNotFoundTest ) ) ),
 		TestCase( TestCase( USE_NAME( TestRunnerTest::DuplicateTestSetNameFoundTest ) ) ),
 		TestCase( TestCase( USE_NAME( TestRunnerTest::ComandLineParserTestsTest ) ) ),		
-		TestCase( TestCase( USE_NAME( TestRunnerTest::ComandLineParserTestSetTest ) ) ),	
+		TestCase( TestCase( USE_NAME( TestRunnerTest::ComandLineParserTestSetTest ) ) ),
+		TestCase( TestCase( USE_NAME( TestRunnerTest::ComandLineParserTestsAndTestSetsTest ) ) ),		
 		TestCase()
 	};
 

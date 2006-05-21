@@ -55,6 +55,9 @@ namespace Aeryn
 		/** \brief Tests running test sets using CommandLineParser. */
 		static void ComandLineParserTestSetTest();
 
+		/** \brief Tests running test sets and tests together using CommandLineParser. */
+		static void ComandLineParserTestsAndTestSetsTest();
+
 	private:
 		/**	\brief Private constructor to prevent instantiation of class without
 		 *	non-static member functions. 

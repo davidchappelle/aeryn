@@ -47,7 +47,7 @@
  *	user of the program.
  *	\return 0 if all tests pass, otherwise -1.
  */
-int main( int argc, char *argv[] )
+int main( int, char *argv[] )
 {
 	using namespace Aeryn;
 	int result = -1;
@@ -56,8 +56,8 @@ int main( int argc, char *argv[] )
 	{
 		TestRunner testRunner;
 		Aeryn::AddTests( testRunner );	
-		TestRunner::IReportPtr report( TestRunner::CreateReport( argc, argv ) );
-		return testRunner.Run( *report.get() );
+		CommandLineParser commandLineParser( argv );
+		return testRunner.Run( commandLineParser );
 	}
 	catch( const Exception& e )
 	{
