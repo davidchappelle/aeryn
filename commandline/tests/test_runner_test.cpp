@@ -31,7 +31,7 @@
 #include <aeryn/test_set_name_not_found.hpp>
 #include <aeryn/duplicate_test_name_found.hpp>
 #include <aeryn/duplicate_test_set_name_found.hpp>
-#include <aeryn/command_line_parser.h>
+#include <aeryn/command_line_parser.hpp>
 #include <iostream>
 #include <string>
 #include <vector>

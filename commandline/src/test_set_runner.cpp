@@ -22,7 +22,7 @@
  *  \brief TestSetRunner definition.
  */	
 
-#include "test_set_runner.h"
+#include "test_set_runner.hpp"
 #include <aeryn/test_failure.hpp>
 #include <aeryn/missing_test.hpp>
 #include <cassert>

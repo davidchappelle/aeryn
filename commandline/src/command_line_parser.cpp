@@ -22,7 +22,7 @@
  *  \brief CommandLineParser definition.
  */	
 
-#include <aeryn/command_line_parser.h>
+#include <aeryn/command_line_parser.hpp>
 #include <cassert>
 #include <iostream>
 

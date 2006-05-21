@@ -31,7 +31,7 @@
 #include "context_object_test.hpp"
 #include "simple_date_test.hpp"
 #include "test_runner_test.hpp"
-#include "command_line_parser_test.h"
+#include "command_line_parser_test.hpp"
 
 #include "add_tests.hpp"
 

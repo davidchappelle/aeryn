@@ -22,77 +22,18 @@
  *  \brief TestRunner implementation.
  */	
 
-#include "test_set_runner.h"
-#include "test_set_cont.h"
+#include "test_set_runner.hpp"
+#include "test_set_cont.hpp"
+#include "comand_line_test_set_builder.hpp"
 #include <aeryn/test_runner.hpp>
 #include <aeryn/minimal_report.hpp>
 #include <aeryn/terse_report.hpp>
 #include <aeryn/verbose_report.hpp>
 #include <aeryn/xcode_report.hpp>
-#include <aeryn/test_name_not_found.hpp>
-#include <aeryn/test_set_name_not_found.hpp>
-#include <aeryn/duplicate_test_name_found.hpp>
-#include <aeryn/duplicate_test_set_name_found.hpp>
-#include <aeryn/command_line_parser.h>
 #include <cassert>
-#include <algorithm>
-#include <map>
-
-
 
 namespace Aeryn
 {
-	//////////////////////////////////////////////////////////////////////////
-	namespace
-	{
-		//////////////////////////////////////////////////////////////////////////
-		TestSetCont::TestSet FindTestSetByName
-		( 
-			const std::string& name,
-			const TestSetCont& testSets
-		) 
-		{
-			TestSetCont::TestSet testSet;
-			if ( testSets.FindTestSetByName( name, testSet ) )
-			{
-				if ( !testSets.IsTestSetNameUnique( name ) )
-				{
-					throw DuplicateTestSetNameFound( name );
-				}			
-			}
-			else
-			{
-				throw TestSetNameNotFound( name );
-			}
-
-			return testSet;
-		}
-
-		//////////////////////////////////////////////////////////////////////////
-		TestCase FindTestByName
-		( 
-			const std::string& name,
-			const TestSetCont& testSets,
-			std::string &testSetName
-		) 
-		{			
-			TestCase test = testSets.FindTest( name, testSetName );
-			if ( !test.IsNull() )
-			{
-				if ( !testSets.IsTestNameUnique( name ) )
-				{
-					throw DuplicateTestNameFound( name );
-				}				
-			}
-			else
-			{
-				throw TestNameNotFound( name );
-			}
-
-			return test;
-		}
-	}
-	
 	//////////////////////////////////////////////////////////////////////////
 	TestRunner::IReportPtr TestRunner::CreateReport
 	(
@@ -267,56 +208,14 @@ namespace Aeryn
 		IReport& report 
 	) const
 	{
-		const CommandLineParser::SizeType testCount		= commandLine.TestCount();
-		const CommandLineParser::SizeType testSetCount	= commandLine.TestSetCount();
-
-		if ( testCount == 0 && testSetCount == 0)
+		if ( commandLine.TestCount() == 0 && commandLine.TestSetCount() == 0)
 		{
 			return Run( report );
 		}
 
 		TestSetCont testSets;
-		
-		CommandLineParser::ConstItr current = commandLine.TestSetBegin();
-		CommandLineParser::ConstItr end		= commandLine.TestSetEnd();
-		for( ; current != end; ++current )
-		{
-			testSets.AddTestSet( FindTestSetByName( *current, *testSets_.get() ) );
-		}
-
-		typedef std::map< std::string, TestSetCont::TestCaseCont > TestCaseContMap;
-		TestCaseContMap ts;
-
-		current = commandLine.TestBegin();
-		end		= commandLine.TestEnd();
-		for( ; current != end; ++current )
-		{
-			std::string testSetName;
-			TestCase test = FindTestByName( *current, *testSets_.get(), testSetName );			
-
-			// If the test belongs to one of the test sets already added there is
-			// no point in adding it again.
-			if ( std::find(	commandLine.TestSetBegin(), 
-							commandLine.TestSetEnd(),
-							testSetName ) == commandLine.TestSetEnd() )
-			{
-				ts[ testSetName ].push_back( test );
-			}
-		}
-
-		TestCaseContMap::const_iterator tsCurrent = ts.begin();
-		TestCaseContMap::const_iterator tsEnd = ts.end();
-		for( ; tsCurrent != tsEnd; ++tsCurrent )
-		{
-			testSets.AddTestSet( TestSetCont::TestSet( tsCurrent->second, tsCurrent->first ) );
-		}
-
+		CommandLineTestSetBuilder cltsb( commandLine, *testSets_.get(), testSets );
 		TestSetRunner runner( testSets, report );
 		return runner.Run();
-	}
-
-	
+	}	
 }
-
-
-

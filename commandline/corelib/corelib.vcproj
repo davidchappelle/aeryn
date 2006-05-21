@@ -100,6 +100,9 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath="..\src\comand_line_test_set_builder.cpp">
+			</File>
+			<File
 				RelativePath="..\src\command_line_parser.cpp">
 			</File>
 			<File
@@ -183,7 +186,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath="..\include\aeryn\command_line_parser.h">
+				RelativePath="..\src\comand_line_test_set_builder.hpp">
+			</File>
+			<File
+				RelativePath="..\include\aeryn\command_line_parser.hpp">
 			</File>
 			<File
 				RelativePath="..\include\aeryn\does_not_throw_exception.hpp">
@@ -252,10 +258,13 @@
 				RelativePath="..\include\aeryn\test_runner.hpp">
 			</File>
 			<File
-				RelativePath="..\src\test_set_cont.h">
+				RelativePath="..\src\test_set_cont.hpp">
 			</File>
 			<File
-				RelativePath="..\src\test_set_runner.h">
+				RelativePath="..\include\aeryn\test_set_name_not_found.hpp">
+			</File>
+			<File
+				RelativePath="..\src\test_set_runner.hpp">
 			</File>
 			<File
 				RelativePath="..\include\aeryn\throws_exception.hpp">
