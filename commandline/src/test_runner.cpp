@@ -36,24 +36,6 @@ namespace Aeryn
 {
 	//////////////////////////////////////////////////////////////////////////
 	TestRunner::IReportPtr TestRunner::CreateReport
-	(
-		int argc, 
-		char *argv[] 
-	)
-	{
-		std::auto_ptr< IReport > report( new MinimalReport );
-
-		if ( argc == 2 )
-		{
-			report = CreateReport( argv[1] );
-		}
-		
-		assert( report.get() );
-		return report;
-	}
-
-	//////////////////////////////////////////////////////////////////////////
-	TestRunner::IReportPtr TestRunner::CreateReport
 	( 
 		const std::string& reportName
 	)

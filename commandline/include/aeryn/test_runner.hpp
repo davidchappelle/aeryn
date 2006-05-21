@@ -120,34 +120,6 @@ namespace Aeryn
 		 */
 		typedef std::auto_ptr< IReport > IReportPtr;
 		
-		/**	\brief Creates a report based on command line parameters.
-		 *
-		 *	Aeryn includes an easy way to run different reports depending on the first command line argument 
-		 *	passed to the test application at runtime. This is achieved using the CreateReport 
-		 *	function. For example:
-		 *
-		 *	<pre><code>
-		 *	int main( int argc, char *argv[] )
-		 *	{
-		 *		using namespace Aeryn;
-		 *
-		 *		TestRunner testRunner;
-		 *		Aeryn::AddTests( testRunner );
-		 *
-		 *		TestRunner::IReportPtr report( TestRunner::CreateReport( argc, argv) );
-		 *		return testRunner.Run( *report.get() );
-		 *	}
-		 *	</code></pre>
-		 *
-		 *	The command line argument options are: <code>terse</code>, <code>verbose</code>, <code>xcode</code>.
-		 *
-		 *	\param argc An integer that contains the count of arguments that follow in argv. The argc parameter is always greater than or equal to 1. 
-		 *	\param argv An array of null-terminated strings representing command-line arguments entered by the user of the program.
-		 *	\return An IReportPtr pointing to an instance of a report.
-		 */
-		static IReportPtr CreateReport
-			( int argc, char *argv[] );
-
 		/**	\brief Default constructor. */
 		explicit TestRunner
 			();
@@ -276,6 +248,10 @@ namespace Aeryn
 			   IReport& report ) const;
 
 	private:
+		/**	\brief Creates a report based on command line parameters.
+		 *
+		 *	\return An IReportPtr pointing to an instance of a report.
+		 */
 		static IReportPtr CreateReport
 			( const std::string& reportName );		
 	};

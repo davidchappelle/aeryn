@@ -189,9 +189,6 @@
 				RelativePath="..\src\comand_line_test_set_builder.hpp">
 			</File>
 			<File
-				RelativePath="..\include\aeryn\command_line_parser.hpp">
-			</File>
-			<File
 				RelativePath="..\include\aeryn\does_not_throw_exception.hpp">
 			</File>
 			<File
@@ -308,6 +305,9 @@
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			<File
+				RelativePath="..\include\aeryn\command_line_parser.hpp">
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\Makefile">

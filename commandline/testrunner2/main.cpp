@@ -23,6 +23,9 @@
  */	
 
 #include <aeryn/test_registry.hpp>
+#include <aeryn/command_line_parser.hpp>
+#include <aeryn/exception.hpp>
+#include <iostream>
 
 /**	\brief main for test runner implementation for TestRegistry tests.
  *
@@ -36,9 +39,21 @@
  *	user of the program.
  *	\return 0 if all tests pass, otherwise -1.
  */
-int main(  int argc, char *argv[] )
+int main(  int, char *argv[] )
 {
 	using namespace Aeryn;
-	TestRunner::IReportPtr report( TestRunner::CreateReport( argc, argv ) );
-	return TestRegistry::GetTestRunner().Run( *report.get() );
+	int result = -1;
+
+	try
+	{
+		TestRunner testRunner;
+		CommandLineParser commandLineParser( argv );
+		return TestRegistry::GetTestRunner().Run( commandLineParser );
+	}
+	catch( const Exception& e )
+	{
+		std::cout << e.What() << std::endl;
+	}
+
+	return result;
 }
