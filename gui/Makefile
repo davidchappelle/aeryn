@@ -22,19 +22,19 @@ all :
 	cd corelib && $(MAKE)
 	cd tests && $(MAKE)
 	cd testrunner && $(MAKE)
-	cd testrunner2 && $(MAKE)
+	cd extras/testrunner2 && $(MAKE)
 
 clean : cleanhere
 	cd corelib && $(MAKE) clean
 	cd tests && $(MAKE) clean
 	cd testrunner && $(MAKE) clean
-	cd testrunner2 && $(MAKE) clean
+	cd extras/testrunner2 && $(MAKE) clean
 
 reallyclean : cleanhere
 	cd corelib && $(MAKE) reallyclean
 	cd tests && $(MAKE) reallyclean
 	cd testrunner && $(MAKE) reallyclean
-	cd testrunner2 && $(MAKE) reallyclean
+	cd extras/testrunner2 && $(MAKE) reallyclean
 	rm -rf build
 
 rebuild : reallyclean all
