@@ -18,7 +18,7 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/** \file comnand_line_parser.cpp
+/** \file command_line_parser.cpp
  *  \brief CommandLineParser definition.
  */	
 

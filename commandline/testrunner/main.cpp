@@ -41,8 +41,6 @@
  *	This main function creates a test runner and calls the exposed function in Aeryn's static test 
  *	library to add its tests to it.
  *
- *	\param argc An integer that contains the count of arguments that follow in argv. The argc parameter 
- *	is always greater than or equal to 1. 
  *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
  *	user of the program.
  *	\return 0 if all tests pass, otherwise -1.

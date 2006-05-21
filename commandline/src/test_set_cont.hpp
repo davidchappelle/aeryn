@@ -104,7 +104,7 @@ namespace Aeryn
 		/**	\brief Adds a test set and gives it a name.
 		 *
 		 *	\param testSetName The name to give the test set.
-		 *	\param testSet The TestSet to add.
+		 *	\param test The TestCase to add.
 		 */
 		void AddTestSet
 			( const std::string& testSetName,

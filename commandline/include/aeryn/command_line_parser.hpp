@@ -18,7 +18,7 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/** \file comnand_line_parser.hpp
+/** \file command_line_parser.hpp
  *  \brief CommandLineParser declaration.
  */	
 
@@ -162,13 +162,8 @@ namespace Aeryn
 		 *	Gets the next parameter from the commanline, if there is one, and increments
 		 *	the counter passed in.
 		 *
-		 *	\param i The current counter.
-		 *
-		 *	\param argc An integer that contains the count of arguments that follow in argv. 
-		 *
-		 *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
-		 *	user of the program.
-		 *
+		 *	\param current The current iterator position.
+		 *	\param end The string store end iterator.
 		 *	\param param Where to put the next parameter.
 		 *
 		 *	\return True if there is another parameter, otherwise false.

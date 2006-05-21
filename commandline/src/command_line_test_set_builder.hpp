@@ -36,6 +36,7 @@ namespace Aeryn
 	/**	\brief Finds a test by name.
 	 *
 	 *	\param name The name of the test to find.
+	 *	\param testSets The test sets to search in.
 	 *	\param testSetName A reference to a string to take the name of the test set
 	 * 	that the test belongs too.
 	 * 
@@ -46,13 +47,13 @@ namespace Aeryn
 	 */
 	TestCase FindTestByName
 		( const std::string& name,
-		const TestSetCont& testSets,
-		std::string &testSetName );
+		  const TestSetCont& testSets,
+		  std::string &testSetName );
 	
 	/**	\brief Finds a test set by name.
 	 *
 	 *	\param name The name of the test set to find.
-	 *	\param testSet A reference to a TestSet object to take the test set if found.
+	 *	\param testSets A reference to a TestSet object to take the test set if found.
 	 *
 	 *	\return True if the test set is found, otherwise false.
 	 *
