@@ -16,7 +16,12 @@
 
 ROOT_PATH = ..
 
-include ../make/common.mk
+include ../../make/common.mk
+
+BIN_DEST := $(ROOT_PATH)/../build/bin/
+LIB_DEST := $(ROOT_PATH)/../build/lib/
+INCLUDE := $(ROOT_PATH)/../include
+AERYN_INCLUDE := $(INCLUDE)/aeryn
 
 LDLIBS = -L$(LIB_DEST) -laeryn_tests -laeryn_core
 

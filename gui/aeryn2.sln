@@ -13,7 +13,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testrunner", "testrunner\te
 		{37ECFA81-2769-4971-889C-132578073A41} = {37ECFA81-2769-4971-889C-132578073A41}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testrunner2", "testrunner2\testrunner2.vcproj", "{9C126B0F-84F2-4E81-8E1F-3109D0CE1833}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testrunner2", "extras\testrunner2\testrunner2.vcproj", "{9C126B0F-84F2-4E81-8E1F-3109D0CE1833}"
 	ProjectSection(ProjectDependencies) = postProject
 		{37ECFA81-2769-4971-889C-132578073A41} = {37ECFA81-2769-4971-889C-132578073A41}
 	EndProjectSection
