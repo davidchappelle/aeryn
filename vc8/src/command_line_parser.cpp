@@ -18,11 +18,11 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/** \file comnand_line_parser.cpp
+/** \file command_line_parser.cpp
  *  \brief CommandLineParser definition.
  */	
 
-#include <aeryn/command_line_parser.h>
+#include <aeryn/command_line_parser.hpp>
 #include <cassert>
 #include <iostream>
 
@@ -36,49 +36,6 @@ namespace Aeryn
 		const std::string reportSwitch( "-r" );	
 	}
 	
-	//////////////////////////////////////////////////////////////////////////
-	CommandLineParser::CommandLineParser
-	( 
-		char *argv[ ] 
-	)
-	: commandLine_(),
-	  report_(),
-	  tests_(),
-	  testSets_()
-	{
-		StringStore commandArgs;
-		int i = 0;
-		while( argv[i] )
-		{
-			commandArgs.push_back( argv[i] );
-			++i;
-		}
-
-		Process( commandArgs );
-
-	}
-
-	//////////////////////////////////////////////////////////////////////////
-	CommandLineParser::CommandLineParser
-	( 
-		const char *argv[ ] 
-	)
-	: commandLine_(),
-	  report_(),
-	  tests_(),
-	  testSets_()
-	{
-		StringStore commandArgs;
-		int i = 0;
-		while( argv[i] )
-		{
-			commandArgs.push_back( argv[i] );
-			++i;
-		}
-
-		Process( commandArgs );
-	}
-
 	//////////////////////////////////////////////////////////////////////////
 	std::string CommandLineParser::CommandLine
 		() const

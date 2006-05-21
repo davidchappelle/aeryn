@@ -20,6 +20,7 @@ ROOT_PATH = ..
 
 LIB_OBJS = \
 	command_line_parser.o \
+	command_line_test_set_builder.o \
 	duplicate_test_name_found.o \
 	duplicate_test_set_name_found.o \
 	exception.o \
@@ -37,7 +38,9 @@ LIB_OBJS = \
 	test_failure.o \
 	test_funcs.o \
 	test_name_not_found.o \
+	test_set_cont.o \
 	test_set_name_not_found.o \
+	test_set_runner.o \
 	test_registry.o \
 	test_runner.o \
 	use_name.o \

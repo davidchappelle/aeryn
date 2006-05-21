@@ -31,7 +31,7 @@
 #include <aeryn/test_set_name_not_found.hpp>
 #include <aeryn/duplicate_test_name_found.hpp>
 #include <aeryn/duplicate_test_set_name_found.hpp>
-#include <aeryn/command_line_parser.h>
+#include <aeryn/command_line_parser.hpp>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -59,12 +59,20 @@ namespace Aeryn
 
 			/**	\brief Number of tests run. */
 			unsigned long testCount_;
+
+			/**	\brief Number of tests sets run. */
+			unsigned long testSetCount_;
+
+			/**	\brief Store for the name of the test set that's run. */
+			std::string testSetName_;
 			
 		public:
 			/**	Constructor */
 			explicit Report()
 				: store_(),
-				  testCount_(0)
+				  testCount_(0),
+				  testSetCount_(0),
+				  testSetName_()
 			{
 			}
 
@@ -87,6 +95,26 @@ namespace Aeryn
 				return testCount_;
 			}
 
+			/**	\brief Returns the number of test sets run.
+			 *
+			 *	\return Returns the number of test sets run.
+			 */
+			unsigned long TestSetCount
+				() const
+			{
+				return testSetCount_;
+			}
+
+			/**	\brief Returns the name of the test set run.
+			*
+			*	\return Returns the name of the test set run.
+			*/
+			std::string TestSetName
+				() const
+			{
+				return testSetName_;
+			}
+
 			virtual void BeginTesting
 				( const std::string&,
 				  unsigned long )
@@ -94,8 +122,10 @@ namespace Aeryn
 			}
 
 			virtual void BeginTestSet
-				( const std::string& )
+				( const std::string& testSetName )
 			{
+				testSetName_ = testSetName;
+				++testSetCount_;
 			}
 
 			virtual void BeginTest
@@ -199,7 +229,8 @@ namespace Aeryn
 			testRunner.RunByName( "Test8", report );
 			testRunner.RunByName( "Test10", report );
 
-			IS_EQUAL( static_cast< unsigned int >( 5 ), static_cast< unsigned int >( report.TestCount() ) );			
+			IS_EQUAL( static_cast< unsigned int >( 5 ), static_cast< unsigned int >( report.TestCount() ) );
+			IS_EQUAL( "Tests", report.TestSetName() );
 			Report::StoreType store = report.Store();
 			IS_EQUAL(  static_cast< unsigned int >( 5 ) , static_cast< unsigned int >( store.size() ) );
 			IS_EQUAL( "Test2", store[0] );
@@ -273,7 +304,8 @@ namespace Aeryn
 			Report report;
 			testRunner.RunByTestSetName( "Test set 2", report );
 
-		//	IS_EQUAL( static_cast< unsigned int >( 5 ), report.TestCount() );
+			IS_EQUAL( static_cast< unsigned int >( 5 ), report.TestCount() );
+			IS_EQUAL( "Test set 2", report.TestSetName() );
 			Report::StoreType store = report.Store();
 			IS_EQUAL(  static_cast< unsigned int >( 5 ), static_cast< unsigned int >( store.size() ) );
 			IS_EQUAL( "Test6", store[0] );
@@ -381,8 +413,7 @@ namespace Aeryn
 			testRunner.Add( "Test set 3", testSet3 );
 
 			const char *argv[] = {	"commandline",
-									"-ts", 
-									"Test set 2",
+									"-ts", "Test set 2",
 									0 };
 
 			CommandLineParser commandLineParser( argv );			
@@ -391,6 +422,45 @@ namespace Aeryn
 
 			Report::StoreType store = report.Store();
 			IS_EQUAL(  static_cast< unsigned int >( 5 ), static_cast< unsigned int >( store.size() ) );
+			IS_EQUAL( "Test6", store[0] );
+			IS_EQUAL( "Test7", store[1] );
+			IS_EQUAL( "Test8", store[2] );
+			IS_EQUAL( "Test9", store[3] );
+			IS_EQUAL( "Test10", store[4] );
+		}
+		catch( const Exception& e )
+		{
+			FAILED( e.What().c_str() );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void TestRunnerTest::ComandLineParserTestsAndTestSetsTest()
+	{
+		try
+		{
+			TestRunner testRunner;
+			testRunner.Add( "Test set 1", testSet1 );
+			testRunner.Add( "Test set 2", testSet2 );
+			testRunner.Add( "Test set 3", testSet3 );
+
+			const char *argv[] = {	"commandline",
+									"-ts", "Test set 2",
+									"-t", "Test7",
+									"-t", "Test9",
+									"-t", "Test1",
+									"-t", "Test2",
+									"-t", "Test13",
+									"-t", "Test14",
+									0 };
+
+			CommandLineParser commandLineParser( argv );			
+			Report report;
+			testRunner.Run( commandLineParser, report );		
+
+			Report::StoreType store = report.Store();
+			IS_EQUAL(  static_cast< unsigned int >( 9 ), static_cast< unsigned int >( store.size() ) );
+			IS_EQUAL(  static_cast< unsigned int >( 3 ), static_cast< unsigned int >( report.TestSetCount() ) );
 			IS_EQUAL( "Test6", store[0] );
 			IS_EQUAL( "Test7", store[1] );
 			IS_EQUAL( "Test8", store[2] );

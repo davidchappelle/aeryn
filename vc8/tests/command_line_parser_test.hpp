@@ -18,7 +18,7 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/** \file comnand_line_parser_test.hpp
+/** \file command_line_parser_test.hpp
  *  \brief CommandLineParserTest declaration.
  */	
 
