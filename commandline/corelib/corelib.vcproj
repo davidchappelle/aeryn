@@ -100,10 +100,10 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath="..\src\comand_line_test_set_builder.cpp">
+				RelativePath="..\src\command_line_parser.cpp">
 			</File>
 			<File
-				RelativePath="..\src\command_line_parser.cpp">
+				RelativePath="..\src\command_line_test_set_builder.cpp">
 			</File>
 			<File
 				RelativePath="..\src\duplicate_test_name_found.cpp">
@@ -186,7 +186,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath="..\src\comand_line_test_set_builder.hpp">
+				RelativePath="..\src\command_line_test_set_builder.hpp">
 			</File>
 			<File
 				RelativePath="..\include\aeryn\does_not_throw_exception.hpp">

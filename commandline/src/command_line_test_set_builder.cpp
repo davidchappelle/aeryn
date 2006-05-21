@@ -18,11 +18,11 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/** \file comand_line_test_set_builder.cpp
+/** \file command_line_test_set_builder.cpp
  *  \brief Definition of TestSetCont.
  */
 
-#include "comand_line_test_set_builder.hpp"
+#include "command_line_test_set_builder.hpp"
 #include <aeryn/duplicate_test_name_found.hpp>
 #include <aeryn/duplicate_test_set_name_found.hpp>
 #include <aeryn/test_set_name_not_found.hpp>

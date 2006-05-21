@@ -39,7 +39,7 @@ namespace Aeryn
 	//////////////////////////////////////////////////////////////////////////
 	class CommandLineParser;	
 
-	// Forward declared so test_set_cont.h can stay private.
+	// Forward declared so test_set_cont.hpp can stay private.
 	class TestSetCont;
 
 	/**	\brief Stores and runs all tests.

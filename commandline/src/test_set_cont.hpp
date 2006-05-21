@@ -18,7 +18,7 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/** \file test_set_cont.h
+/** \file test_set_cont.hpp
  *  \brief Declaration of TestSetCont.
  */
 

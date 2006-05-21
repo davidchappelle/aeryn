@@ -24,7 +24,7 @@
 
 #include "test_set_runner.hpp"
 #include "test_set_cont.hpp"
-#include "comand_line_test_set_builder.hpp"
+#include "command_line_test_set_builder.hpp"
 #include <aeryn/test_runner.hpp>
 #include <aeryn/minimal_report.hpp>
 #include <aeryn/terse_report.hpp>
