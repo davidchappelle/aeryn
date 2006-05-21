@@ -142,6 +142,9 @@
 				RelativePath="..\src\noncopyable.cpp">
 			</File>
 			<File
+				RelativePath="..\src\report_factory.cpp">
+			</File>
+			<File
 				RelativePath="..\src\terse_report.cpp">
 			</File>
 			<File
@@ -232,6 +235,9 @@
 			</File>
 			<File
 				RelativePath="..\include\aeryn\platform_report_output.hpp">
+			</File>
+			<File
+				RelativePath="..\include\aeryn\report_factory.hpp">
 			</File>
 			<File
 				RelativePath="..\include\aeryn\terse_report.hpp">

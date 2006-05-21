@@ -31,19 +31,10 @@
 namespace Aeryn
 {
 	//////////////////////////////////////////////////////////////////////////
-	ReportFactory::IReportPtr TestRunner::CreateReport
-	( 
-		const std::string& reportName
-	)
-	{
-		ReportFactory factory;
-		return factory.Create( reportName );
-	}
-	
-	//////////////////////////////////////////////////////////////////////////
 	TestRunner::TestRunner
-		() 
-	: testSets_( new TestSetCont )
+		( const ReportFactory& reportFactory ) 
+	: testSets_( new TestSetCont ),
+	  reportFactory_( reportFactory )
 	{
 	}
 
@@ -95,8 +86,7 @@ namespace Aeryn
 	int TestRunner::Run
 		() const
 	{
-		MinimalReport report;
-		return Run( report );
+		return Run( *reportFactory_.Create( ReportFactory::defaultTestName ).get() );
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
@@ -113,8 +103,7 @@ namespace Aeryn
 	int TestRunner::RunByName
 		(  const std::string& name ) const
 	{
-		MinimalReport report;
-		return RunByName( name, report );
+		return RunByName( name, *reportFactory_.Create( ReportFactory::defaultTestName ).get() );
 	}
 
 
@@ -138,8 +127,7 @@ namespace Aeryn
 		const std::string& name 
 	) const
 	{
-		MinimalReport report;
-		return RunByTestSetName( name, report );
+		return RunByTestSetName( name, *reportFactory_.Create( ReportFactory::defaultTestName ).get() );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -161,8 +149,7 @@ namespace Aeryn
 		const CommandLineParser& commandLine 
 	) const
 	{
-		ReportFactory::IReportPtr report( CreateReport( commandLine.Report() ) );
-		return Run( commandLine, *report.get() );
+		return Run( commandLine, *reportFactory_.Create( commandLine.Report() ).get() );
 	}
 
 	//////////////////////////////////////////////////////////////////////////

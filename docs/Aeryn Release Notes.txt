@@ -7,6 +7,7 @@ Added ability to run tests by test set name.
 
 Added a command line parser so test names, test tests and report names can be specified at the command line.
 
+Added report factory which can be extended to allow custom reports to be specified from the command line.
 
 
 Aeryn 2.1.1

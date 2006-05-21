@@ -30,49 +30,12 @@
 #endif // _MSC_VER
 
 #include <aeryn/test_case.hpp>
-#include <aeryn/ireport.hpp>
 #include <aeryn/details/noncopyable.hpp>
-#include <memory>
+#include <aeryn/report_factory.hpp>
 
-#include <aeryn/minimal_report.hpp>
-#include <aeryn/terse_report.hpp>
-#include <aeryn/verbose_report.hpp>
-#include <aeryn/xcode_report.hpp>
 
 namespace Aeryn
 {	
-	class ReportFactory : private Utils::Noncopyable
-	{
-
-	public:
-		/**	\brief Report smart pointer.
-		 *
-		 *	Used to automatically manage dynamically allocated report objects.
-		 */
-		typedef std::auto_ptr< IReport > IReportPtr;
-
-		IReportPtr Create( const std::string& name )
-		{
-			IReportPtr report( new MinimalReport );
-
-			if ( name == TerseReport::Name()  )
-			{
-				report.reset( new TerseReport( std::cout ) );
-			}
-			else if ( name == VerboseReport::Name() )
-			{
-				report.reset( new VerboseReport );
-			}
-			else if ( name == XcodeReport<>::Name() )
-			{
-				report.reset( new XcodeReport<>( std::cout, "bin/TestPassCookie.txt" ) );
-			}			
-
-			return report;
-		}
-	};
-
-
 	//////////////////////////////////////////////////////////////////////////
 	class CommandLineParser;	
 
@@ -148,12 +111,18 @@ namespace Aeryn
 	{
 	private:
 		/**	\brief A store for test sets. */
-		std::auto_ptr< TestSetCont >	testSets_;				
+		std::auto_ptr< TestSetCont >	testSets_;	
+
+		/**\ brief Report factory. */
+		const ReportFactory reportFactory_;
 
 	public:
-		/**	\brief Default constructor. */
+		/**	\brief Default constructor. 
+		 *
+		 *	\param reportFactory Factory used to create reports. Default = ReportFactory.
+		 */
 		explicit TestRunner
-			();
+			( const ReportFactory& reportFactory = ReportFactory() );
 
 		/**	\brief Destructor 
 		 *
@@ -193,7 +162,7 @@ namespace Aeryn
 		void Add
 			( const TestCase& singleTestCase );
 		
-		/**	\brief Runs all the tests with the default report (minimal).
+		/**	\brief Runs all the tests with the default report.
 		 *
 		 *	\return 0 if all tests pass, -1 if any fail.
 		 */
@@ -208,7 +177,7 @@ namespace Aeryn
 		int Run
 			(  IReport& report ) const;	
 
-		/**	\brief Runs the named test with the default report (minimal).
+		/**	\brief Runs the named test with the default report.
 		*
 		*	\param name The name of the test to run.
 		*	\return 0 if all tests pass, -1 if any fail.
@@ -227,9 +196,10 @@ namespace Aeryn
 		 *	\throw DuplicateTestNameFound if the test name specified is not unique.
 		 */
 		int RunByName
-			(  const std::string& name, IReport& report ) const;	
+			(  const std::string& name, 
+			   IReport& report ) const;	
 
-		/**	\brief Runs the named test set with the specified report.
+		/**	\brief Runs the named test set with the default report.
 		 *
 		 *	\param name The name of the test set to run.
 		 *	\return 0 if all tests pass, -1 if any fail.
@@ -276,15 +246,7 @@ namespace Aeryn
 		  */
 		 int Run
 			 ( const CommandLineParser& commandLine,
-			   IReport& report ) const;
-
-	private:
-		/**	\brief Creates a report based on command line parameters.
-		 *
-		 *	\return An IReportPtr pointing to an instance of a report.
-		 */
-		static ReportFactory::IReportPtr CreateReport
-			( const std::string& reportName );		
+			   IReport& report ) const;	
 	};
 }
 

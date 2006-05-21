@@ -33,6 +33,7 @@ LIB_OBJS = \
 	minimal_report.o \
 	missing_test.o \
 	noncopyable.o \
+	report_factory.o \
 	terse_report.o \
 	test_case.o \
 	test_failure.o \
