@@ -22,8 +22,8 @@
  *  \brief CommandLineParserTest definition.
  */	
 
-#include "command_line_parser_test.h"
-#include <aeryn/command_line_parser.h>
+#include "command_line_parser_test.hpp"
+#include <aeryn/command_line_parser.hpp>
 #include <aeryn/is_equal.hpp>
 #include <aeryn/is_true.hpp>
 #include <algorithm>

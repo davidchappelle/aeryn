@@ -31,7 +31,7 @@
 #include "context_object_test.hpp"
 #include "simple_date_test.hpp"
 #include "test_runner_test.hpp"
-#include "command_line_parser_test.h"
+#include "command_line_parser_test.hpp"
 
 #include "add_tests.hpp"
 
@@ -122,7 +122,8 @@ namespace Aeryn
 		TestCase( TestCase( USE_NAME( TestRunnerTest::RunByTestSetNameTestNotFoundTest ) ) ),
 		TestCase( TestCase( USE_NAME( TestRunnerTest::DuplicateTestSetNameFoundTest ) ) ),
 		TestCase( TestCase( USE_NAME( TestRunnerTest::ComandLineParserTestsTest ) ) ),		
-		TestCase( TestCase( USE_NAME( TestRunnerTest::ComandLineParserTestSetTest ) ) ),	
+		TestCase( TestCase( USE_NAME( TestRunnerTest::ComandLineParserTestSetTest ) ) ),
+		TestCase( TestCase( USE_NAME( TestRunnerTest::ComandLineParserTestsAndTestSetsTest ) ) ),		
 		TestCase()
 	};
 

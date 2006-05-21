@@ -32,14 +32,16 @@
 #include <aeryn/test_case.hpp>
 #include <aeryn/ireport.hpp>
 #include <aeryn/details/noncopyable.hpp>
-#include <vector>
-#include <ostream>
+#include <memory>
 
 namespace Aeryn
 {
 	//////////////////////////////////////////////////////////////////////////
-	class CommandLineParser;
-	
+	class CommandLineParser;	
+
+	// Forward declared so test_set_cont.hpp can stay private.
+	class TestSetCont;
+
 	/**	\brief Stores and runs all tests.
 	 *
 	 *	Test cases must be added to a test runner in order to be run.
@@ -108,25 +110,8 @@ namespace Aeryn
 	class TestRunner : private Utils::Noncopyable
 	{
 	private:
-		/**	\brief TestCase container type. */
-		typedef std::vector< TestCase >					TestCaseCont;
-
-		/**	\brief TestSet type. */
-		typedef std::pair< TestCaseCont, std::string >	TestSet;
-
-		/**	\brief TestSet container. */
-		typedef std::vector< TestSet >					TestSetCont;	
-
-		/**	\brief Result of running test indicator. */
-		enum Result
-		{
-			FAILED,
-			PASSED,
-			MISSING
-		};
-
 		/**	\brief A store for test sets. */
-		TestSetCont										testSets_;				
+		std::auto_ptr< TestSetCont >	testSets_;				
 
 	public:
 		/**	\brief Report smart pointer.
@@ -135,37 +120,15 @@ namespace Aeryn
 		 */
 		typedef std::auto_ptr< IReport > IReportPtr;
 		
-		/**	\brief Creates a report based on command line parameters.
-		 *
-		 *	Aeryn includes an easy way to run different reports depending on the first command line argument 
-		 *	passed to the test application at runtime. This is achieved using the CreateReport 
-		 *	function. For example:
-		 *
-		 *	<pre><code>
-		 *	int main( int argc, char *argv[] )
-		 *	{
-		 *		using namespace Aeryn;
-		 *
-		 *		TestRunner testRunner;
-		 *		Aeryn::AddTests( testRunner );
-		 *
-		 *		TestRunner::IReportPtr report( TestRunner::CreateReport( argc, argv) );
-		 *		return testRunner.Run( *report.get() );
-		 *	}
-		 *	</code></pre>
-		 *
-		 *	The command line argument options are: <code>terse</code>, <code>verbose</code>, <code>xcode</code>.
-		 *
-		 *	\param argc An integer that contains the count of arguments that follow in argv. The argc parameter is always greater than or equal to 1. 
-		 *	\param argv An array of null-terminated strings representing command-line arguments entered by the user of the program.
-		 *	\return An IReportPtr pointing to an instance of a report.
-		 */
-		static IReportPtr CreateReport
-			( int argc, char *argv[] );
-
 		/**	\brief Default constructor. */
 		explicit TestRunner
 			();
+
+		/**	\brief Destructor 
+		 *
+		 *	Required to prevent warnings when using std::autoptr with gcc.
+		 */
+		~TestRunner();
 
 		/**	\brief Adds a test set and gives it a name. 
 		 *
@@ -285,83 +248,12 @@ namespace Aeryn
 			   IReport& report ) const;
 
 	private:
+		/**	\brief Creates a report based on command line parameters.
+		 *
+		 *	\return An IReportPtr pointing to an instance of a report.
+		 */
 		static IReportPtr CreateReport
-			( const std::string& reportName );
-
-		/**	\brief Gives the number of test cases. */
-		unsigned long TestCount
-			() const;
-
-		/**	\brief Runs a test set and updates test counters.
-		 *
-		 *	\param failureCount A counter for failed tests.
-		 *	\param missingCount A counter for missing tests.
-		 *	\param testSet The test set to run.
-		 *	\param report The report the results are written to.
-		 */
-		void RunTestSet
-			( unsigned long& failureCount,
-			  unsigned long& missingCount,
-			  const TestSet& testSet,
-			  IReport& report ) const;
-		
-		/**	\brief Runs a test case and updates test counters.
-		 *
-		 *	\param failureCount A counter for failed tests.
-		 *	\param missingCount A counter for missing tests.
-		 *	\param test The test case to run.
-		 *	\param report The report the results are written to.
-		 */
-		void RunTest
-			( unsigned long& failureCount,
-			  unsigned long& missingCount,
-			  const TestCase& test,
-			  IReport& report ) const;
-		
-		/**	\brief Runs a test case.
-		 *
-		 *	\param test The test case to run.
-		 *	\param report The report the results are written to.
-		 *	\return true PASS if tests passed, MISSING if test is missing otherwise FAILED.
-		 */
-		Result RunTest
-			( const TestCase& test,
-			  IReport& report ) const;
-
-		/**	\brief Finds a test by name.
-		 *
-		 *	\param name The name of the test to find.
-		 *	\return The test if found otherwise TestCase().
-		 */
-		TestCase FindTest
-			( const std::string& name ) const;
-
-		/**	\brief Determines if the specified test name is unique.
-		 *
-		 *	\param name The test name to search for.
-		 *	\return true if the name is unique, otherwise false.
-		 */
-		bool IsTestNameUnique
-			( const std::string& name ) const;
-
-		/**	\brief Finds a test set by name.
-		 *
-		 *	\param name The name of the test set to find.
-		 *	\param testSet A reference to a TestSet object to take the test set if found.
-		 *	\return True if the test set is found, otherwise false.
-		*/
-		bool FindTestSetByName
-			( const std::string& name, 
-			  TestSet& testSet ) const;
-
-		/**	\brief Determines if the specified test set name is unique.
-		 *
-		 *	\param name The test set name to search for.
-		 *	\return true if the name is unique, otherwise false.
-		 */
-		bool IsTestSetNameUnique
-			( const std::string& name ) const;
-
+			( const std::string& reportName );		
 	};
 }
 

@@ -103,6 +103,12 @@
 				RelativePath="..\src\command_line_parser.cpp">
 			</File>
 			<File
+				RelativePath="..\src\command_line_test_set_builder.cpp">
+			</File>
+			<File
+				RelativePath="..\src\duplicate_test_name_found.cpp">
+			</File>
+			<File
 				RelativePath="..\src\duplicate_test_set_name_found.cpp">
 			</File>
 			<File
@@ -157,7 +163,13 @@
 				RelativePath="..\src\test_runner.cpp">
 			</File>
 			<File
+				RelativePath="..\src\test_set_cont.cpp">
+			</File>
+			<File
 				RelativePath="..\src\test_set_name_not_found.cpp">
+			</File>
+			<File
+				RelativePath="..\src\test_set_runner.cpp">
 			</File>
 			<File
 				RelativePath="..\src\use_name.cpp">
@@ -174,13 +186,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath="..\include\aeryn\command_line_parser.h">
+				RelativePath="..\src\command_line_test_set_builder.hpp">
 			</File>
 			<File
 				RelativePath="..\include\aeryn\does_not_throw_exception.hpp">
-			</File>
-			<File
-				RelativePath="..\src\duplicate_test_name_found.cpp">
 			</File>
 			<File
 				RelativePath="..\include\aeryn\duplicate_test_name_found.hpp">
@@ -246,6 +255,15 @@
 				RelativePath="..\include\aeryn\test_runner.hpp">
 			</File>
 			<File
+				RelativePath="..\src\test_set_cont.hpp">
+			</File>
+			<File
+				RelativePath="..\include\aeryn\test_set_name_not_found.hpp">
+			</File>
+			<File
+				RelativePath="..\src\test_set_runner.hpp">
+			</File>
+			<File
 				RelativePath="..\include\aeryn\throws_exception.hpp">
 			</File>
 			<File
@@ -287,6 +305,9 @@
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			<File
+				RelativePath="..\include\aeryn\command_line_parser.hpp">
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\Makefile">

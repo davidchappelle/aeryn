@@ -18,7 +18,7 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/** \file comnand_line_parser.hpp
+/** \file command_line_parser.hpp
  *  \brief CommandLineParser declaration.
  */	
 
@@ -73,19 +73,25 @@ namespace Aeryn
 		 *	See Customizing Command Line Processing for information on suppressing command-line processing. 
 		 *	The first command-line argument is always argv[1] and the last one is argv[argc – 1]. 
 		 */
+		template< class T >
 		CommandLineParser
-			( char *argv[ ] );
+			( T *argv[ ] )
+		: commandLine_(),
+		  report_(),
+		  tests_(),
+		  testSets_()
+		{
+			StringStore commandArgs;
+			int i = 0;
+			while( argv[i] )
+			{
+				commandArgs.push_back( argv[i] );
+				++i;
+			}
 
-		/**	\brief Constructor
-		 *	
-		 *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
-		 *	user of the program. By convention, argv[0] is the command with which the program is invoked, 
-		 *	argv[1] is the first command-line argument, and so on, until argv[argc], which is always NULL. 
-		 *	See Customizing Command Line Processing for information on suppressing command-line processing. 
-		 *	The first command-line argument is always argv[1] and the last one is argv[argc – 1]. 
-		 */
-		CommandLineParser
-			( const char *argv[ ] );
+			Process( commandArgs );
+
+		}
 
 		/**	\brief Returns command with which the program is invoked.
 		 *
@@ -156,13 +162,8 @@ namespace Aeryn
 		 *	Gets the next parameter from the commanline, if there is one, and increments
 		 *	the counter passed in.
 		 *
-		 *	\param i The current counter.
-		 *
-		 *	\param argc An integer that contains the count of arguments that follow in argv. 
-		 *
-		 *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
-		 *	user of the program.
-		 *
+		 *	\param current The current iterator position.
+		 *	\param end The string store end iterator.
 		 *	\param param Where to put the next parameter.
 		 *
 		 *	\return True if there is another parameter, otherwise false.

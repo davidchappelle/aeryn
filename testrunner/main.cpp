@@ -25,7 +25,7 @@
 #include "../tests/add_tests.hpp"
 #include <aeryn/test_runner.hpp>
 #include <aeryn/test_name_not_found.hpp>
-#include <aeryn/command_line_parser.h>
+#include <aeryn/command_line_parser.hpp>
 
 #include <iostream>
 #include <string>
@@ -41,13 +41,11 @@
  *	This main function creates a test runner and calls the exposed function in Aeryn's static test 
  *	library to add its tests to it.
  *
- *	\param argc An integer that contains the count of arguments that follow in argv. The argc parameter 
- *	is always greater than or equal to 1. 
  *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
  *	user of the program.
  *	\return 0 if all tests pass, otherwise -1.
  */
-int main( int argc, char *argv[] )
+int main( int, char *argv[] )
 {
 	using namespace Aeryn;
 	int result = -1;
@@ -56,8 +54,8 @@ int main( int argc, char *argv[] )
 	{
 		TestRunner testRunner;
 		Aeryn::AddTests( testRunner );	
-		TestRunner::IReportPtr report( TestRunner::CreateReport( argc, argv ) );
-		return testRunner.Run( *report.get() );
+		CommandLineParser commandLineParser( argv );
+		return testRunner.Run( commandLineParser );
 	}
 	catch( const Exception& e )
 	{
