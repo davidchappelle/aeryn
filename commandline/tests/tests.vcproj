@@ -144,7 +144,7 @@
 				RelativePath=".\add_tests.hpp">
 			</File>
 			<File
-				RelativePath=".\command_line_parser_test.h">
+				RelativePath=".\command_line_parser_test.hpp">
 			</File>
 			<File
 				RelativePath=".\context_object_test.hpp">
