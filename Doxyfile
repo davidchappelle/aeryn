@@ -5,7 +5,7 @@
 #---------------------------------------------------------------------------
 PROJECT_NAME           = Aeryn
 PROJECT_NUMBER         = 2.1.2
-OUTPUT_DIRECTORY       = "docs/doxygen"
+OUTPUT_DIRECTORY       = "build/doxygen"
 CREATE_SUBDIRS         = YES
 OUTPUT_LANGUAGE        = English
 USE_WINDOWS_ENCODING   = YES
