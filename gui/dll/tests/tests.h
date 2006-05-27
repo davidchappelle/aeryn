@@ -10,13 +10,4 @@
 #define TESTS_API __declspec(dllimport)
 #endif
 
-// This class is exported from the tests.dll
-class TESTS_API Ctests {
-public:
-	Ctests(void);
-	// TODO: add your methods here.
-};
-
-extern TESTS_API int ntests;
-
-TESTS_API int fntests(void);
+TESTS_API int TestCount();

@@ -19,18 +19,7 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     return TRUE;
 }
 
-// This is an example of an exported variable
-TESTS_API int ntests=0;
-
-// This is an example of an exported function.
-TESTS_API int fntests(void)
+TESTS_API int TestCount()
 {
-	return 42;
-}
-
-// This is the constructor of a class that has been exported.
-// see tests.h for the class definition
-Ctests::Ctests()
-{ 
-	return; 
+	return 6;
 }
