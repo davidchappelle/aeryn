@@ -13,7 +13,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\build"
+			OutputDirectory="..\..\build\bin\extras"
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
 			CharacterSet="2">
@@ -33,7 +33,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/bin/testrunner2_debug.exe"
+				OutputFile="$(OutDir)/testrunner2_debug.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/testrunner2.pdb"
@@ -43,7 +43,7 @@
 				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="..\..\build\bin\$(TargetName)"/>
+				CommandLine="$(OutDir)\$(TargetName)"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -63,7 +63,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\build"
+			OutputDirectory="..\..\build\bin\extras"
 			IntermediateDirectory="Release"
 			ConfigurationType="1"
 			CharacterSet="2">
@@ -80,7 +80,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/bin/testrunner2.exe"
+				OutputFile="$(OutDir)/testrunner2.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
