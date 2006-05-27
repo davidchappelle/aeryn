@@ -1,0 +1,56 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testclient", "testclient\testclient.vcproj", "{944C71F4-14F8-4A40-896F-3364CF55961D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{353C726F-CF45-46F9-83E4-CED0F6B70905} = {353C726F-CF45-46F9-83E4-CED0F6B70905}
+		{37ECFA81-2769-4971-889C-132578073A41} = {37ECFA81-2769-4971-889C-132578073A41}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "corelib", "..\..\corelib\corelib.vcproj", "{37ECFA81-2769-4971-889C-132578073A41}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dlltests", "dlltests\dlltests.vcproj", "{353C726F-CF45-46F9-83E4-CED0F6B70905}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D8919A00-D64F-4894-AD1C-811FD6CD5F05} = {D8919A00-D64F-4894-AD1C-811FD6CD5F05}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dynamiclibrarybin", "dynamiclibrarybin\dynamiclibrarybin.vcproj", "{73819477-F01F-4195-AFA5-CAD1C9FCED47}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dynamiclibraryclienttools", "dynamiclibraryclienttools\dynamiclibraryclienttools.vcproj", "{D8919A00-D64F-4894-AD1C-811FD6CD5F05}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{944C71F4-14F8-4A40-896F-3364CF55961D}.Debug.ActiveCfg = Debug|Win32
+		{944C71F4-14F8-4A40-896F-3364CF55961D}.Debug.Build.0 = Debug|Win32
+		{944C71F4-14F8-4A40-896F-3364CF55961D}.Release.ActiveCfg = Release|Win32
+		{944C71F4-14F8-4A40-896F-3364CF55961D}.Release.Build.0 = Release|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Debug.ActiveCfg = Debug|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Debug.Build.0 = Debug|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Release.ActiveCfg = Release|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Release.Build.0 = Release|Win32
+		{353C726F-CF45-46F9-83E4-CED0F6B70905}.Debug.ActiveCfg = Debug|Win32
+		{353C726F-CF45-46F9-83E4-CED0F6B70905}.Debug.Build.0 = Debug|Win32
+		{353C726F-CF45-46F9-83E4-CED0F6B70905}.Release.ActiveCfg = Release|Win32
+		{353C726F-CF45-46F9-83E4-CED0F6B70905}.Release.Build.0 = Release|Win32
+		{73819477-F01F-4195-AFA5-CAD1C9FCED47}.Debug.ActiveCfg = Debug|Win32
+		{73819477-F01F-4195-AFA5-CAD1C9FCED47}.Debug.Build.0 = Debug|Win32
+		{73819477-F01F-4195-AFA5-CAD1C9FCED47}.Release.ActiveCfg = Release|Win32
+		{73819477-F01F-4195-AFA5-CAD1C9FCED47}.Release.Build.0 = Release|Win32
+		{D8919A00-D64F-4894-AD1C-811FD6CD5F05}.Debug.ActiveCfg = Debug|Win32
+		{D8919A00-D64F-4894-AD1C-811FD6CD5F05}.Debug.Build.0 = Debug|Win32
+		{D8919A00-D64F-4894-AD1C-811FD6CD5F05}.Release.ActiveCfg = Release|Win32
+		{D8919A00-D64F-4894-AD1C-811FD6CD5F05}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
