@@ -1,5 +1,6 @@
 
 #include "dynamic_library_loader_test.hpp"
+#include "dll_path.h"
 #include <aeryn/extras/dynamic_library_loader.hpp>
 #include <aeryn/exception.hpp>
 #include <aeryn/failed.hpp>
@@ -10,20 +11,8 @@ namespace Aeryn
 {
 	namespace DynamicLibrary
 	{
-		//////////////////////////////////////////////////////////////////////////
 		namespace
 		{
-#ifdef _DEBUG
-			const std::string dllName = "dynamiclibrarybin_debug.dll";
-#else
-			const std::string dllName = "dynamiclibrarybin.dll";
-#endif
-			//////////////////////////////////////////////////////////////////////////
-			std::string DllPath( const std::string& path )
-			{
-				return path + dllName;
-			}
-
 			//////////////////////////////////////////////////////////////////////////
 			class DynamicLibraryLoaderFake : public DynamicLibraryLoader
 			{

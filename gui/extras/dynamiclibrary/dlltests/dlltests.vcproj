@@ -23,7 +23,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -62,7 +62,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
-				RuntimeLibrary="4"
+				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -103,7 +103,13 @@
 				RelativePath=".\add_tests.cpp">
 			</File>
 			<File
+				RelativePath=".\dll_path.cpp">
+			</File>
+			<File
 				RelativePath=".\dynamic_library_loader_test.cpp">
+			</File>
+			<File
+				RelativePath=".\test_dynamic_library_test.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -114,7 +120,13 @@
 				RelativePath=".\add_tests.hpp">
 			</File>
 			<File
+				RelativePath=".\dll_path.h">
+			</File>
+			<File
 				RelativePath=".\dynamic_library_loader_test.hpp">
+			</File>
+			<File
+				RelativePath=".\test_dynamic_library_test.hpp">
 			</File>
 		</Filter>
 		<Filter

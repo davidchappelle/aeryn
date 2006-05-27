@@ -116,6 +116,10 @@ namespace Aeryn
 		/**\ brief Report factory. */
 		const ReportFactory reportFactory_;
 
+	protected:
+		unsigned long TestCount
+			() const;
+
 	public:
 		/**	\brief Default constructor. 
 		 *

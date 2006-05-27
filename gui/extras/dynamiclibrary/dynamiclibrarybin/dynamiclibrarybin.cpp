@@ -1,13 +1,15 @@
-// dynamiclibrarybin.cpp : Defines the entry point for the DLL application.
-//
 
-#include <windows.h>
+#include <aeryn/extras/dynamic_library_test_runner.hpp>
+#include "../../../tests/add_tests.hpp"
 
-BOOL APIENTRY DllMain( HANDLE hModule, 
-                       DWORD  ul_reason_for_call, 
-                       LPVOID lpReserved
-					 )
+namespace Aeryn
 {
-    return TRUE;
+	namespace DynamicLibrary
+	{
+		void AddDynamicLibraryTests( TestRunner& testRunner )
+		{
+			AddTests( testRunner );
+		}
+	}
 }
 

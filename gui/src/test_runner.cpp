@@ -45,6 +45,13 @@ namespace Aeryn
 	}
 
 	//////////////////////////////////////////////////////////////////////////
+	unsigned long TestRunner::TestCount
+		() const
+	{
+		return static_cast< unsigned long >( testSets_->TestCount() );
+	}
+
+	//////////////////////////////////////////////////////////////////////////
 	void TestRunner::Add
 	( 
 		const std::string& name, 
