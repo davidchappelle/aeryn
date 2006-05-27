@@ -9,16 +9,41 @@ namespace Aeryn
 	//////////////////////////////////////////////////////////////////////////
 	namespace DynamicLibrary
 	{
-		TestCase dynamicLibraryLoaderTests[] = {	TestCase( USE_NAME( DynamicLibraryLoaderTest::LoadLibrary ) ),
-													TestCase() };
+		//////////////////////////////////////////////////////////////////////////
+		namespace
+		{
+			const std::string RemoveAppName
+				( const std::string& appPath )
+			{
+				const std::string::size_type pos = appPath.rfind( "\\" );
+				if ( pos != std::string::npos )
+				{
+					return appPath.substr( 0, pos + 1 );
+				}
+				else
+				{
+					return appPath;
+				}
+			}
+		}
 		
 		//////////////////////////////////////////////////////////////////////////
 		void AddTests
 		( 
-			TestRunner& testRunner 
+			TestRunner& testRunner,
+			const std::string& appPath
 		)
 		{
+			const std::string path = RemoveAppName( appPath );
 			
+			TestCase dynamicLibraryLoaderTests[] = 
+				{	
+					TestCase(	"Load Library Test", 
+								FunctionPtr( DynamicLibraryLoaderTest::LoadLibraryTest, path ) ),
+					TestCase(	"Load Library Fail Test", 
+								FunctionPtr( DynamicLibraryLoaderTest::LoadLibraryFailTest, path ) ),
+
+					TestCase() };	
 			
 			
 			testRunner.Add( USE_NAME( dynamicLibraryLoaderTests ) );

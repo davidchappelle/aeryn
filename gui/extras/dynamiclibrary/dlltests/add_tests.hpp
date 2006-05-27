@@ -10,7 +10,8 @@ namespace Aeryn
 	namespace DynamicLibrary
 	{
 		void AddTests
-			( TestRunner& testRunner );
+			( TestRunner& testRunner,
+			  const std::string& appPath );
 	}
 }
 

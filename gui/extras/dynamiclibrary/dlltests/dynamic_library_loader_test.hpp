@@ -2,6 +2,8 @@
 #ifndef AERYN_DYNAMIC_LIBRARY_DYNAMIC_LIBRARY_LOADER_TEST_H
 #define AERYN_DYNAMIC_LIBRARY_DYNAMIC_LIBRARY_LOADER_TEST_H
 
+#include <string>
+
 namespace Aeryn
 {
 	namespace DynamicLibrary
@@ -9,8 +11,11 @@ namespace Aeryn
 		class DynamicLibraryLoaderTest
 		{
 		public:
-			static void LoadLibrary
-				();
+			static void LoadLibraryTest
+				( const std::string& path );
+
+			static void LoadLibraryFailTest
+				( const std::string& path );
 		};
 	}
 }

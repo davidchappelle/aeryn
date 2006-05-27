@@ -14,7 +14,7 @@ int main( int, char* argv[] )
 	{
 		CommandLineParser commandLine( argv );
 		TestRunner testRunner;
-		DynamicLibrary::AddTests( testRunner );		
+		DynamicLibrary::AddTests( testRunner, commandLine.CommandLine() );		
 		result = testRunner.Run( commandLine );
 	}
 	catch( const Exception& e )
