@@ -41,11 +41,11 @@ namespace Aeryn
 		/**	\brief A pointer to the function that is called when the test case is run. */
 		FunctionPtr func_;
 
-		/**	\brief Indicates if the test fixture is a NULL terminator. */
+		/**	\brief Indicates if the test fixture is a null terminator. */
 		bool		isNull_;
 
 	public:
-		/**	\brief Used to create a NULL terminator. */
+		/**	\brief Used to create a null terminator. */
 		explicit TestCase
 			();
 
@@ -73,7 +73,7 @@ namespace Aeryn
 		void Run
 			() const;	
 
-		/**	\brief Indicates if the test case is a NULL terminator. */
+		/**	\brief Indicates if the test case is a null terminator. */
 		bool IsNull
 			() const;
 	};	

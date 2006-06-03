@@ -69,7 +69,7 @@ namespace Aeryn
 		 *	
 		 *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
 		 *	user of the program. By convention, argv[0] is the command with which the program is invoked, 
-		 *	argv[1] is the first command-line argument, and so on, until argv[argc], which is always NULL. 
+		 *	argv[1] is the first command-line argument, and so on, until argv[argc], which is always 0. 
 		 *	See Customizing Command Line Processing for information on suppressing command-line processing. 
 		 *	The first command-line argument is always argv[1] and the last one is argv[argc – 1]. 
 		 */
