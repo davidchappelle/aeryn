@@ -82,11 +82,9 @@ namespace Aeryn
 		  testSets_()
 		{
 			StringStore commandArgs;
-			int i = 0;
-			while( argv[i] )
+			for(int i = 0; argv[i]; ++i)
 			{
-				commandArgs.push_back( argv[i] );
-				++i;
+				commandArgs.push_back(argv[i]);
 			}
 
 			Process( commandArgs );
