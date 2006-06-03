@@ -86,7 +86,7 @@ namespace Aeryn
 	int TestRunner::Run
 		() const
 	{
-		return Run( *reportFactory_.Create( ReportFactory::defaultTestName ).get() );
+		return Run( *reportFactory_.Create( ReportFactory::defaultTestName ) );
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
@@ -95,7 +95,7 @@ namespace Aeryn
 		IReport& report
 	) const
 	{
-		TestSetRunner runner( *testSets_.get(), report );		
+		TestSetRunner runner( *testSets_, report );		
 		return runner.Run();
 	}
 
@@ -103,7 +103,7 @@ namespace Aeryn
 	int TestRunner::RunByName
 		(  const std::string& name ) const
 	{
-		return RunByName( name, *reportFactory_.Create( ReportFactory::defaultTestName ).get() );
+		return RunByName( name, *reportFactory_.Create( ReportFactory::defaultTestName ) );
 	}
 
 
@@ -116,7 +116,7 @@ namespace Aeryn
 	{
 		std::string testSetName;
 		TestSetCont testSets;
-		testSets.AddTestSet( testSetName, FindTestByName( name, *testSets_.get(), testSetName ) );
+		testSets.AddTestSet( testSetName, FindTestByName( name, *testSets_, testSetName ) );
 		TestSetRunner runner( testSets, report );
 		return runner.Run();
 	}
@@ -127,7 +127,7 @@ namespace Aeryn
 		const std::string& name 
 	) const
 	{
-		return RunByTestSetName( name, *reportFactory_.Create( ReportFactory::defaultTestName ).get() );
+		return RunByTestSetName( name, *reportFactory_.Create( ReportFactory::defaultTestName ) );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -138,7 +138,7 @@ namespace Aeryn
 	) const
 	{
 		TestSetCont testSets;		
-		testSets.AddTestSet( FindTestSetByName( name, *testSets_.get() ) );		
+		testSets.AddTestSet( FindTestSetByName( name, *testSets_ ) );		
 		TestSetRunner runner( testSets, report );
 		return runner.Run();
 	}
@@ -149,7 +149,7 @@ namespace Aeryn
 		const CommandLineParser& commandLine 
 	) const
 	{
-		return Run( commandLine, *reportFactory_.Create( commandLine.Report() ).get() );
+		return Run( commandLine, *reportFactory_.Create( commandLine.Report() ) );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -165,7 +165,7 @@ namespace Aeryn
 		}
 
 		TestSetCont testSets;
-		CommandLineTestSetBuilder cltsb( commandLine, *testSets_.get(), testSets );
+		CommandLineTestSetBuilder cltsb( commandLine, *testSets_, testSets );
 		TestSetRunner runner( testSets, report );
 		return runner.Run();
 	}	
