@@ -104,60 +104,6 @@ namespace Aeryn
 			return result;
 		}
 
-
-		/**	\brief Removes qualifier from fully qualified names.
-		 *
-		 *	If found, removes the qualifier from fully qualified names. For example MyClass::MyFunc becomes
-		 *	MyFunc.
-		 *
-		 *	\param name String to remove the qualifier from.
-		 *	\return A copy of the string with the qualifier removed.
-		 */
-		std::string RemoveQualifier
-			( const std::string& name )
-		{
-			std::string result = name;
-			std::string::size_type pos = result.find( "::" );
-
-			if ( pos != std::string::npos )
-			{
-				result = result.substr( pos + 2 );
-			}
-
-			return result;
-		}
-
-		/**	\brief Title cases
-		 *
-		 *	Title cases the supplied string.
-		 *
-		 *	\param name String to be title cased.
-		 *	\return A copy of the string title cased.
-		 */
-		std::string TitleCase
-			( const std::string& name )
-		{
-			std::string result;
-			for( std::string::size_type i = 0; i < name.length(); ++i )
-			{
-				if ( i == 0)
-				{
-					result += toupper( name[i] );
-				}
-				else
-				{
-					if ( std::isupper( name[ i ] ) )
-					{
-						result += ' ';
-					}
-
-					result += name[ i ];
-				}
-			}
-
-			return result;
-		}
-
 		/**	\brief Strips leading and following spaces.
 		 *
 		 *	\param name String to have spaces removed from.
@@ -190,8 +136,6 @@ namespace Aeryn
 		std::string result = RemoveIncarnate( name );
 		result = RemoveFunctionPtr( result );
 		result = RemoveAmp( result );
-		result = RemoveQualifier( result );
-		result = TitleCase( result );
 		result = StripSpaces( result );
 		return result;
 	}

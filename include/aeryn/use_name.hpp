@@ -30,12 +30,11 @@
 /**	\brief USE_NAME macro.
  *
  *	The test fixture name passed to a test case is often the same as the test fixture function name 
- *	itself. Therefore Aeryn provides a macro which extracts the test fixture function name, 
- *	reformats it by capitalising the first letter and inserting spaces prior to each following 
- *	capital letter, and passes it to the test case. 
+ *	itself. Therefore Aeryn provides a macro which extracts the test fixture function name
+ *	and passes it to the test case. 
  *
  *	The USE_NAME works in the same way for class based test fixtures removing <code>Incarnate&</code>
- *	and the class name from the test fixture function name. 
+ *	and <code>FunctionPtr</code>. 
  */
 #define USE_NAME( name ) ::Aeryn::FormatName( #name ), name
 
@@ -43,8 +42,7 @@ namespace Aeryn
 {
 	/**	\brief Format name.
 	 *
-	 *	Formats the supplied name by extracting the test fixture function name and reformatting it by 
-	 *	capitalising the first letter and inserting spaces prior to each following capital letter.
+	 *	Removes <code>Incarnate&</code> and <code>FunctionPtr</code> from function name.
 	 *
 	 *	\param name The name to format.
 	 */

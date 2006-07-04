@@ -230,7 +230,7 @@ namespace Aeryn
 			testRunner.RunByName( "Test10", report );
 
 			IS_EQUAL( 5, report.TestCount() );
-			IS_EQUAL( "Tests", report.TestSetName() );
+			IS_EQUAL( "tests", report.TestSetName() );
 			Report::StoreType store = report.Store();
 			IS_EQUAL(  static_cast< unsigned int >( 5 ) , static_cast< unsigned int >( store.size() ) );
 			IS_EQUAL( "Test2", store[0] );
