@@ -37,14 +37,15 @@ namespace Aeryn
 
 	//////////////////////////////////////////////////////////////////////////
 	Exception::~Exception
-		()
+		() throw()
 	{
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	std::string Exception::What() const
+	const char* Exception::what
+			() const throw()
 	{
-		return msg_;
+		return msg_.c_str();
 	}
 
 }

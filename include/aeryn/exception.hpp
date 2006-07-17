@@ -26,11 +26,12 @@
 #define AERYN_EXCEPTION_HPP
 
 #include <string>
+#include <exception>
 
 namespace Aeryn
 {
 	/**	\brief Aeryn base exception */
-	class Exception
+	class Exception : public std::exception
 	{
 	private:
 		/** \brief Exception message. */
@@ -46,14 +47,14 @@ namespace Aeryn
 
 		/**	\brief Destructor. */
 		virtual ~Exception
-			();
+			() throw();
 
 		/**	\brief Returns exception message.
 		 *
-		 *	\return The exception message.
+		 *	\return /Returns a C-style character string describing the general cause of the current error.
 		 */
-		virtual std::string What
-			() const;
+		virtual const char* what
+			() const throw();
 	};
 }
 

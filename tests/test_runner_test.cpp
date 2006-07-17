@@ -241,7 +241,7 @@ namespace Aeryn
 		}
 		catch( const Exception& e )
 		{
-			FAILED( e.What().c_str() );
+			FAILED( e.what() );
 		}
 
 	}
@@ -260,11 +260,11 @@ namespace Aeryn
 		}
 		catch( const TestNameNotFound& e )
 		{
-			IS_EQUAL( "Failed to find \"Test11\"", e.What() );
+			IS_EQUAL( "Failed to find \"Test11\"", e.what() );
 		}
 		catch( const Exception& e )
 		{
-			FAILED( e.What().c_str() );
+			FAILED( e.what() );
 		}
 	}
 
@@ -283,11 +283,11 @@ namespace Aeryn
 		}
 		catch( const DuplicateTestNameFound& e )
 		{
-			IS_EQUAL( "Duplicate test name found: \"Test1\"", e.What() );
+			IS_EQUAL( "Duplicate test name found: \"Test1\"", e.what() );
 		}
 		catch( const Exception& e )
 		{
-			FAILED( e.What().c_str() );
+			FAILED( e.what() );
 		}
 	}
 
@@ -316,7 +316,7 @@ namespace Aeryn
 		}
 		catch( const Exception& e )
 		{
-			FAILED( e.What().c_str() );
+			FAILED( e.what() );
 		}
 	}
 
@@ -336,11 +336,11 @@ namespace Aeryn
 		}
 		catch( const TestSetNameNotFound& e )
 		{
-			IS_EQUAL( "Failed to find \"Test set 4\"", e.What() );
+			IS_EQUAL( "Failed to find \"Test set 4\"", e.what() );
 		}
 		catch( const Exception& e )
 		{
-			FAILED( e.What().c_str() );
+			FAILED( e.what() );
 		}
 	}
 
@@ -360,11 +360,11 @@ namespace Aeryn
 		}
 		catch( const DuplicateTestSetNameFound& e )
 		{
-			IS_EQUAL( "Duplicate test set name found: \"Test set 2\"", e.What() );
+			IS_EQUAL( "Duplicate test set name found: \"Test set 2\"", e.what() );
 		}
 		catch( const Exception& e )
 		{
-			FAILED( e.What().c_str() );
+			FAILED( e.what() );
 		}
 	}
 
@@ -398,7 +398,7 @@ namespace Aeryn
 		}
 		catch( const Exception& e )
 		{
-			FAILED( e.What().c_str() );
+			FAILED( e.what() );
 		}
 	}
 
@@ -430,7 +430,7 @@ namespace Aeryn
 		}
 		catch( const Exception& e )
 		{
-			FAILED( e.What().c_str() );
+			FAILED( e.what() );
 		}
 	}
 
@@ -469,7 +469,7 @@ namespace Aeryn
 		}
 		catch( const Exception& e )
 		{
-			FAILED( e.What().c_str() );
+			FAILED( e.what() );
 		}
 	}
 }

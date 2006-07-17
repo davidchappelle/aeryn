@@ -50,7 +50,7 @@ int main(  int, char *argv[] )
 	}
 	catch( const Exception& e )
 	{
-		std::cout << e.What() << std::endl;
+		std::cout << e.what() << std::endl;
 	}
 
 	return result;
