@@ -31,22 +31,8 @@ namespace Aeryn
 	( 
 		const std::string& msg 
 	)
-		: msg_( msg )
+		: std::runtime_error( msg.c_str() )
 	{
 	}
-
-	//////////////////////////////////////////////////////////////////////////
-	Exception::~Exception
-		() throw()
-	{
-	}
-
-	//////////////////////////////////////////////////////////////////////////
-	const char* Exception::what
-			() const throw()
-	{
-		return msg_.c_str();
-	}
-
 }
 

@@ -26,35 +26,20 @@
 #define AERYN_EXCEPTION_HPP
 
 #include <string>
-#include <exception>
+#include <stdexcept>
 
 namespace Aeryn
 {
 	/**	\brief Aeryn base exception */
-	class Exception : public std::exception
+	class Exception : public std::runtime_error
 	{
-	private:
-		/** \brief Exception message. */
-		const std::string msg_;
-
 	public:
 		/**	\brief Constructor
 		 *
 		 *	\param msg Exception message.
 		 */
 		explicit Exception
-			( const std::string& msg );
-
-		/**	\brief Destructor. */
-		virtual ~Exception
-			() throw();
-
-		/**	\brief Returns exception message.
-		 *
-		 *	\return /Returns a C-style character string describing the general cause of the current error.
-		 */
-		virtual const char* what
-			() const throw();
+			( const std::string& msg );		
 	};
 }
 
