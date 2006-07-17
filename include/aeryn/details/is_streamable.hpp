@@ -125,6 +125,22 @@ namespace Aeryn
 			static const bool result = 
 				sizeof( testStreamable( getT< std::ostream& >() << getT< T const & >() ) ) ==
 				sizeof( TrueType );
+		};
+
+		/**	\brief IsStreamable specialisation for size_t.
+		 * 
+		 *	Prevents conversion warning when a conversion involves at size_t.
+		 */
+		template<>
+		struct IsStreamable<size_t>
+		{
+			static FalseType testStreamable
+				( const StreamableResult& );
+
+			static TrueType testStreamable
+				(...);
+
+			static const bool result =	true;
 		};	
 	}
 }
