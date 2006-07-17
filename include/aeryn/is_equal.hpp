@@ -130,33 +130,6 @@ namespace Aeryn
 
 	/**	\brief Determines if two objects of any type are equal (==). Throws if they are not.
 	 *
-	 *	This is a specialization for object 2 being size_t. This is intended to prevent
-	 *	the conversion warning.
-	 *
-	 *	\param lhs Object 1.
-	 *	\param rhs Object 2.
-	 *	\param lhscode A textural representation of object 1.
-	 *	\param rhscode A textural representation of object 2.
-	 *	\param line The line from which IsEqual is being called.
-	 *	\param file The file from which IsEqual is being called.
-	 *	\throws TestFailure if object 1 and object 2 are not equal.
-	 */
-	template< typename T >
-	inline void IsEqual
-	( 
-		const T& lhs, 
-		const std::size_t& rhs, 
-		const char* lhscode, 
-		const char* rhscode,
-		unsigned long line, 
-		const char* file 
-	)
-	{
-		IsEqual< T, T >( static_cast< T >( lhs ), static_cast< T >(rhs), lhscode,rhscode, line, file );
-	}
-
-	/**	\brief Determines if two objects of any type are equal (==). Throws if they are not.
-	 *
 	 *	\param lhs Object 1.
 	 *	\param rhs Object 2.
 	 *	\param lhscode A textural representation of object 1.

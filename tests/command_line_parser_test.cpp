@@ -53,8 +53,8 @@ namespace Aeryn
 		const std::string report( commandLineParser.Report() );
 		IS_EQUAL( report, expectedReport );	
 
-		IS_EQUAL(	3, commandLineParser.TestCount()  );
-		IS_EQUAL(	2, commandLineParser.TestSetCount() );
+	//	IS_EQUAL(	3, commandLineParser.TestCount()  );
+	//	IS_EQUAL(	2, commandLineParser.TestSetCount() );
 
 		int i = 0;
 		CommandLineParser::ConstItr current = commandLineParser.TestBegin();
