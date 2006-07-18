@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="tests"
+	Name="aeryntests"
 	ProjectGUID="{BD235919-D198-4C40-ADDA-44780A280F63}"
 	Keyword="Win32Proj">
 	<Platforms>

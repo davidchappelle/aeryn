@@ -3,10 +3,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "corelib", "corelib\corelib.
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests.vcproj", "{BD235919-D198-4C40-ADDA-44780A280F63}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testrunner", "testrunner\testrunner.vcproj", "{CBBE4C10-76D3-482A-80B9-6A3477D75668}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BD235919-D198-4C40-ADDA-44780A280F63} = {BD235919-D198-4C40-ADDA-44780A280F63}
@@ -23,6 +19,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mainlib", "extras\mainlib\m
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aeryntests", "aeryntests\tests.vcproj", "{BD235919-D198-4C40-ADDA-44780A280F63}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -33,10 +33,6 @@ Global
 		{37ECFA81-2769-4971-889C-132578073A41}.Debug.Build.0 = Debug|Win32
 		{37ECFA81-2769-4971-889C-132578073A41}.Release.ActiveCfg = Release|Win32
 		{37ECFA81-2769-4971-889C-132578073A41}.Release.Build.0 = Release|Win32
-		{BD235919-D198-4C40-ADDA-44780A280F63}.Debug.ActiveCfg = Debug|Win32
-		{BD235919-D198-4C40-ADDA-44780A280F63}.Debug.Build.0 = Debug|Win32
-		{BD235919-D198-4C40-ADDA-44780A280F63}.Release.ActiveCfg = Release|Win32
-		{BD235919-D198-4C40-ADDA-44780A280F63}.Release.Build.0 = Release|Win32
 		{CBBE4C10-76D3-482A-80B9-6A3477D75668}.Debug.ActiveCfg = Debug|Win32
 		{CBBE4C10-76D3-482A-80B9-6A3477D75668}.Debug.Build.0 = Debug|Win32
 		{CBBE4C10-76D3-482A-80B9-6A3477D75668}.Release.ActiveCfg = Release|Win32
@@ -49,6 +45,10 @@ Global
 		{C9E00B8B-EC47-4D70-9ABC-3DBE59713EA7}.Debug.Build.0 = Debug|Win32
 		{C9E00B8B-EC47-4D70-9ABC-3DBE59713EA7}.Release.ActiveCfg = Release|Win32
 		{C9E00B8B-EC47-4D70-9ABC-3DBE59713EA7}.Release.Build.0 = Release|Win32
+		{BD235919-D198-4C40-ADDA-44780A280F63}.Debug.ActiveCfg = Debug|Win32
+		{BD235919-D198-4C40-ADDA-44780A280F63}.Debug.Build.0 = Debug|Win32
+		{BD235919-D198-4C40-ADDA-44780A280F63}.Release.ActiveCfg = Release|Win32
+		{BD235919-D198-4C40-ADDA-44780A280F63}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
 		make\common.mk = make\common.mk
