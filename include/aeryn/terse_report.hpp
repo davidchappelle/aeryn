@@ -72,7 +72,7 @@ namespace Aeryn
 		 *	\param err The output stream to write the report progress (".", "F", etc) to. 
 		 */
 		explicit TerseReport
-			( std::ostream& out = std::cerr,
+			( std::ostream& out = std::cout,
 			  std::ostream& err = std::cerr );
 
 		virtual void BeginTesting
