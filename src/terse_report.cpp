@@ -59,7 +59,10 @@ namespace Aeryn
 	)
 	{
 		out_ << header;
-		out_ << separator << "\n";
+		if ( !header.empty() )
+		{
+			out_ << separator << "\n";
+		}
 	}
 
 	//////////////////////////////////////////////////////////////////////////

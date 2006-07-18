@@ -58,6 +58,9 @@ namespace Aeryn
 		/** A store for test set names. */
 		StringStore testSets_;
 
+		/**	\brief Flag that indicates if the header banner should be displayed. */
+		bool showHeader_;
+
 	public:
 		/**	\brief String store const iterator. */
 		typedef StringStore::const_iterator ConstItr;
@@ -79,7 +82,8 @@ namespace Aeryn
 		: commandLine_(),
 		  report_(),
 		  tests_(),
-		  testSets_()
+		  testSets_(),
+		  showHeader_( true )
 		{
 			StringStore commandArgs;
 			for(int i = 0; argv[i]; ++i)
@@ -103,6 +107,13 @@ namespace Aeryn
 		 *	\return The report specified on the command line, if any.
 		 */
 		std::string Report
+			() const;
+
+		/**	\brief Indicates if the header should be displayed in the report.
+		 *
+		 *	\return true if the report should be displayed. Otherwise false.
+		 */
+		bool DisplayHeader
 			() const;
 
 		/**	\brief Returns the number of tests.

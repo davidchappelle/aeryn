@@ -43,20 +43,32 @@ namespace Aeryn
 	TestSetRunner::TestSetRunner
 	( 
 		const TestSetCont& testSets, 
-		IReport& report 
+		IReport& report,
+		bool displayHeader /*= true*/
 	)
 	: testSets_( testSets ),
-	  report_( report )
+	  report_( report ),
+	  displayHeader_( displayHeader )
 	{
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	int TestSetRunner::Run()
+	int TestSetRunner::Run
+		()
 	{
 		const unsigned long testCout	= static_cast<unsigned long>( testSets_.TestCount() );
 		unsigned long failureCount		= 0;
 		unsigned long missingCount		= 0;
-		report_.BeginTesting( header, testCout );
+		
+		if ( displayHeader_ )
+		{
+			report_.BeginTesting( header, testCout );
+		}
+		else
+		{
+			const std::string blankHeader;
+			report_.BeginTesting( blankHeader, testCout );
+		}
 
 		TestSetCont::ConstItr currentTestSet	= testSets_.Begin();
 		TestSetCont::ConstItr endTestSet		= testSets_.End();

@@ -116,6 +116,9 @@ namespace Aeryn
 		/**\ brief Report factory. */
 		const ReportFactory reportFactory_;
 
+		/**	\brief Flag that indicates if the header banner should be displayed. */
+		bool displayHeader_;
+
 	public:
 		/**	\brief Default constructor. 
 		 *
@@ -232,7 +235,7 @@ namespace Aeryn
 		  *	\throw DuplicateTestSetNameFound if the test set name specified is not unique.
 		  */
 		 int Run
-			 ( const CommandLineParser& commandLine ) const;
+			 ( const CommandLineParser& commandLine );
 		 
 		 /** \brief Runs the tests specified by the command line with the specified report.
 		  *
@@ -246,7 +249,7 @@ namespace Aeryn
 		  */
 		 int Run
 			 ( const CommandLineParser& commandLine,
-			   IReport& report ) const;	
+			   IReport& report );	
 	};
 }
 

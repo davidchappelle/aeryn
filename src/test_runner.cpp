@@ -34,7 +34,8 @@ namespace Aeryn
 	TestRunner::TestRunner
 		( const ReportFactory& reportFactory ) 
 	: testSets_( new TestSetCont ),
-	  reportFactory_( reportFactory )
+	  reportFactory_( reportFactory ),
+	  displayHeader_( true )
 	{
 	}
 
@@ -95,7 +96,7 @@ namespace Aeryn
 		IReport& report
 	) const
 	{
-		TestSetRunner runner( *testSets_, report );		
+		TestSetRunner runner( *testSets_, report, displayHeader_ );		
 		return runner.Run();
 	}
 
@@ -117,7 +118,7 @@ namespace Aeryn
 		std::string testSetName;
 		TestSetCont testSets;
 		testSets.AddTestSet( testSetName, FindTestByName( name, *testSets_, testSetName ) );
-		TestSetRunner runner( testSets, report );
+		TestSetRunner runner( testSets, report, displayHeader_ );
 		return runner.Run();
 	}
 
@@ -139,7 +140,7 @@ namespace Aeryn
 	{
 		TestSetCont testSets;		
 		testSets.AddTestSet( FindTestSetByName( name, *testSets_ ) );		
-		TestSetRunner runner( testSets, report );
+		TestSetRunner runner( testSets, report, displayHeader_ );
 		return runner.Run();
 	}
 
@@ -147,7 +148,7 @@ namespace Aeryn
 	int TestRunner::Run
 	( 
 		const CommandLineParser& commandLine 
-	) const
+	)
 	{
 		return Run( commandLine, *reportFactory_.Create( commandLine.Report() ) );
 	}
@@ -157,8 +158,10 @@ namespace Aeryn
 	( 
 		const CommandLineParser& commandLine,
 		IReport& report 
-	) const
+	)
 	{
+		displayHeader_ = commandLine.DisplayHeader();
+		
 		if ( commandLine.TestCount() == 0 && commandLine.TestSetCount() == 0)
 		{
 			return Run( report );
@@ -166,7 +169,7 @@ namespace Aeryn
 
 		TestSetCont testSets;
 		CommandLineTestSetBuilder cltsb( commandLine, *testSets_, testSets );
-		TestSetRunner runner( testSets, report );
+		TestSetRunner runner( testSets, report, displayHeader_ );
 		return runner.Run();
 	}	
 }

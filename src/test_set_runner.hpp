@@ -54,6 +54,9 @@ namespace Aeryn
 		/**	\brief Reference to the report to use when running the tests. */
 		IReport& report_;
 
+		/**	\brief Flag that indicates if the header banner should be displayed. */
+		const bool displayHeader_;
+
 	public:
 		/**	\brief Constructor.
 		 *
@@ -62,7 +65,8 @@ namespace Aeryn
 		 */
 		explicit TestSetRunner
 			( const TestSetCont& testSets, 
-			  IReport& report );
+			  IReport& report,
+			  bool displayHeader );
 
 		/**	\brief Runs test sets.
 		 *

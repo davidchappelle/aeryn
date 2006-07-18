@@ -36,6 +36,8 @@ namespace Aeryn
 		const std::string testSwitch( "-t" );
 		const std::string testSetSwitch( "-ts" );
 		const std::string reportSwitch( "-r" );	
+		const std::string noHeaderSwitch( "-nh" );
+		const std::string noHeaderSwitchLong( "--noheader" );
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -50,6 +52,13 @@ namespace Aeryn
 		() const
 	{
 		return report_;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	bool CommandLineParser::DisplayHeader
+		() const
+	{
+		return showHeader_;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -115,12 +124,15 @@ namespace Aeryn
 			{
 				std::string param( *current );
 
-				if (    helpSwitch     == param
-				     || helpSwitchLong == param )
+				if ( helpSwitch == param || helpSwitchLong == param )
 				{
 					DoHelp();
 				}
-                                else if ( testSwitch == param && GetNextParam( current, end, param ) )
+				else if ( noHeaderSwitch == param || noHeaderSwitchLong == param )
+				{
+					showHeader_ = false;
+				}
+				else if ( testSwitch == param && GetNextParam( current, end, param ) )
 				{
 					tests_.push_back( param );
 				}
@@ -170,6 +182,7 @@ namespace Aeryn
             std::cerr << "    " << commandLine_ << " <options>\n\n";
             std::cerr << "Where <options> are:\n";
             std::cerr << "    -h  [ --help]     Display this help text\n";
+			std::cerr << "    -nh [ --noheader] Suppresses Aeryn header\n";
             std::cerr << "    -t  <test name>   Run any test called <test name>\n";
             std::cerr << "    -ts <set name>    Run any test set called <set name>\n";
             std::cerr << "    -r  <report type> Select report type\n\n";
