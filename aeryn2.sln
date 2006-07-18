@@ -52,6 +52,7 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
 		make\common.mk = make\common.mk
+		Doxyfile = Doxyfile
 		make\libraryBuild.mk = make\libraryBuild.mk
 		Makefile = Makefile
 	EndGlobalSection
