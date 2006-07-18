@@ -18,12 +18,11 @@ ROOT_PATH = ..
 
 include ../make/common.mk
 
-LDLIBS = -L$(LIB_DEST) -laeryn_tests -laeryn_core
+LDLIBS = -L$(LIB_DEST) -laeryn_tests -laeryn_core -laeryn_main
 
 PROG = $(BIN_DEST)TestClient2
 
 OBJS = \
-	main.o \
 	simple_calc.o \
 	simple_calc_test.o
 
