@@ -171,6 +171,11 @@ namespace Aeryn
 			  const StringStore::const_iterator& end, 
 			  std::string& param ) const;
 
+		/**	\brief Prints command line help and then exits
+		 */
+                void DoHelp
+                        () const;
+
 	};
 }
 

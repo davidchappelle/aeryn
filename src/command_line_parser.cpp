@@ -31,11 +31,13 @@ namespace Aeryn
 	//////////////////////////////////////////////////////////////////////////
 	namespace
 	{
+		const std::string helpSwitch( "-h" );
+		const std::string helpSwitchLong( "--help" );
 		const std::string testSwitch( "-t" );
 		const std::string testSetSwitch( "-ts" );
 		const std::string reportSwitch( "-r" );	
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////
 	std::string CommandLineParser::CommandLine
 		() const
@@ -105,15 +107,20 @@ namespace Aeryn
 
 		commandLine_ = commandArgs[0];
 
-		if ( commandArgs.size() > 2 )
+		if ( commandArgs.size() > 1 )
 		{
 			StringStore::const_iterator current = commandArgs.begin();
 			StringStore::const_iterator end		= commandArgs.end();
 			while( current != end )
 			{
 				std::string param( *current );
-				
-				if ( testSwitch == param && GetNextParam( current, end, param ) )
+
+				if (    helpSwitch     == param
+				     || helpSwitchLong == param )
+				{
+					DoHelp();
+				}
+                                else if ( testSwitch == param && GetNextParam( current, end, param ) )
 				{
 					tests_.push_back( param );
 				}
@@ -154,5 +161,23 @@ namespace Aeryn
 
 		return result;		
 	}
+
+	//////////////////////////////////////////////////////////////////////////
+
+        void CommandLineParser::DoHelp() const
+        {
+            std::cerr << "\nAeryn command line usage:\n\n";
+            std::cerr << "    " << commandLine_ << " <options>\n\n";
+            std::cerr << "Where <options> are:\n";
+            std::cerr << "    -h  [ --help]     Display this help text\n";
+            std::cerr << "    -t  <test name>   Run any test called <test name>\n";
+            std::cerr << "    -ts <set name>    Run any test set called <set name>\n";
+            std::cerr << "    -r  <report type> Select report type\n\n";
+            std::cerr << "Avilable report types:";
+            std::cerr << "    minimal, verbose, terse, xcode\n";
+            std::cerr << "\n";
+
+            std::exit(1);
+        }
 }
 
