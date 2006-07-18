@@ -14,9 +14,9 @@
 #  library; if not, write to the Free Software Foundation, Inc., 51 Franklin Stret,Fifth Floor,
 #  Boston, MA 02111-1307, USA
 
-ROOT_PATH = ..
+ROOT_PATH = ../..
 
-include ../make/common.mk
+include ../../make/common.mk
 
 LDLIBS = -L$(LIB_DEST) -laeryn_tests -laeryn_core -laeryn_main
 

@@ -20,24 +20,24 @@ include make/common.mk
 
 all :
 	cd corelib && $(MAKE)
-	cd mainlib && $(MAKE)
 	cd tests && $(MAKE)
 	cd testrunner && $(MAKE)
-	cd testrunner2 && $(MAKE)
+	cd extras/mainlib && $(MAKE)
+	cd extras/testrunner2 && $(MAKE)
 
 clean : cleanhere
 	cd corelib && $(MAKE) clean
-	cd mainlib && $(MAKE) clean
 	cd tests && $(MAKE) clean
 	cd testrunner && $(MAKE) clean
-	cd testrunner2 && $(MAKE) clean
+	cd extras/mainlib && $(MAKE) clean
+	cd extras/testrunner2 && $(MAKE) clean
 
 reallyclean : cleanhere
 	cd corelib && $(MAKE) reallyclean
-	cd mainlib && $(MAKE) reallyclean
 	cd tests && $(MAKE) reallyclean
 	cd testrunner && $(MAKE) reallyclean
-	cd testrunner2 && $(MAKE) reallyclean
+	cd extras/mainlib && $(MAKE) reallyclean
+	cd extras/testrunner2 && $(MAKE) reallyclean
 	rm -rf build
 
 rebuild : reallyclean all

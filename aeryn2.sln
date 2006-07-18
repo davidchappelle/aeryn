@@ -13,9 +13,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testrunner", "testrunner\te
 		{37ECFA81-2769-4971-889C-132578073A41} = {37ECFA81-2769-4971-889C-132578073A41}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testrunner2", "testrunner2\testrunner2.vcproj", "{9C126B0F-84F2-4E81-8E1F-3109D0CE1833}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testrunner2", "extras\testrunner2\testrunner2.vcproj", "{9C126B0F-84F2-4E81-8E1F-3109D0CE1833}"
 	ProjectSection(ProjectDependencies) = postProject
 		{37ECFA81-2769-4971-889C-132578073A41} = {37ECFA81-2769-4971-889C-132578073A41}
+		{C9E00B8B-EC47-4D70-9ABC-3DBE59713EA7} = {C9E00B8B-EC47-4D70-9ABC-3DBE59713EA7}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mainlib", "extras\mainlib\mainlib.vcproj", "{C9E00B8B-EC47-4D70-9ABC-3DBE59713EA7}"
+	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
 Global
@@ -40,6 +45,10 @@ Global
 		{9C126B0F-84F2-4E81-8E1F-3109D0CE1833}.Debug.Build.0 = Debug|Win32
 		{9C126B0F-84F2-4E81-8E1F-3109D0CE1833}.Release.ActiveCfg = Release|Win32
 		{9C126B0F-84F2-4E81-8E1F-3109D0CE1833}.Release.Build.0 = Release|Win32
+		{C9E00B8B-EC47-4D70-9ABC-3DBE59713EA7}.Debug.ActiveCfg = Debug|Win32
+		{C9E00B8B-EC47-4D70-9ABC-3DBE59713EA7}.Debug.Build.0 = Debug|Win32
+		{C9E00B8B-EC47-4D70-9ABC-3DBE59713EA7}.Release.ActiveCfg = Release|Win32
+		{C9E00B8B-EC47-4D70-9ABC-3DBE59713EA7}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
 		make\common.mk = make\common.mk

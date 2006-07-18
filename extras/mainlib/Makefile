@@ -16,14 +16,14 @@
 
 LIB_NAME = aeryn_main
 
-ROOT_PATH = ..
+ROOT_PATH = ../..
 
 LIB_OBJS = \
 	main.o
 
 default : all
 
-include ../make/libraryBuild.mk
+include ../../make/libraryBuild.mk
 
 SRC = $(ROOT_PATH)/src
 
