@@ -54,7 +54,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\bin"
+			OutputDirectory="..\build"
 			IntermediateDirectory="Release"
 			ConfigurationType="4"
 			CharacterSet="2">
