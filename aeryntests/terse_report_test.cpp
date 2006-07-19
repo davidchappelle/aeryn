@@ -47,7 +47,7 @@ namespace Aeryn
 					"\n"
 					"Error\t: Error!\n"
 					"\n" + std::string( 60, '-' ) + "\n"
-					"Ran 4 tests, 1 Passed, 2 Failed, 1 Missing.\n\n";
+					"Ran 4 tests, 1 Passed, 2 Failed, 1 Missing.\n";
 			}
 
 			namespace Other
@@ -63,7 +63,7 @@ namespace Aeryn
 					"\n"
 					"Error\t: Error!\n"
 					"\n" + std::string( 60, '-' ) + "\n"
-					"Ran 4 tests, 1 Passed, 2 Failed, 1 Missing.\n\n";
+					"Ran 4 tests, 1 Passed, 2 Failed, 1 Missing.\n";
 			}
 		}
 	}
