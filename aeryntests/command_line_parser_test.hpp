@@ -27,6 +27,10 @@
 
 namespace Aeryn
 {
+	/**	\brief CommandLineParser tests for defaults */
+	void CommandLineParserTestDefaults
+		();
+	
 	/**	\brief CommandLineParser tests for short switches */
 	void CommandLineParserTestShort
 		();	

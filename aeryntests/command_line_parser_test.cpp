@@ -31,6 +31,20 @@
 namespace Aeryn
 {
 	//////////////////////////////////////////////////////////////////////////
+	void CommandLineParserTestDefaults
+		()
+	{
+		const char *argv[] = { 0 };
+
+		CommandLineParser commandLineParser( argv );
+
+		IS_EQUAL( true, commandLineParser.DisplayHeader() );
+
+		IS_EQUAL(	static_cast< unsigned int >( 0 ), commandLineParser.TestCount()  );
+		IS_EQUAL(	static_cast< unsigned int >( 0 ), commandLineParser.TestSetCount() );
+	}
+	
+	//////////////////////////////////////////////////////////////////////////
 	void CommandLineParserTestShort
 		()
 	{

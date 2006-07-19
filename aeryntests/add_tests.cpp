@@ -130,8 +130,9 @@ namespace Aeryn
 	/**	\brief Array of ComandLineParser tests. */
 	TestCase commandLineParserTests[] =
 	{
+		TestCase( TestCase( USE_NAME( CommandLineParserTestDefaults ) ) ),
 		TestCase( TestCase( USE_NAME( CommandLineParserTestShort ) ) ),
-		TestCase( TestCase( USE_NAME( CommandLineParserTestLong ) ) ),
+		TestCase( TestCase( USE_NAME( CommandLineParserTestLong ) ) ),				
 		TestCase()
 	};
 
