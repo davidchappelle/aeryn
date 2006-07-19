@@ -41,6 +41,7 @@ namespace Aeryn
 								"-ts", "test set 1",
 								"-ts", "test set 2",
 								"-r", "report",
+								"-nh",
 								0 };
 
 		CommandLineParser commandLineParser( argv );
@@ -53,8 +54,10 @@ namespace Aeryn
 		const std::string report( commandLineParser.Report() );
 		IS_EQUAL( report, expectedReport );	
 
-	//	IS_EQUAL(	3, commandLineParser.TestCount()  );
-	//	IS_EQUAL(	2, commandLineParser.TestSetCount() );
+		IS_EQUAL( false, commandLineParser.DisplayHeader() );
+
+		IS_EQUAL(	static_cast< unsigned int >( 3 ), commandLineParser.TestCount()  );
+		IS_EQUAL(	static_cast< unsigned int >( 2 ), commandLineParser.TestSetCount() );
 
 		int i = 0;
 		CommandLineParser::ConstItr current = commandLineParser.TestBegin();
