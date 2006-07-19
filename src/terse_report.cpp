@@ -58,9 +58,9 @@ namespace Aeryn
 		unsigned long 
 	)
 	{
-		out_ << header;
 		if ( !header.empty() )
 		{
+			out_ << header;
 			out_ << separator << "\n";
 		}
 	}
@@ -175,7 +175,7 @@ namespace Aeryn
 			err_ << ", " << missingCount << " Missing";
 		}
 
-		err_ << ".\n\n";
+		err_ << ".\n";
 	}
 
 	//////////////////////////////////////////////////////////////////////////
