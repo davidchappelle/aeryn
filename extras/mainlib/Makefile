@@ -25,7 +25,7 @@ default : all
 
 include ../../make/libraryBuild.mk
 
-SRC = $(ROOT_PATH)/src
+SRC = $(ROOT_PATH)/extras/mainlib
 
 %.o : $(SRC)/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
