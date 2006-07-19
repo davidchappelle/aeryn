@@ -31,17 +31,64 @@
 namespace Aeryn
 {
 	//////////////////////////////////////////////////////////////////////////
-	void CommandLineParserTest
+	void CommandLineParserTestShort
 		()
 	{
 		const char *argv[] = {	"commandline",
 								"-t", "test 1",
 								"-t", "test 2",
-								"-t", "test 3",
+								"--test", "test 3",
 								"-ts", "test set 1",
-								"-ts", "test set 2",
+								"--testset", "test set 2",
 								"-r", "report",
 								"-nh",
+								0 };
+
+		CommandLineParser commandLineParser( argv );
+
+		const std::string expectedCommandLine( argv[0] );
+		const std::string commandLine( commandLineParser.CommandLine() );
+		IS_EQUAL( commandLine, expectedCommandLine );
+
+		const std::string expectedReport( argv[12] );
+		const std::string report( commandLineParser.Report() );
+		IS_EQUAL( report, expectedReport );	
+
+		IS_EQUAL( false, commandLineParser.DisplayHeader() );
+
+		IS_EQUAL(	static_cast< unsigned int >( 3 ), commandLineParser.TestCount()  );
+		IS_EQUAL(	static_cast< unsigned int >( 2 ), commandLineParser.TestSetCount() );
+
+		int i = 0;
+		CommandLineParser::ConstItr current = commandLineParser.TestBegin();
+		for(i = 2; i < 8; i+=2 )
+		{
+			IS_EQUAL( argv[i], *current );
+			 ++current;
+		}
+		IS_TRUE( commandLineParser.TestEnd() == current );
+
+		current = commandLineParser.TestSetBegin();
+		for(i = 8; i < 12; i+=2 )
+		{
+			IS_EQUAL( argv[i], *current );
+			++current;
+		}
+		IS_TRUE( commandLineParser.TestSetEnd() == current );
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void CommandLineParserTestLong
+		()
+	{
+		const char *argv[] = {	"commandline",
+								"-t", "test 1",
+								"--test", "test 2",
+								"--test", "test 3",
+								"--testset", "test set 1",
+								"-ts", "test set 2",
+								"--report", "report",
+								"--noheader",
 								0 };
 
 		CommandLineParser commandLineParser( argv );

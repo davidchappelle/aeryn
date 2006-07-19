@@ -34,8 +34,11 @@ namespace Aeryn
 		const std::string helpSwitch( "-h" );
 		const std::string helpSwitchLong( "--help" );
 		const std::string testSwitch( "-t" );
+		const std::string testSwitchLong( "--test" );
 		const std::string testSetSwitch( "-ts" );
+		const std::string testSetSwitchLong( "--testset" );
 		const std::string reportSwitch( "-r" );	
+		const std::string reportSwitchLong( "--report" );
 		const std::string noHeaderSwitch( "-nh" );
 		const std::string noHeaderSwitchLong( "--noheader" );
 	}
@@ -132,15 +135,15 @@ namespace Aeryn
 				{
 					showHeader_ = false;
 				}
-				else if ( testSwitch == param && GetNextParam( current, end, param ) )
+				else if ( ( testSwitch == param || testSwitchLong == param ) && GetNextParam( current, end, param ) )
 				{
 					tests_.push_back( param );
 				}
-				else if ( testSetSwitch == param && GetNextParam( current, end, param ) )
+				else if ( ( testSetSwitch == param || testSetSwitchLong == param ) && GetNextParam( current, end, param ) )
 				{
 					testSets_.push_back( param );
 				}
-				else if ( reportSwitch == param && GetNextParam( current, end, param ) )
+				else if ( ( reportSwitch == param || reportSwitchLong == param ) && GetNextParam( current, end, param ) )
 				{
 					report_ = param;				
 				}
@@ -183,9 +186,10 @@ namespace Aeryn
             std::cerr << "Where <options> are:\n";
             std::cerr << "    -h  [ --help]     Display this help text\n";
 			std::cerr << "    -nh [ --noheader] Suppresses Aeryn header\n";
-            std::cerr << "    -t  <test name>   Run any test called <test name>\n";
-            std::cerr << "    -ts <set name>    Run any test set called <set name>\n";
-            std::cerr << "    -r  <report type> Select report type\n\n";
+            std::cerr << "    -t  [ --test] <test name>   Run any test called <test name>\n";
+            std::cerr << "    -ts [ --testset] <set name>    Run any test set called <set name>\n";
+            std::cerr << "    -r  [ --report] <report type> Select report type\n";
+			std::cerr << "\n";
             std::cerr << "Avilable report types:";
             std::cerr << "    minimal, verbose, terse, xcode\n";
             std::cerr << "\n";

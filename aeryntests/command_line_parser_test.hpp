@@ -27,9 +27,13 @@
 
 namespace Aeryn
 {
-	/**	\brief CommandLineParser tests */
-	void CommandLineParserTest
+	/**	\brief CommandLineParser tests for short switches */
+	void CommandLineParserTestShort
 		();	
+
+	/**	\brief CommandLineParser tests for long switches*/
+	void CommandLineParserTestLong
+		();
 }
 
 #endif // AERYN_COMMAND_LINE_PARSER_TEST_HPP
