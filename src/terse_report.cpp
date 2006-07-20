@@ -45,9 +45,9 @@ namespace Aeryn
 	TerseReport::TerseReport
 	( 
 		std::ostream& out,
-		std::ostream& err
+		std::ostream& progress
 	)
-	: out_( out ), err_( err )
+	: out_( out ), progress_( progress )
 	{
 	}
 
@@ -87,7 +87,7 @@ namespace Aeryn
 		const std::string&
 	)
 	{
-		err_ << ".";
+		progress_ << ".";
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ namespace Aeryn
 		const TestFailure& failure
 	)
 	{
-		err_ << "F";
+		progress_ << "F";
 		WriteTestDetails( testName );	
 
 		errorString_ << FormatFailure< COMPILER >::Out( failure );
@@ -110,7 +110,7 @@ namespace Aeryn
 		const TestMissing& 
 	)
 	{
-		err_ << "N";
+		progress_ << "N";
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -120,7 +120,7 @@ namespace Aeryn
 		const std::string& errorDetails 
 	)
 	{
-		err_ << "E";
+		progress_ << "E";
 		WriteTestDetails( testName );
 
 		errorString_ << "Error\t: " << errorDetails << "\n";
@@ -151,31 +151,31 @@ namespace Aeryn
 		unsigned long missingCount
 	)
 	{
-		err_ << "\n";
+		out_ << "\n";
 		
 		if ( failureCount > 0 )
 		{
-			err_ << "\n";
-			err_ << errorString_.str();
-			err_ << separator << "\n";
+			out_ << "\n";
+			out_ << errorString_.str();
+			out_ << separator << "\n";
 		}
 		
-		err_ << "Ran " << testCount << " test";
+		out_ << "Ran " << testCount << " test";
 		if ( testCount != 1 )
 		{
-			err_ << "s";
+			out_ << "s";
 		}
 
-		err_ << ", ";
-		err_ << testCount - failureCount - missingCount << " Passed, ";
-		err_ << failureCount << " Failed";
+		out_ << ", ";
+		out_ << testCount - failureCount - missingCount << " Passed, ";
+		out_ << failureCount << " Failed";
 
 		if ( missingCount > 0)
 		{
-			err_ << ", " << missingCount << " Missing";
+			out_ << ", " << missingCount << " Missing";
 		}
 
-		err_ << ".\n";
+		out_ << ".\n";
 	}
 
 	//////////////////////////////////////////////////////////////////////////

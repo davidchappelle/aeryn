@@ -53,7 +53,7 @@ namespace Aeryn
 		std::ostream		&out_;
 
 		/**	\brief A reference to the output stream to write the report progress (".", "F", etc) to. */
-		std::ostream		&err_;
+		std::ostream		&progress_;
 
 		/**	\brief A buffer for the main report which is written to out_ when the tests are complete. */
 		std::stringstream	errorString_;
@@ -69,11 +69,11 @@ namespace Aeryn
 		/**	\brief Constructor.
 		 *
 		 *	\param out The output stream to write the main report to. 
-		 *	\param err The output stream to write the report progress (".", "F", etc) to. 
+		 *	\param progress The output stream to write the report progress (".", "F", etc) to. 
 		 */
 		explicit TerseReport
 			( std::ostream& out = std::cout,
-			  std::ostream& err = std::cerr );
+			  std::ostream& progress = std::cerr );
 
 		virtual void BeginTesting
 			( const std::string& header,
