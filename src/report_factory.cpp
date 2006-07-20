@@ -30,88 +30,95 @@ namespace Aeryn
 	//////////////////////////////////////////////////////////////////////////
 	const std::string ReportFactory::defaultTestName = "default";
 
+	//////////////////////////////////////////////////////////////////////////
+	std::string ReportFactory::DefaultTestName
+			()
+	{
+		return defaultTestName;
+	}
+	
 	ReportFactory::ReportFactory()
 			: reportMap()
-		{
-			Add( defaultTestName, &CreateMinimalReport );
-			Add( MinimalReport::Name(), &CreateMinimalReport );
-			Add( TerseReport::Name(), &CreateTerseReport );
-			Add( VerboseReport::Name(), &CreateVerboseReport );
-			Add( XcodeReport<>::Name(), &CreateXCodeReport );
-		}
+	{
+		Add( DefaultTestName(), &CreateMinimalReport );
+		Add( MinimalReport::Name(), &CreateMinimalReport );
+		Add( TerseReport::Name(), &CreateTerseReport );
+		Add( VerboseReport::Name(), &CreateVerboseReport );
+		Add( XcodeReport<>::Name(), &CreateXCodeReport );
+	}
 
-		//////////////////////////////////////////////////////////////////////////
-		ReportFactory::IReportPtr ReportFactory::CreateMinimalReport
-			()
-		{
-			return IReportPtr( new MinimalReport );
-		}
+	//////////////////////////////////////////////////////////////////////////
+	ReportFactory::IReportPtr ReportFactory::CreateMinimalReport
+		()
+	{
+		return IReportPtr( new MinimalReport );
+	}
 
-		//////////////////////////////////////////////////////////////////////////
-		ReportFactory::IReportPtr ReportFactory::CreateTerseReport()
-		{
-			return IReportPtr( new TerseReport );
-		}
+	//////////////////////////////////////////////////////////////////////////
+	ReportFactory::IReportPtr ReportFactory::CreateTerseReport()
+	{
+		return IReportPtr( new TerseReport );
+	}
 
-		//////////////////////////////////////////////////////////////////////////
-		ReportFactory::IReportPtr ReportFactory::CreateVerboseReport
-			()
-		{
-			return IReportPtr( new VerboseReport );
-		}
+	//////////////////////////////////////////////////////////////////////////
+	ReportFactory::IReportPtr ReportFactory::CreateVerboseReport
+		()
+	{
+		return IReportPtr( new VerboseReport );
+	}
 
-		//////////////////////////////////////////////////////////////////////////
-		ReportFactory::IReportPtr ReportFactory::CreateXCodeReport
-			()
-		{
-			return IReportPtr( new XcodeReport<>( std::cout, "bin/TestPassCookie.txt" ) );
-		}
+	//////////////////////////////////////////////////////////////////////////
+	ReportFactory::IReportPtr ReportFactory::CreateXCodeReport
+		()
+	{
+		return IReportPtr( new XcodeReport<>( std::cout, "bin/TestPassCookie.txt" ) );
+	}
 
-		//////////////////////////////////////////////////////////////////////////
-		ReportFactory::IReportPtr ReportFactory::Create
-		( 
-			const std::string& name 
-		) const
+	//////////////////////////////////////////////////////////////////////////
+	ReportFactory::IReportPtr ReportFactory::Create
+	( 
+		const std::string& name 
+	) const
+	{
+		IReportPtr report;
+		ReportMap::const_iterator func = reportMap.find( name );
+		if (  func != reportMap.end() )
 		{
-			IReportPtr report;
-			ReportMap::const_iterator func = reportMap.find( name );
-			if (  func != reportMap.end() )
+			report = func->second();
+		}
+		else
+		{
+			if ( name.empty() )
 			{
-				report = func->second();
-			}
-			else
-			{
-				if ( name.empty() )
+				func = reportMap.find( defaultTestName );
+				if (  func != reportMap.end() )
 				{
-					func = reportMap.find( defaultTestName );
-					if (  func != reportMap.end() )
-					{
-						report = func->second();
-					}
-					else
-					{
-						throw BadReportName( defaultTestName );
-					}
+					report = func->second();
 				}
 				else
 				{
-					throw BadReportName( name );
+					throw BadReportName( defaultTestName );
 				}
 			}
-
-			assert( 0 != report.get() );
-			return report;
+			else
+			{
+				throw BadReportName( name );
+			}
 		}
 
-		//////////////////////////////////////////////////////////////////////////
-		void ReportFactory::Add
-		( 
-			const std::string& name, 
-			IReportPtr(*func)() 
-		)
-		{
-			reportMap[name] = func;
-		}
+		assert( 0 != report.get() );
+		return report;
+	}
 
-		//////////////////////////////////////////////////////////////////////////		
+	//////////////////////////////////////////////////////////////////////////
+	void ReportFactory::Add
+	( 
+		const std::string& name, 
+		IReportPtr(*func)() 
+	)
+	{
+		reportMap[name] = func;
+	}
+
+	//////////////////////////////////////////////////////////////////////////		
 }

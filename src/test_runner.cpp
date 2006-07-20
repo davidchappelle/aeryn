@@ -87,7 +87,7 @@ namespace Aeryn
 	int TestRunner::Run
 		() const
 	{
-		return Run( *reportFactory_.Create( ReportFactory::defaultTestName ) );
+		return Run( *reportFactory_.Create( ReportFactory::DefaultTestName() ) );
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
@@ -104,7 +104,7 @@ namespace Aeryn
 	int TestRunner::RunByName
 		(  const std::string& name ) const
 	{
-		return RunByName( name, *reportFactory_.Create( ReportFactory::defaultTestName ) );
+		return RunByName( name, *reportFactory_.Create( ReportFactory::DefaultTestName() ) );
 	}
 
 
@@ -128,7 +128,7 @@ namespace Aeryn
 		const std::string& name 
 	) const
 	{
-		return RunByTestSetName( name, *reportFactory_.Create( ReportFactory::defaultTestName ) );
+		return RunByTestSetName( name, *reportFactory_.Create( ReportFactory::DefaultTestName() ) );
 	}
 
 	//////////////////////////////////////////////////////////////////////////

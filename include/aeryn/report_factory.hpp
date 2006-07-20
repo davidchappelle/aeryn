@@ -39,9 +39,6 @@ namespace Aeryn
 	class ReportFactory
 	{
 	public:
-		/**	\brief The name of the default test. */
-		static const std::string defaultTestName;
-
 		/**	\brief Report smart pointer.
 		 *
 		 *	Used to automatically manage dynamically allocated report objects.
@@ -52,18 +49,46 @@ namespace Aeryn
 		/**	\brief Report map type. */
 		typedef std::map< std::string, IReportPtr(*)() > ReportMap;
 
+		/**	\brief The name of the default test. */
+		static const std::string defaultTestName;
+
 		/** \brief Map of reports onto report name. */
 		ReportMap reportMap;
 
-
 	public:
-		/**	\brief Constructor.
+		/**	\brief Accessor for default test name.
+		 *
+		 *	Returns a string containing the default test name.
+		 */
+		static std::string DefaultTestName
+			();
+
+
+        /**	\brief Constructor.
 		 *
 		 *	Constructs default report map.
 		 */
 		explicit ReportFactory
 			();
 
+		/**	\brief Creates a report based on command line parameters.
+		 * 
+		 *	\return An IReportPtr pointing to an instance of a report.
+		 */
+		IReportPtr Create
+			( const std::string& name ) const;
+
+	protected:
+		/**	\brief Adds a new name to report map.
+		 *
+		 *	\param name The name to give the report.
+		 *	\param func The function that creates the report.
+		 */
+		void Add
+			( const std::string& name, 
+			  IReportPtr(*func)() );
+
+	private:
 		/**	\brief Creates a in instance of MinimalReport.
 		 *
 		 *	\return An instance of MinimalReport.
@@ -90,24 +115,7 @@ namespace Aeryn
 		 *	\return An instance of VerboseReport.
 		 */
 		static IReportPtr CreateXCodeReport
-			();
-
-		/**	\brief Creates a report based on command line parameters.
-		 * 
-		 *	\return An IReportPtr pointing to an instance of a report.
-		 */
-		IReportPtr Create
-			( const std::string& name ) const;
-
-	protected:
-		/**	\brief Adds a new name to report map.
-		 *
-		 *	\param name The name to give the report.
-		 *	\param func The function that creates the report.
-		 */
-		void Add
-			( const std::string& name, 
-			IReportPtr(*func)() );
+			();	
 	};
 
 }

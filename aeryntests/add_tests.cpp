@@ -32,6 +32,7 @@
 #include "simple_date_test.hpp"
 #include "test_runner_test.hpp"
 #include "command_line_parser_test.hpp"
+#include "report_factory_test.hpp"
 
 #include "add_tests.hpp"
 
@@ -136,6 +137,17 @@ namespace Aeryn
 		TestCase()
 	};
 
+	/**	\brief Array of ReportFactory tests. */
+	TestCase reportFactoryTests[] =
+	{
+		TestCase( TestCase( USE_NAME( ReportFactoryTest::StandardReportTests ) ) ),	
+		TestCase( TestCase( USE_NAME( ReportFactoryTest::InvalidReportNameTest ) ) ),	
+		TestCase( TestCase( USE_NAME( ReportFactoryTest::CustomReportFactoryTest ) ) ),		
+		TestCase()
+	};
+
+
+	//////////////////////////////////////////////////////////////////////////
 	void AddTests
 	( 
 		Aeryn::TestRunner& testRunner 
@@ -149,5 +161,6 @@ namespace Aeryn
 		testRunner.Add( USE_NAME( simpleDateTests ) );
 		testRunner.Add( USE_NAME( testRunnerTests ) );
 		testRunner.Add( USE_NAME( commandLineParserTests ) );
+		testRunner.Add( USE_NAME( reportFactoryTests ) );
 	}	
 }

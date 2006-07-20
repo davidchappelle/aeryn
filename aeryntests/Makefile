@@ -23,6 +23,7 @@ LIB_OBJS = \
 	command_line_parser_test.o \
 	context_object_test.o \
 	minimal_report_test.o \
+	report_factory_test.o \
 	simple_date.o \
 	simple_date_test.o \
 	terse_report_test.o \

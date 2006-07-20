@@ -59,6 +59,8 @@ namespace Aeryn
 	 *
 	 *	\throws DuplicateTestSetNameFound If the test set name is not unique.
 	 *	\throws TestSetNameNotFound If the test set cannot be found.
+	 *
+	 *	\note CommandLineTestSetBuilder is tested by TestRunnerTest.
 	 */
 	TestSetCont::TestSet FindTestSetByName
 		( const std::string& name,

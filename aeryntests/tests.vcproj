@@ -112,6 +112,9 @@
 				RelativePath=".\minimal_report_test.cpp">
 			</File>
 			<File
+				RelativePath=".\report_factory_test.cpp">
+			</File>
+			<File
 				RelativePath=".\simple_date.cpp">
 			</File>
 			<File
@@ -154,6 +157,9 @@
 			</File>
 			<File
 				RelativePath=".\namespace.hpp">
+			</File>
+			<File
+				RelativePath=".\report_factory_test.hpp">
 			</File>
 			<File
 				RelativePath=".\simple_date.hpp">
