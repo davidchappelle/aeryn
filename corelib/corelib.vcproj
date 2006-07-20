@@ -100,6 +100,9 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath="..\src\bad_report_name.cpp">
+			</File>
+			<File
 				RelativePath="..\src\command_line_parser.cpp">
 			</File>
 			<File
@@ -188,6 +191,9 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			<File
+				RelativePath="..\include\aeryn\bad_report_name.hpp">
+			</File>
 			<File
 				RelativePath="..\include\aeryn\command_line_parser.hpp">
 			</File>

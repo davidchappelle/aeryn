@@ -23,6 +23,7 @@
  */	
 
 #include <aeryn/report_factory.hpp>
+#include <aeryn/bad_report_name.hpp>
 
 namespace Aeryn
 {
@@ -80,10 +81,21 @@ namespace Aeryn
 			}
 			else
 			{
-				func = reportMap.find( defaultTestName );
-				if (  func != reportMap.end() )
+				if ( name.empty() )
 				{
-					report = func->second();
+					func = reportMap.find( defaultTestName );
+					if (  func != reportMap.end() )
+					{
+						report = func->second();
+					}
+					else
+					{
+						throw BadReportName( defaultTestName );
+					}
+				}
+				else
+				{
+					throw BadReportName( name );
 				}
 			}
 

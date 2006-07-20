@@ -19,6 +19,7 @@ LIB_NAME = aeryn_core
 ROOT_PATH = ..
 
 LIB_OBJS = \
+	bad_report_name.o \
 	command_line_parser.o \
 	command_line_test_set_builder.o \
 	duplicate_test_name_found.o \
