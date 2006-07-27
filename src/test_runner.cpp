@@ -160,16 +160,85 @@ namespace Aeryn
 		IReport& report 
 	)
 	{
-		displayHeader_ = commandLine.DisplayHeader();
+		int result = -1;
 		
-		if ( commandLine.TestCount() == 0 && commandLine.TestSetCount() == 0)
+		if ( commandLine.ListTests() || commandLine.ListTestSets() )
 		{
-			return Run( report );
+			List( commandLine, std::cout );
+			result = 0;
+		}
+		else
+		{
+			displayHeader_ = commandLine.DisplayHeader();
+		
+			if ( commandLine.TestCount() == 0 && commandLine.TestSetCount() == 0)
+			{
+				return Run( report );
+			}
+
+			TestSetCont testSets;
+			CommandLineTestSetBuilder cltsb( commandLine, *testSets_, testSets );
+			TestSetRunner runner( testSets, report, displayHeader_ );
+			result = runner.Run();
 		}
 
-		TestSetCont testSets;
-		CommandLineTestSetBuilder cltsb( commandLine, *testSets_, testSets );
-		TestSetRunner runner( testSets, report, displayHeader_ );
-		return runner.Run();
+		return result;
 	}	
+
+	//////////////////////////////////////////////////////////////////////////
+	void TestRunner::List
+	( 
+		const CommandLineParser& commandLine,
+		std::ostream& out 
+	) const
+	{
+		if ( commandLine.ListTests() && !commandLine.ListTestSets() )
+		{
+			out << "Test list:\n";
+		}
+		else if ( !commandLine.ListTests() && commandLine.ListTestSets() )
+		{
+			out << "Test set list:\n";
+		}
+		else if ( commandLine.ListTests() && commandLine.ListTestSets() )
+		{
+			out << "Test and test set list:\n";
+		}	
+
+		out << "\n";
+		
+		TestSetCont::ConstItr testSetIdx = testSets_->Begin();
+		TestSetCont::ConstItr testSetEnd = testSets_->End();
+
+		for( ; testSetIdx != testSetEnd; ++testSetIdx )
+		{
+			if ( commandLine.ListTestSets() )
+			{
+				out << " - " << testSetIdx->second << "\n";
+			}
+
+			TestSetCont::TestCaseCont::const_iterator testIdx = testSetIdx->first.begin();
+			TestSetCont::TestCaseCont::const_iterator testEnd = testSetIdx->first.end();
+
+			for( ; testIdx != testEnd; ++testIdx )
+			{
+				if ( commandLine.ListTests() )
+				{
+					if ( commandLine.ListTestSets() )
+					{
+						out << " ";
+					}
+					
+					out << " - " << testIdx->Name() << "\n";
+				}
+			}
+
+			if ( commandLine.ListTestSets() && commandLine.ListTests() )
+			{
+				out << "\n";
+			}
+		}
+
+		out << std::endl;
+	}
 }

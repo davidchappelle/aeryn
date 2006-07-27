@@ -241,7 +241,7 @@ namespace Aeryn
 		  *
 		  *	If no test or test sets are specified all test are run.
 		  *
-		  *	\param commandLine Command line parser..
+		  *	\param commandLine Command line parser.
 		  *	\param report The report.
 		  *	\return 0 if all tests pass, -1 if any fail.
 		  *	\throw TestSetNameNotFound if the test set name can't be found.
@@ -249,7 +249,16 @@ namespace Aeryn
 		  */
 		 int Run
 			 ( const CommandLineParser& commandLine,
-			   IReport& report );	
+			   IReport& report );
+
+	 private:
+		 /** \brief Lists tests and test sets
+		  *
+		  *	\param commandLine Command line parser.
+		  */
+		 void List
+			 ( const CommandLineParser& commandLine,
+			   std::ostream& out ) const;
 	};
 }
 
