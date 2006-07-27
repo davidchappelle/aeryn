@@ -26,10 +26,85 @@
 #include "test_set_cont.hpp"
 #include "command_line_test_set_builder.hpp"
 #include <aeryn/test_runner.hpp>
+#include <algorithm>
 #include <cassert>
 
 namespace Aeryn
 {
+	//////////////////////////////////////////////////////////////////////////
+	namespace
+	{
+		class ListTestsFunc
+		{
+		private:
+			const bool listTests_;
+			const bool listTestSets_;
+			std::ostream& out_;
+
+		public:
+			ListTestsFunc
+				( bool listTests,
+				  bool listTestSets,
+				  std::ostream& out )
+			: listTests_( listTests ),
+			  listTestSets_( listTestSets ),
+			  out_( out )
+			{
+				if ( listTests_ && !listTestSets_ )
+				{
+					out_ << "Test list:\n";
+				}
+				else if ( !listTests_ && listTestSets_ )
+				{
+					out_ << "Test set list:\n";
+				}
+				else if ( listTests_ && listTestSets_ )
+				{
+					out_ << "Test and test set list:\n";
+				}	
+
+				out_ << "\n";
+			}
+
+			void operator()
+				( const TestSetCont::ValueType& elem )
+			{
+				if ( listTestSets_ )
+				{
+					out_ << " - " << elem.second << "\n";
+				}
+
+				TestSetCont::TestCaseCont::const_iterator testIdx = elem.first.begin();
+				TestSetCont::TestCaseCont::const_iterator testEnd = elem.first.end();
+
+				for( ; testIdx != testEnd; ++testIdx )
+				{
+					if ( listTests_ )
+					{
+						if ( listTestSets_ )
+						{
+							out_ << " ";
+						}
+						
+						out_ << " - " << testIdx->Name() << "\n";
+					}
+				}
+
+				if ( listTestSets_ && listTests_ )
+				{
+					out_ << "\n";
+				}
+			}
+
+		private:
+			ListTestsFunc& operator=
+				( const ListTestsFunc& );				  
+		};
+
+
+	}
+	
+	
 	//////////////////////////////////////////////////////////////////////////
 	TestRunner::TestRunner
 		( const ReportFactory& reportFactory ) 
@@ -164,7 +239,8 @@ namespace Aeryn
 		
 		if ( commandLine.ListTests() || commandLine.ListTestSets() )
 		{
-			List( commandLine, std::cout );
+			ListTestsFunc listTestsFunc( commandLine.ListTests(), commandLine.ListTestSets(), std::cout );
+			std::for_each( testSets_->Begin(), testSets_->End(), listTestsFunc );
 			result = 0;
 		}
 		else
@@ -183,62 +259,5 @@ namespace Aeryn
 		}
 
 		return result;
-	}	
-
-	//////////////////////////////////////////////////////////////////////////
-	void TestRunner::List
-	( 
-		const CommandLineParser& commandLine,
-		std::ostream& out 
-	) const
-	{
-		if ( commandLine.ListTests() && !commandLine.ListTestSets() )
-		{
-			out << "Test list:\n";
-		}
-		else if ( !commandLine.ListTests() && commandLine.ListTestSets() )
-		{
-			out << "Test set list:\n";
-		}
-		else if ( commandLine.ListTests() && commandLine.ListTestSets() )
-		{
-			out << "Test and test set list:\n";
-		}	
-
-		out << "\n";
-		
-		TestSetCont::ConstItr testSetIdx = testSets_->Begin();
-		TestSetCont::ConstItr testSetEnd = testSets_->End();
-
-		for( ; testSetIdx != testSetEnd; ++testSetIdx )
-		{
-			if ( commandLine.ListTestSets() )
-			{
-				out << " - " << testSetIdx->second << "\n";
-			}
-
-			TestSetCont::TestCaseCont::const_iterator testIdx = testSetIdx->first.begin();
-			TestSetCont::TestCaseCont::const_iterator testEnd = testSetIdx->first.end();
-
-			for( ; testIdx != testEnd; ++testIdx )
-			{
-				if ( commandLine.ListTests() )
-				{
-					if ( commandLine.ListTestSets() )
-					{
-						out << " ";
-					}
-					
-					out << " - " << testIdx->Name() << "\n";
-				}
-			}
-
-			if ( commandLine.ListTestSets() && commandLine.ListTests() )
-			{
-				out << "\n";
-			}
-		}
-
-		out << std::endl;
-	}
+	}		
 }

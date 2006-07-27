@@ -249,16 +249,7 @@ namespace Aeryn
 		  */
 		 int Run
 			 ( const CommandLineParser& commandLine,
-			   IReport& report );
-
-	 private:
-		 /** \brief Lists tests and test sets
-		  *
-		  *	\param commandLine Command line parser.
-		  */
-		 void List
-			 ( const CommandLineParser& commandLine,
-			   std::ostream& out ) const;
+			   IReport& report );	 
 	};
 }
 

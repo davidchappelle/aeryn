@@ -49,14 +49,18 @@ namespace Aeryn
 		/**	\brief Store for test sets. */
 		CONT testSets_;
 
+		/**	\brief Counter for default test set names. */
 		unsigned long defaultTestSetCount_;
 
 	public:
 		/**	\brief test set container constant iterator. */
 		typedef CONT::const_iterator ConstItr;
 
-		/**	\brief test set container size type. */
+		/**	\brief test set container value type. */
 		typedef CONT::size_type SizeType;
+		/**	\brief test set container size type. */
+		typedef CONT::value_type ValueType;
+
 
 		/**	\brief Default constructor. */
 		explicit TestSetCont
