@@ -39,6 +39,8 @@ namespace Aeryn
 		CommandLineParser commandLineParser( argv );
 
 		IS_EQUAL( true, commandLineParser.DisplayHeader() );
+		IS_EQUAL( false, commandLineParser.ListTests() );
+		IS_EQUAL( false, commandLineParser.ListTestSets() );
 
 		IS_EQUAL(	static_cast< unsigned int >( 0 ), commandLineParser.TestCount()  );
 		IS_EQUAL(	static_cast< unsigned int >( 0 ), commandLineParser.TestSetCount() );
@@ -56,6 +58,8 @@ namespace Aeryn
 								"--testset", "test set 2",
 								"-r", "report",
 								"-nh",
+								"-lt",
+								"-lts",
 								0 };
 
 		CommandLineParser commandLineParser( argv );
@@ -69,6 +73,8 @@ namespace Aeryn
 		IS_EQUAL( report, expectedReport );	
 
 		IS_EQUAL( false, commandLineParser.DisplayHeader() );
+		IS_EQUAL( true, commandLineParser.ListTests() );
+		IS_EQUAL( true, commandLineParser.ListTestSets() );
 
 		IS_EQUAL(	static_cast< unsigned int >( 3 ), commandLineParser.TestCount()  );
 		IS_EQUAL(	static_cast< unsigned int >( 2 ), commandLineParser.TestSetCount() );
@@ -103,6 +109,8 @@ namespace Aeryn
 								"-ts", "test set 2",
 								"--report", "report",
 								"--noheader",
+								"--list-test-names",
+								"--list-test-set-names",
 								0 };
 
 		CommandLineParser commandLineParser( argv );
@@ -116,6 +124,8 @@ namespace Aeryn
 		IS_EQUAL( report, expectedReport );	
 
 		IS_EQUAL( false, commandLineParser.DisplayHeader() );
+		IS_EQUAL( true, commandLineParser.ListTests() );
+		IS_EQUAL( true, commandLineParser.ListTestSets() );
 
 		IS_EQUAL(	static_cast< unsigned int >( 3 ), commandLineParser.TestCount()  );
 		IS_EQUAL(	static_cast< unsigned int >( 2 ), commandLineParser.TestSetCount() );

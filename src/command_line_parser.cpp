@@ -41,6 +41,11 @@ namespace Aeryn
 		const std::string reportSwitchLong( "--report" );
 		const std::string noHeaderSwitch( "-nh" );
 		const std::string noHeaderSwitchLong( "--noheader" );
+		const std::string listTestsSwitch( "-lt" );
+		const std::string listTestsSwitchLong( "--list-test-names" );
+		const std::string listTestSetsSwitch( "-lts" );
+		const std::string listTestSetsSwitchLong( "--list-test-set-names" );
+
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -62,6 +67,20 @@ namespace Aeryn
 		() const
 	{
 		return showHeader_;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	bool CommandLineParser::ListTests
+		() const
+	{
+		return listTests_;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	bool CommandLineParser::ListTestSets
+			() const
+	{
+		return listTestSets_;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -135,6 +154,14 @@ namespace Aeryn
 				{
 					showHeader_ = false;
 				}
+				else if ( listTestsSwitch == param || listTestsSwitchLong == param )
+				{
+					listTests_ = true;
+				}
+				else if ( listTestSetsSwitch == param || listTestSetsSwitchLong == param )
+				{
+					listTestSets_ = true;
+				}
 				else if ( ( testSwitch == param || testSwitchLong == param ) && GetNextParam( current, end, param ) )
 				{
 					tests_.push_back( param );
@@ -189,6 +216,8 @@ namespace Aeryn
             std::cerr << "    -t  [ --test] <test name>   Run any test called <test name>\n";
             std::cerr << "    -ts [ --testset] <set name>    Run any test set called <set name>\n";
             std::cerr << "    -r  [ --report] <report type> Select report type\n";
+			std::cerr << "    -lt [ --list-test-names] Lists test names\n";
+			std::cerr << "    -lts[ --list-test-set-names] Lists test set names\n";
 			std::cerr << "\n";
             std::cerr << "Avilable report types:";
             std::cerr << "    minimal, verbose, terse, xcode\n";

@@ -61,6 +61,14 @@ namespace Aeryn
 		/**	\brief Flag that indicates if the header banner should be displayed. */
 		bool showHeader_;
 
+		/**	\brief Flag that indicates if tests should be listed. */
+		bool listTests_;
+
+		/**	\brief Flag that indicates if test sets should be listed.. */
+		bool listTestSets_;
+
+
+
 	public:
 		/**	\brief String store const iterator. */
 		typedef StringStore::const_iterator ConstItr;
@@ -83,7 +91,10 @@ namespace Aeryn
 		  report_(),
 		  tests_(),
 		  testSets_(),
-		  showHeader_( true )
+		  showHeader_( true ),
+		  listTests_( false ),
+		  listTestSets_( false )
+
 		{
 			StringStore commandArgs;
 			for(int i = 0; argv[i]; ++i)
@@ -114,6 +125,20 @@ namespace Aeryn
 		 *	\return true if the report should be displayed. Otherwise false.
 		 */
 		bool DisplayHeader
+			() const;
+
+		/**	\brief Indicates that tests should be listed.
+		 *
+		 *	\return true If tests should be listes. Otherwise false.
+		 */
+		bool ListTests
+			() const;
+
+		/**	\brief Indicates that test sets should be listed.
+		 *
+		 *	\return true If test setss should be listes. Otherwise false.
+		 */
+		bool ListTestSets
 			() const;
 
 		/**	\brief Returns the number of tests.
