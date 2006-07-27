@@ -109,7 +109,7 @@ namespace Aeryn
  *	
  *	 @see TestRegistry
  */
-#define REGISTER_TESTS(tests) REGISTER_TESTS_2(tests, AERYN_UNIQUE_NAME(tests))
+#define REGISTER_TESTS(tests) REGISTER_TESTS_WITH_NAME( __FILE__, tests )
 
 /**	\brief Helper for REGISTER_TESTS
  *
