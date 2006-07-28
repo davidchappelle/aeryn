@@ -34,15 +34,92 @@ namespace Aeryn
 	//////////////////////////////////////////////////////////////////////////
 	namespace
 	{
-		class ListTestsFunc
+		/**	\brief List Test Sets Functor
+		 *
+		 *	Lists tests and/or test sets to a provided stream.
+		 */
+		class ListTestSetsFunc
 		{
 		private:
+			/**	\brief List Tests Functor
+			 *
+			 *	Lists tests to a provided stream.
+			 */
+			class ListTestsFunc
+			{
+			private:
+				/**	\brief Flag to indicate if tests should be listed. */
+				const bool listTests_;
+
+				/**	\brief Flag to indicate if test sets should be listed. */
+				const bool listTestSets_;
+
+				/**	\brief Stream to list too. */
+				std::ostream& out_;
+
+			public:
+				/**	\brief Constructor.
+				 *
+				 *	\param listTests Flag to indicate if tests should be listed.
+				 *	\param listTestSets Flag to indicate if test sets should be listed.
+				 *	\param out Stream to list too.
+				 */
+				ListTestsFunc
+					( bool listTests,
+					bool listTestSets,
+					std::ostream& out )
+				: listTests_( listTests ),
+				listTestSets_( listTestSets ),
+				out_( out )
+				{
+				}
+
+				/**	\brief Function operator
+				 *
+				 *	Lists the tests from each test set.
+				 *
+				 *	\param elem Test set to list.
+				 */
+				void operator()
+					( const TestSetCont::TestCaseCont::value_type& elem )
+				{
+					if ( listTests_ )
+					{
+						if ( listTestSets_ )
+						{
+							out_ << " ";
+						}
+						
+						out_ << " - " << elem.Name() << "\n";
+					}
+				}
+
+			private:
+                /**	\brief Private assignment operator to prevent assignment. */
+				ListTestsFunc& operator=
+					( const ListTestsFunc& );
+
+			};
+
+			/**	\brief Flag to indicate if tests should be listed. */
 			const bool listTests_;
+
+			/**	\brief Flag to indicate if test sets should be listed. */
 			const bool listTestSets_;
+
+			/**	\brief Stream to list too. */
 			std::ostream& out_;
 
 		public:
-			ListTestsFunc
+			/**	\brief Constructor.
+			 *
+			 *	Prints header.
+			 *
+			 *	\param listTests Flag to indicate if tests should be listed.
+			 *	\param listTestSets Flag to indicate if test sets should be listed.
+			 *	\param out Stream to list too.
+			 */
+			ListTestSetsFunc
 				( bool listTests,
 				  bool listTestSets,
 				  std::ostream& out )
@@ -66,6 +143,12 @@ namespace Aeryn
 				out_ << "\n";
 			}
 
+			/**	\brief Function operator
+			 *
+			 *	Lists the tests from each test set and the name of the test set.
+			 *
+			 *	\param elem Test set to list.
+			 */
 			void operator()
 				( const TestSetCont::ValueType& elem )
 			{
@@ -74,22 +157,9 @@ namespace Aeryn
 					out_ << " - " << elem.second << "\n";
 				}
 
-				TestSetCont::TestCaseCont::const_iterator testIdx = elem.first.begin();
-				TestSetCont::TestCaseCont::const_iterator testEnd = elem.first.end();
-
-				for( ; testIdx != testEnd; ++testIdx )
-				{
-					if ( listTests_ )
-					{
-						if ( listTestSets_ )
-						{
-							out_ << " ";
-						}
-						
-						out_ << " - " << testIdx->Name() << "\n";
-					}
-				}
-
+				ListTestsFunc listTestsFunc( listTests_, listTestSets_, out_ );
+				std::for_each( elem.first.begin(), elem.first.end(), listTestsFunc );
+				
 				if ( listTestSets_ && listTests_ )
 				{
 					out_ << "\n";
@@ -97,8 +167,9 @@ namespace Aeryn
 			}
 
 		private:
-			ListTestsFunc& operator=
-				( const ListTestsFunc& );				  
+			/**	\brief Private assignment operator to prevent assignment. */
+			ListTestSetsFunc& operator=
+				( const ListTestSetsFunc& );				  
 		};
 
 
@@ -239,8 +310,8 @@ namespace Aeryn
 		
 		if ( commandLine.ListTests() || commandLine.ListTestSets() )
 		{
-			ListTestsFunc listTestsFunc( commandLine.ListTests(), commandLine.ListTestSets(), std::cout );
-			std::for_each( testSets_->Begin(), testSets_->End(), listTestsFunc );
+			ListTestSetsFunc listTestSetsFunc( commandLine.ListTests(), commandLine.ListTestSets(), std::cout );
+			std::for_each( testSets_->Begin(), testSets_->End(), listTestSetsFunc );
 			result = 0;
 		}
 		else
