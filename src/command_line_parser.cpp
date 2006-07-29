@@ -24,7 +24,7 @@
 
 #include <aeryn/command_line_parser.hpp>
 #include <cassert>
-#include <iostream>
+#include <sstream>
 
 namespace Aeryn
 {
@@ -81,6 +81,36 @@ namespace Aeryn
 			() const
 	{
 		return listTestSets_;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	bool CommandLineParser::ShowHelp
+			 () const
+	{
+		return showHelp_;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	std::string CommandLineParser::Help
+			 () const
+	{
+		std::stringstream str;
+
+		str << "Aeryn command line usage:\n\n";
+        str << "    " << commandLine_ << " <options>\n\n";
+        str << "Where <options> are:\n";
+        str << "    -h   [ --help] Display this help text\n";
+		str << "    -nh  [ --noheader] Suppresses Aeryn header\n";
+        str << "    -t   [ --test] <test name> Run any test called <test name>\n";
+        str << "    -ts  [ --testset] <set name> Run any test set called <set name>\n";
+        str << "    -r   [ --report] <report type> Select report type\n";
+		str << "    -lt  [ --list-test-names] Lists test names\n";
+		str << "    -lts [ --list-test-set-names] Lists test set names\n";
+		str << "\n";
+        str << "Avilable report types:";
+        str << "    minimal, verbose, terse, xcode\n";
+
+		return str.str();
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -148,7 +178,7 @@ namespace Aeryn
 
 				if ( helpSwitch == param || helpSwitchLong == param )
 				{
-					DoHelp();
+					showHelp_ = true;
 				}
 				else if ( noHeaderSwitch == param || noHeaderSwitchLong == param )
 				{
@@ -204,26 +234,5 @@ namespace Aeryn
 		return result;		
 	}
 
-	//////////////////////////////////////////////////////////////////////////
-
-        void CommandLineParser::DoHelp() const
-        {
-            std::cerr << "\nAeryn command line usage:\n\n";
-            std::cerr << "    " << commandLine_ << " <options>\n\n";
-            std::cerr << "Where <options> are:\n";
-            std::cerr << "    -h  [ --help]     Display this help text\n";
-			std::cerr << "    -nh [ --noheader] Suppresses Aeryn header\n";
-            std::cerr << "    -t  [ --test] <test name>   Run any test called <test name>\n";
-            std::cerr << "    -ts [ --testset] <set name>    Run any test set called <set name>\n";
-            std::cerr << "    -r  [ --report] <report type> Select report type\n";
-			std::cerr << "    -lt [ --list-test-names] Lists test names\n";
-			std::cerr << "    -lts[ --list-test-set-names] Lists test set names\n";
-			std::cerr << "\n";
-            std::cerr << "Avilable report types:";
-            std::cerr << "    minimal, verbose, terse, xcode\n";
-            std::cerr << "\n";
-
-            std::exit(1);
-        }
 }
 

@@ -67,6 +67,9 @@ namespace Aeryn
 		/**	\brief Flag that indicates if test sets should be listed.. */
 		bool listTestSets_;
 
+		/**	\brief Flag that indicates if help should be displayed. */
+		bool showHelp_;
+
 
 
 	public:
@@ -93,7 +96,8 @@ namespace Aeryn
 		  testSets_(),
 		  showHeader_( true ),
 		  listTests_( false ),
-		  listTestSets_( false )
+		  listTestSets_( false ),
+		  showHelp_( false )
 
 		{
 			StringStore commandArgs;
@@ -140,6 +144,20 @@ namespace Aeryn
 		 */
 		bool ListTestSets
 			() const;
+
+		/**	\brief Indicated if help should be displayed. 
+		 *
+		 *	\return true if the help should be displayed. Otherwise false.
+		 */
+		 bool ShowHelp
+			 () const;
+
+		 /** \brief Generates a string with command line help.
+		  *	
+		  *	\return A string containing a description of the command line parameters.
+		  */
+		 std::string Help
+			 () const;
 
 		/**	\brief Returns the number of tests.
 		 *
@@ -206,12 +224,6 @@ namespace Aeryn
 			( StringStore::const_iterator& current, 
 			  const StringStore::const_iterator& end, 
 			  std::string& param ) const;
-
-		/**	\brief Prints command line help and then exits
-		 */
-                void DoHelp
-                        () const;
-
 	};
 }
 

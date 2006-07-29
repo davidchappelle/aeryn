@@ -308,8 +308,14 @@ namespace Aeryn
 	{
 		int result = -1;
 		
-		if ( commandLine.ListTests() || commandLine.ListTestSets() )
+		if ( commandLine.ShowHelp() )
 		{
+			std::cerr << "\n" << commandLine.Help() << std::endl;
+			result = 0;	
+		} 
+		else if ( commandLine.ListTests() || commandLine.ListTestSets() )
+		{
+			std::cout << "\n";
 			ListTestSetsFunc listTestSetsFunc( commandLine.ListTests(), commandLine.ListTestSets(), std::cout );
 			std::for_each( testSets_->Begin(), testSets_->End(), listTestSetsFunc );
 			result = 0;
