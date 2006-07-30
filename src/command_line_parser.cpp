@@ -101,9 +101,9 @@ namespace Aeryn
         str << "Where <options> are:\n";
         str << "    -h   [ --help] Display this help text\n";
 		str << "    -nh  [ --noheader] Suppresses Aeryn header\n";
-        str << "    -t   [ --test] <test name> Run any test called <test name>\n";
-        str << "    -ts  [ --testset] <set name> Run any test set called <set name>\n";
-        str << "    -r   [ --report] <report type> Select report type\n";
+        str << "    -t   [ --test] <test name> Run the test called <test name>\n";
+        str << "    -ts  [ --testset] <set name> Run the test set called <set name>\n";
+        str << "    -r   [ --report] <report name> Select report called <report name>\n";
 		str << "    -lt  [ --list-test-names] Lists test names\n";
 		str << "    -lts [ --list-test-set-names] Lists test set names\n";
 		str << "\n";
