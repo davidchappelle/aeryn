@@ -55,7 +55,7 @@ int main( int, char *argv[] )
 		TestRunner testRunner;
 		Aeryn::AddTests( testRunner );	
 		CommandLineParser commandLineParser( argv );
-		return testRunner.Run( commandLineParser );
+		result = testRunner.Run( commandLineParser );
 	}
 	catch( const Exception& e )
 	{
