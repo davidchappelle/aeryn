@@ -37,7 +37,7 @@ int main(int /*argc*/, char *argv[])
 	try
 	{
 		CommandLineParser commandLineParser( argv );
-		return TestRegistry::GetTestRunner().Run( commandLineParser );
+		result = TestRegistry::GetTestRunner().Run( commandLineParser );
 	}
 	catch( const Exception& e )
 	{
