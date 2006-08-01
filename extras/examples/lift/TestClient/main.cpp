@@ -1,8 +1,9 @@
-#include <aeryn/test_runner.hpp>
+
+#include "../LiftTest/add_tests.hpp"
+
 #include <aeryn/test_name_not_found.hpp>
 #include <aeryn/command_line_parser.hpp>
 
-#include <iostream>
 
 int main( int, char *argv[] )
 {
@@ -12,7 +13,7 @@ int main( int, char *argv[] )
 	try
 	{
 		TestRunner testRunner;
-
+		LiftTests::AddTests( testRunner );
 		CommandLineParser commandLineParser( argv );
 		result = testRunner.Run( commandLineParser );
 	}
