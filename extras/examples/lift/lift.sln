@@ -2,6 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 8.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestClient", "TestClient\TestClient.vcproj", "{A373EED5-0EAA-4FDA-86AC-EB1EB9B10914}"
 	ProjectSection(ProjectDependencies) = postProject
 		{42DF442D-8E6A-4534-B51A-6129BB724BD8} = {42DF442D-8E6A-4534-B51A-6129BB724BD8}
+		{E56D0354-0E77-4C0D-9A18-0A03DA141E8F} = {E56D0354-0E77-4C0D-9A18-0A03DA141E8F}
 		{37ECFA81-2769-4971-889C-132578073A41} = {37ECFA81-2769-4971-889C-132578073A41}
 	EndProjectSection
 EndProject
@@ -10,6 +11,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "corelib", "..\..\..\corelib
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LiftTest", "LiftTest\LiftTest.vcproj", "{42DF442D-8E6A-4534-B51A-6129BB724BD8}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lift", "lift\lift.vcproj", "{E56D0354-0E77-4C0D-9A18-0A03DA141E8F}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
@@ -31,6 +36,10 @@ Global
 		{42DF442D-8E6A-4534-B51A-6129BB724BD8}.Debug.Build.0 = Debug|Win32
 		{42DF442D-8E6A-4534-B51A-6129BB724BD8}.Release.ActiveCfg = Release|Win32
 		{42DF442D-8E6A-4534-B51A-6129BB724BD8}.Release.Build.0 = Release|Win32
+		{E56D0354-0E77-4C0D-9A18-0A03DA141E8F}.Debug.ActiveCfg = Debug|Win32
+		{E56D0354-0E77-4C0D-9A18-0A03DA141E8F}.Debug.Build.0 = Debug|Win32
+		{E56D0354-0E77-4C0D-9A18-0A03DA141E8F}.Release.ActiveCfg = Release|Win32
+		{E56D0354-0E77-4C0D-9A18-0A03DA141E8F}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
