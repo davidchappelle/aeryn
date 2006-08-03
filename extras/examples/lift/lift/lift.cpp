@@ -4,8 +4,9 @@
 
 namespace Lift
 {
-	Lift::Lift()
-		: ILift()
+	Lift::Lift(  unsigned int floorCount  )
+		: ILift(),
+		  floorCount_( floorCount )
 	{
 	}
 }

@@ -8,8 +8,11 @@ namespace Lift
 {
 	class Lift : public ILift
 	{
+	private:
+		const unsigned int floorCount_;
+
 	public:
-		explicit Lift();	
+		explicit Lift( unsigned int floorCount );	
 	};
 }
 
