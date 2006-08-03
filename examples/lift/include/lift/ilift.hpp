@@ -16,6 +16,9 @@ namespace Lift
 		{
 		}
 
+		virtual int CurrentFloor() const = 0;
+		virtual void Summon( unsigned int floor ) = 0;
+
 	private:
 		ILift( const ILift& );
 		ILift& operator=( const ILift& );		

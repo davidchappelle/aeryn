@@ -8,6 +8,7 @@ namespace LiftTests
 	{
 	public:
 		static void BasicTest();
+		static void InvalidFloorTest();
 	};
 }
 

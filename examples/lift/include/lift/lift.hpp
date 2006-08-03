@@ -10,9 +10,13 @@ namespace Lift
 	{
 	private:
 		const unsigned int floorCount_;
+		unsigned int currentFloor_;
 
 	public:
-		explicit Lift( unsigned int floorCount );	
+		explicit Lift( unsigned int floorCount );
+
+		virtual int CurrentFloor() const;
+		virtual void Summon( unsigned int floor );
 	};
 }
 
