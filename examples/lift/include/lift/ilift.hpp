@@ -4,6 +4,8 @@
 
 namespace Lift
 {
+	class IMonitor;
+	
 	class ILift
 	{
 	protected:
@@ -16,8 +18,9 @@ namespace Lift
 		{
 		}
 
-		virtual int CurrentFloor() const = 0;
+		virtual unsigned int CurrentFloor() const = 0;
 		virtual void Summon( unsigned int floor ) = 0;
+		virtual void AddMonitor( IMonitor* monitor ) = 0;
 
 	private:
 		ILift( const ILift& );

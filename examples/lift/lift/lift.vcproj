@@ -120,6 +120,9 @@
 				RelativePath="..\include\lift\ilift.hpp">
 			</File>
 			<File
+				RelativePath="..\include\lift\imonitor.hpp">
+			</File>
+			<File
 				RelativePath="..\include\lift\invalid_floor.hpp">
 			</File>
 			<File

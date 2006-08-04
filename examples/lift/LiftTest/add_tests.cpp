@@ -14,7 +14,9 @@ namespace LiftTests
 		TestCase liftTest[] = 
 		{ 
 			TestCase( USE_NAME( LiftTest::BasicTest ) ),
-			TestCase( USE_NAME( LiftTest::InvalidFloorTest ) ),				
+			TestCase( USE_NAME( LiftTest::InvalidFloorTest ) ),
+			TestCase( USE_NAME( LiftTest::PassAllFloorsUpTest ) ),
+			TestCase( USE_NAME( LiftTest::PassAllFloorsDownTest ) ),
 			TestCase() 
 		};
 	}

@@ -1,6 +1,6 @@
 
-#ifndef LIFTTEESTS_LIFT_TEST_H
-#define LIFTTEESTS_LIFT_TEST_H
+#ifndef LIFTTESTS_LIFT_TEST_H
+#define LIFTTESTS_LIFT_TEST_H
 
 namespace LiftTests
 {
@@ -9,6 +9,8 @@ namespace LiftTests
 	public:
 		static void BasicTest();
 		static void InvalidFloorTest();
+		static void PassAllFloorsUpTest();
+		static void PassAllFloorsDownTest();
 	};
 }
 
