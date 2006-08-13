@@ -6,9 +6,19 @@ namespace Range
 	VectorOfInt Load1( int begin, int end )
 	{
 		VectorOfInt result;
-		for( int i = begin; i != end; ++i )
+		if ( begin < end )
 		{
-			result.push_back( i );
+			for( int i = begin; i != end + 1; ++i )
+			{
+				result.push_back( i );
+			}
+		}
+		else
+		{
+			for( int i = begin; i != end - 1; --i )
+			{
+				result.push_back( i );
+			}
 		}
 		return result;
 	}
