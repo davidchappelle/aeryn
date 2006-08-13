@@ -11,6 +11,7 @@ namespace LiftTests
 		static void InvalidFloorTest();
 		static void PassAllFloorsUpTest();
 		static void PassAllFloorsDownTest();
+		static void FloorsPassedMockObjectTest();
 	};
 }
 

@@ -7,6 +7,7 @@
 #include <aeryn/throws_exception.hpp>
 #include <aeryn/failed.hpp>
 #include <aeryn/is_true.hpp>
+#include <aeryn/missing_test.hpp>
 #include <sstream>
 #include <memory>
 #include <vector>
@@ -53,23 +54,8 @@ namespace LiftTests
 
 			bool IsEqual( const FloorsPassed& other ) const
 			{
-				if ( other.floors_.size() != floors_.size() )
-				{
-					return false;
-				}
+				return other.floors_ == floors_;
 				
-				const_iterator thisItr	= floors_.begin();
-				const_iterator otherItr = other.floors_.begin();
-				const_iterator thisEnd	= floors_.end();
-				for( ; thisItr != thisEnd; ++thisItr, ++otherItr )
-				{
-					if ( *thisItr != *otherItr )
-					{
-						return false;
-					}					 
-				}
-				
-				return true;
 			}
 
             virtual void Update( const Lift::ILift* lift )
@@ -154,6 +140,11 @@ namespace LiftTests
 		{
 			FAILED( e.what() );
 		}
+	}
+
+	void LiftTest::FloorsPassedMockObjectTest()
+	{
+		MISSING_TEST( "FloorsPassed mock object test." );
 	}
 }
 
