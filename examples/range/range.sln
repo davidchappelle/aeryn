@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "range", "range.vcproj", "{2CDB57A6-8EED-42B8-B060-0F420D7C43AA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{37ECFA81-2769-4971-889C-132578073A41} = {37ECFA81-2769-4971-889C-132578073A41}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "corelib", "..\..\corelib\corelib.vcproj", "{37ECFA81-2769-4971-889C-132578073A41}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{2CDB57A6-8EED-42B8-B060-0F420D7C43AA}.Debug.ActiveCfg = Debug|Win32
+		{2CDB57A6-8EED-42B8-B060-0F420D7C43AA}.Debug.Build.0 = Debug|Win32
+		{2CDB57A6-8EED-42B8-B060-0F420D7C43AA}.Release.ActiveCfg = Release|Win32
+		{2CDB57A6-8EED-42B8-B060-0F420D7C43AA}.Release.Build.0 = Release|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Debug.ActiveCfg = Debug|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Debug.Build.0 = Debug|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Release.ActiveCfg = Release|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
