@@ -14,7 +14,7 @@ namespace
 	
 	TestCase loadTests[] = 
 	{	
-		TestCase( USE_NAME( FunctionPtr( TestLoad, &Load1 ) ) ),
+		TestCase( "Load1: for loop", FunctionPtr( TestLoad, &Load1 ) ),
 		TestCase() 
 	};
 }
