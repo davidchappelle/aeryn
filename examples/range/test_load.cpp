@@ -1,7 +1,6 @@
 
 #include "test_load.hpp"
 #include <aeryn/is_equal.hpp>
-#include <algorithm>
 
 namespace Range
 {
@@ -12,15 +11,8 @@ namespace Range
 
 		const VectorOfInt goingUp( inc, inc + sizeof( inc ) / sizeof( VectorOfInt::value_type ) );
 		const VectorOfInt goingDown( dec, dec + sizeof( dec ) / sizeof( VectorOfInt::value_type ) );
-
-		inline std::ostream& operator<<( std::ostream& out, const VectorOfInt& range )
-		{
-			std::copy(	range.begin(), 
-						range.end(), 
-						std::ostream_iterator< VectorOfInt::value_type >( out, "\n" ) );
-			return out;
-		}	
-	}
+			
+	}	
 
 	void TestLoad( FuncPtr load )
 	{

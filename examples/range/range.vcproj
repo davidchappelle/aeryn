@@ -125,6 +125,9 @@
 			<File
 				RelativePath=".\test_load.cpp">
 			</File>
+			<File
+				RelativePath=".\vector_of_int.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
