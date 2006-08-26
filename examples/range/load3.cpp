@@ -10,13 +10,12 @@ namespace Range
 		class RangeGen
 		{
 		private:
-			VectorOfInt& result_;
 			VectorOfInt::value_type current_;
 			bool inc_;
 
 		public:
-			RangeGen( VectorOfInt& result, VectorOfInt::value_type begin, bool inc )
-				: result_( result ), current_( begin ), inc_( inc )
+			RangeGen( VectorOfInt::value_type begin, bool inc )
+				: current_( begin ), inc_( inc )
 			{
 			}
 
@@ -41,7 +40,7 @@ namespace Range
 	VectorOfInt Load3( int begin, int end )
 	{
 		VectorOfInt result;
-		RangeGen rangeGen( result, begin, begin < end );
+		RangeGen rangeGen( begin, begin < end );
 		std::generate_n( std::back_inserter( result ), std::abs( end - begin ) + 1, rangeGen );	
 		return result;
 	}
