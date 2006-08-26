@@ -1,6 +1,8 @@
 
 #include "test_load.hpp"
 #include "load1.hpp"
+#include "load2.hpp"
+#include "load3.hpp"
 
 #include <aeryn/test_runner.hpp>
 #include <aeryn/exception.hpp>
@@ -15,6 +17,8 @@ namespace
 	TestCase loadTests[] = 
 	{	
 		TestCase( "Load1: for loop", FunctionPtr( TestLoad, &Load1 ) ),
+		TestCase( "Load2: while loop", FunctionPtr( TestLoad, &Load2 ) ),
+		TestCase( "Load3: STL", FunctionPtr( TestLoad, &Load3 ) ),
 		TestCase() 
 	};
 }
