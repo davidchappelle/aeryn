@@ -14,12 +14,19 @@ namespace
 	using namespace Aeryn;
 	using namespace Range;
 	
-	TestCase loadTests[] = 
+/*	TestCase loadTests[] = 
 	{	
 		TestCase( "Load1: for loop", FunctionPtr( TestLoad, &Load1 ) ),
 		TestCase( "Load2: while loop", FunctionPtr( TestLoad, &Load2 ) ),
 		TestCase( "Load3: STL", FunctionPtr( TestLoad, &Load3 ) ),
 		TestCase() 
+	};*/
+
+	TestCase load1Tests[] = 
+	{
+		TestCase( "Load1 (for loop) - TestLoadInc", FunctionPtr( TestLoadInc, &Load1 ) ),
+		TestCase( "Load1 (for loop) - TestLoadDec", FunctionPtr( TestLoadDec, &Load1 ) ),
+		TestCase()
 	};
 }
 
@@ -32,7 +39,7 @@ int main( int, char *argv[] )
 	{
 		TestRunner testRunner;
 		CommandLineParser commandLineParser( argv );
-		testRunner.Add( USE_NAME( loadTests ) );
+		testRunner.Add( "Load1 (for loop)", load1Tests );
 		result = testRunner.Run( commandLineParser );
 	}
 	catch( const Exception& e )

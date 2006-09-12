@@ -6,7 +6,7 @@
 
 namespace Range
 {
-	VectorOfInt Load2( int begin, int end );
+	VectorOfInt Load2( int first, int last );
 }
 
 #endif // RANGE_LOAD2_HPP

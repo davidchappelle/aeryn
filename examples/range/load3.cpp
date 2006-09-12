@@ -10,38 +10,29 @@ namespace Range
 		class RangeGen
 		{
 		private:
-			VectorOfInt::value_type current_;
-			bool inc_;
+			int current_;
+			int step_;
 
 		public:
-			RangeGen( VectorOfInt::value_type begin, bool inc )
-				: current_( begin ), inc_( inc )
+			RangeGen( int first, int last )
+				: current_( first ), step_( first < last ? 1 : -1 )
 			{
 			}
 
-			VectorOfInt::value_type operator()()
+			int operator()()
 			{
-				VectorOfInt::value_type result = current_;
-
-				if ( inc_ )
-				{
-					++current_;
-				}
-				else
-				{
-					--current_;
-				}
-				
+				int result = current_;
+				current_ += step_;				
 				return result;
 			}
 		};
 	}
 	
-	VectorOfInt Load3( int begin, int end )
+	VectorOfInt Load3( int first, int last )
 	{
 		VectorOfInt result;
-		RangeGen rangeGen( begin, begin < end );
-		std::generate_n( std::back_inserter( result ), std::abs( end - begin ) + 1, rangeGen );	
+		RangeGen rangeGen( first, last );
+		std::generate_n( std::back_inserter( result ), std::abs( last - first ) + 1, rangeGen );	
 		return result;
 	}
 }

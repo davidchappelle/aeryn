@@ -8,7 +8,10 @@ namespace Range
 {
 	typedef VectorOfInt (*FuncPtr)(int,int);
 
-	void TestLoad( FuncPtr load );
+	void TestLoadInc( FuncPtr load );
+	void TestLoadDec( FuncPtr load );
+	void TestLoadNegInc( FuncPtr load );
+	void TestLoadNegDec( FuncPtr load );
 }
 
 #endif // RANGE_TEST_LOAD_HPP

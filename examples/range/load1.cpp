@@ -3,19 +3,19 @@
 
 namespace Range
 {
-	VectorOfInt Load1( int begin, int end )
+	VectorOfInt Load1( int first, int last )
 	{
 		VectorOfInt result;
-		if ( begin < end )
+		if ( first < last )
 		{
-			for( int i = begin; i != end + 1; ++i )
+			for( int i = first; i != last ; ++i )
 			{
 				result.push_back( i );
 			}
 		}
 		else
 		{
-			for( int i = begin; i != end - 1; --i )
+			for( int i = first; i != last - 1; --i )
 			{
 				result.push_back( i );
 			}

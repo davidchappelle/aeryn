@@ -11,16 +11,16 @@ namespace Range
 		}
 	}
 	
-	VectorOfInt Load2( int begin, int end )
+	VectorOfInt Load2( int first, int last )
 	{
 		VectorOfInt result;
 
-		int i = begin;
-		while( i != end )
+		int i = first;
+		while( i != last )
 		{
 			insert( result, i );
 
-			if ( begin < end )
+			if ( first < last )
 				++i;
 			else
 				--i;
