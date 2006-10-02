@@ -18,8 +18,8 @@ namespace
 	{
 		TestCase( "Load1 (for loop) - TestLoadInc", FunctionPtr( TestLoadInc, &Load1 ) ),
 		TestCase( "Load1 (for loop) - TestLoadDec", FunctionPtr( TestLoadDec, &Load1 ) ),
-/*		TestCase( "Load1 (for loop) - TestLoadNegInc", FunctionPtr( TestLoadNegInc, &Load1 ) ),
-		TestCase( "Load1 (for loop) - TestLoadNegDec", FunctionPtr( TestLoadNegDec, &Load1 ) ),*/
+		TestCase( "Load1 (for loop) - TestLoadNegInc", FunctionPtr( TestLoadNegInc, &Load1 ) ),
+		TestCase( "Load1 (for loop) - TestLoadNegDec", FunctionPtr( TestLoadNegDec, &Load1 ) ),
 		TestCase()
 	};	
 
@@ -52,8 +52,8 @@ int main( int, char *argv[] )
 		TestRunner testRunner;
 		CommandLineParser commandLineParser( argv );
 		testRunner.Add( "Load1 (for loop)", load1Tests );
-	//	testRunner.Add( "Load2 (while loop)", load2Tests );
-	//	testRunner.Add( "Load3 (stl)", load2Tests );
+		testRunner.Add( "Load2 (while loop)", load2Tests );
+		testRunner.Add( "Load3 (stl)", load3Tests );
 		result = testRunner.Run( commandLineParser );
 	}
 	catch( const Exception& e )
