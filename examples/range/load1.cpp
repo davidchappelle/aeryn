@@ -8,7 +8,7 @@ namespace Range
 		VectorOfInt result;
 		if ( first < last )
 		{
-			for( int i = first; i != last ; ++i )
+			for( int i = first; i != last + 1; ++i )
 			{
 				result.push_back( i );
 			}
