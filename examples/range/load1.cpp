@@ -3,23 +3,26 @@
 
 namespace Range
 {
+	namespace
+	{
+		inline void insert( VectorOfInt& cont, int value )
+		{
+			cont.push_back( value );
+		}
+	}
+	
 	VectorOfInt Load1( int first, int last )
 	{
 		VectorOfInt result;
-		if ( first < last )
+	
+		const int direction = last < first ? -1 : 1;
+
+		for( int i = first; i != last; i+= direction )
 		{
-			for( int i = first; i != last + 1; ++i )
-			{
-				result.push_back( i );
-			}
+			insert( result, i );
 		}
-		else
-		{
-			for( int i = first; i != last - 1; --i )
-			{
-				result.push_back( i );
-			}
-		}
+		insert( result, i );
+
 		return result;
 	}
 }

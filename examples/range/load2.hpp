@@ -1,4 +1,3 @@
-
 #ifndef RANGE_LOAD2_HPP
 #define RANGE_LOAD2_HPP
 

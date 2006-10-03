@@ -2,7 +2,6 @@
 #include "test_load.hpp"
 #include "load1.hpp"
 #include "load2.hpp"
-#include "load3.hpp"
 
 #include <aeryn/test_runner.hpp>
 #include <aeryn/exception.hpp>
@@ -25,19 +24,10 @@ namespace
 
 	TestCase load2Tests[] = 
 	{
-		TestCase( "Load2 (while loop) - TestLoadInc", FunctionPtr( TestLoadInc, &Load2 ) ),
-		TestCase( "Load2 (while loop) - TestLoadDec", FunctionPtr( TestLoadDec, &Load2 ) ),
-		TestCase( "Load2 (while loop) - TestLoadNegInc", FunctionPtr( TestLoadNegInc, &Load2 ) ),
-		TestCase( "Load2 (while loop) - TestLoadNegDec", FunctionPtr( TestLoadNegDec, &Load2 ) ),
-		TestCase()
-	};
-
-	TestCase load3Tests[] = 
-	{
-		TestCase( "Load3 (stl) - TestLoadInc", FunctionPtr( TestLoadInc, &Load3 ) ),
-		TestCase( "Load3 (stl) - TestLoadDec", FunctionPtr( TestLoadDec, &Load3 ) ),
-		TestCase( "Load3 (stl) - TestLoadNegInc", FunctionPtr( TestLoadNegInc, &Load3 ) ),
-		TestCase( "Load3 (stl) - TestLoadNegDec", FunctionPtr( TestLoadNegDec, &Load3 ) ),
+		TestCase( "Load2 (stl) - TestLoadInc", FunctionPtr( TestLoadInc, &Load2 ) ),
+		TestCase( "Load2 (stl) - TestLoadDec", FunctionPtr( TestLoadDec, &Load2 ) ),
+		TestCase( "Load2 (stl) - TestLoadNegInc", FunctionPtr( TestLoadNegInc, &Load2 ) ),
+		TestCase( "Load2 (stl) - TestLoadNegDec", FunctionPtr( TestLoadNegDec, &Load2 ) ),
 		TestCase()
 	};
 }
@@ -52,8 +42,7 @@ int main( int, char *argv[] )
 		TestRunner testRunner;
 		CommandLineParser commandLineParser( argv );
 		testRunner.Add( "Load1 (for loop)", load1Tests );
-		testRunner.Add( "Load2 (while loop)", load2Tests );
-		testRunner.Add( "Load3 (stl)", load3Tests );
+		testRunner.Add( "Load2 (stl)", load2Tests );
 		result = testRunner.Run( commandLineParser );
 	}
 	catch( const Exception& e )

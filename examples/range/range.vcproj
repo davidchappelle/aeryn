@@ -123,9 +123,6 @@
 				RelativePath=".\load2.cpp">
 			</File>
 			<File
-				RelativePath=".\load3.cpp">
-			</File>
-			<File
 				RelativePath=".\main.cpp">
 			</File>
 			<File
@@ -144,9 +141,6 @@
 			</File>
 			<File
 				RelativePath=".\load2.hpp">
-			</File>
-			<File
-				RelativePath=".\load3.hpp">
 			</File>
 			<File
 				RelativePath=".\test_load.hpp">
