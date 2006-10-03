@@ -28,14 +28,14 @@ namespace Range
 		const int inc[] = {0,1,2,3,4,5,6,7,8,9,10};
 		const int dec[] = {10,9,8,7,6,5,4,3,2,1,0};
 
-		const VectorOfInt goingUp( inc, inc + sizeof( inc ) / sizeof( int ) );
-		const VectorOfInt goingDown( dec, dec + sizeof( dec ) / sizeof( int ) );
+		const VectorOfInt goingUp( inc, inc + sizeof( inc ) / sizeof( inc[0] ) );
+		const VectorOfInt goingDown( dec, dec + sizeof( dec ) / sizeof( dec[0] ) );
 
 		const int negativeInc[] = {-5,-4,-3,-2,-1,0,1,2,3,4,5};
 		const int negativeDec[] = {5,4,3,2,1,0,-1,-2,-3,-4,-5};
 
-		const VectorOfInt negativeGoingUp( negativeInc, negativeInc + sizeof( negativeInc ) / sizeof( int ) );
-		const VectorOfInt negativeGoingDown( negativeDec, negativeDec + sizeof( negativeDec ) / sizeof( int ) );
+		const VectorOfInt negativeGoingUp( negativeInc, negativeInc + sizeof( negativeInc ) / sizeof( negativeInc[0] ) );
+		const VectorOfInt negativeGoingDown( negativeDec, negativeDec + sizeof( negativeDec ) / sizeof( negativeDec[0] ) );
 			
 	}	
 

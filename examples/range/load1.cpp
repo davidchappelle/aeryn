@@ -36,7 +36,8 @@ namespace Range
 	
 		const int direction = last < first ? -1 : 1;
 
-		for( int i = first; i != last; i+= direction )
+		int i = first;
+		for( ; i != last; i+= direction )
 		{
 			insert( result, i );
 		}
