@@ -18,14 +18,31 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef RANGE_LOAD1_HPP
-#define RANGE_LOAD1_HPP
-
-#include "vector_of_int.hpp"
+#include "load_closed_range1.hpp"
 
 namespace Range
 {
-	VectorOfInt Load1( int first, int last );
-}
+	namespace
+	{
+		inline void insert( VectorOfInt& cont, int value )
+		{
+			cont.push_back( value );
+		}
+	}
+	
+	VectorOfInt LoadClosedRange1( int first, int last )
+	{
+		VectorOfInt result;
+	
+		const int direction = last < first ? -1 : 1;
 
-#endif // RANGE_LOAD1_HPP
+		int i = first;
+		for( ; i != last; i+= direction )
+		{
+			insert( result, i );
+		}
+		insert( result, i );
+
+		return result;
+	}
+}

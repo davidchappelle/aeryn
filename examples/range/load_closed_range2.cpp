@@ -18,31 +18,40 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#include "load1.hpp"
+#include "load_closed_range2.hpp"
+#include <algorithm>
+#include <cstdlib>
 
 namespace Range
 {
 	namespace
 	{
-		inline void insert( VectorOfInt& cont, int value )
+		class RangeGen
 		{
-			cont.push_back( value );
-		}
+		private:
+			int current_;
+			int step_;
+
+		public:
+			RangeGen( int first, int last )
+				: current_( first ), step_( first < last ? 1 : -1 )
+			{
+			}
+
+			int operator()()
+			{
+				int result = current_;
+				current_ += step_;				
+				return result;
+			}
+		};
 	}
-	
-	VectorOfInt Load1( int first, int last )
+
+	VectorOfInt LoadClosedRange2( int first, int last )
 	{
 		VectorOfInt result;
-	
-		const int direction = last < first ? -1 : 1;
-
-		int i = first;
-		for( ; i != last; i+= direction )
-		{
-			insert( result, i );
-		}
-		insert( result, i );
-
+		RangeGen rangeGen( first, last );
+		std::generate_n( std::back_inserter( result ), std::abs( last - first ) + 1, rangeGen );	
 		return result;
 	}
 }

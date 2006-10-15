@@ -19,8 +19,8 @@
  */
 
 #include "test_load.hpp"
-#include "load1.hpp"
-#include "load2.hpp"
+#include "load_closed_range1.hpp"
+#include "load_closed_range2.hpp"
 
 #include <aeryn/test_runner.hpp>
 #include <aeryn/exception.hpp>
@@ -34,19 +34,19 @@ namespace
 	
 	TestCase load1Tests[] = 
 	{
-		TestCase( "Load1 (for loop) - TestLoadInc", FunctionPtr( TestLoadInc, &Load1 ) ),
-		TestCase( "Load1 (for loop) - TestLoadDec", FunctionPtr( TestLoadDec, &Load1 ) ),
-		TestCase( "Load1 (for loop) - TestLoadNegInc", FunctionPtr( TestLoadNegInc, &Load1 ) ),
-		TestCase( "Load1 (for loop) - TestLoadNegDec", FunctionPtr( TestLoadNegDec, &Load1 ) ),
+		TestCase( "LoadClosedRange1 (for loop) - TestLoadInc", FunctionPtr( TestLoadInc, &LoadClosedRange1 ) ),
+		TestCase( "LoadClosedRange1 (for loop) - TestLoadDec", FunctionPtr( TestLoadDec, &LoadClosedRange1 ) ),
+		TestCase( "LoadClosedRange1 (for loop) - TestLoadNegInc", FunctionPtr( TestLoadNegInc, &LoadClosedRange1 ) ),
+		TestCase( "LoadClosedRange1 (for loop) - TestLoadNegDec", FunctionPtr( TestLoadNegDec, &LoadClosedRange1 ) ),
 		TestCase()
 	};	
 
 	TestCase load2Tests[] = 
 	{
-		TestCase( "Load2 (stl) - TestLoadInc", FunctionPtr( TestLoadInc, &Load2 ) ),
-		TestCase( "Load2 (stl) - TestLoadDec", FunctionPtr( TestLoadDec, &Load2 ) ),
-		TestCase( "Load2 (stl) - TestLoadNegInc", FunctionPtr( TestLoadNegInc, &Load2 ) ),
-		TestCase( "Load2 (stl) - TestLoadNegDec", FunctionPtr( TestLoadNegDec, &Load2 ) ),
+		TestCase( "LoadClosedRange2 (stl) - TestLoadInc", FunctionPtr( TestLoadInc, &LoadClosedRange2 ) ),
+		TestCase( "LoadClosedRange2 (stl) - TestLoadDec", FunctionPtr( TestLoadDec, &LoadClosedRange2 ) ),
+		TestCase( "LoadClosedRange2 (stl) - TestLoadNegInc", FunctionPtr( TestLoadNegInc, &LoadClosedRange2 ) ),
+		TestCase( "LoadClosedRange2 (stl) - TestLoadNegDec", FunctionPtr( TestLoadNegDec, &LoadClosedRange2 ) ),
 		TestCase()
 	};
 }
@@ -60,8 +60,8 @@ int main( int, char *argv[] )
 	{
 		TestRunner testRunner;
 		CommandLineParser commandLineParser( argv );
-		testRunner.Add( "Load1 (for loop)", load1Tests );
-		testRunner.Add( "Load2 (stl)", load2Tests );
+		testRunner.Add( "LoadClosedRange1 (for loop)", load1Tests );
+		testRunner.Add( "LoadClosedRange2 (stl)", load2Tests );
 		result = testRunner.Run( commandLineParser );
 	}
 	catch( const Exception& e )

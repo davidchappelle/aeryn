@@ -18,14 +18,14 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef RANGE_LOAD2_HPP
-#define RANGE_LOAD2_HPP
+#ifndef LOADCLOSEDRANGE1_HPP
+#define LOADCLOSEDRANGE1_HPP
 
 #include "vector_of_int.hpp"
 
 namespace Range
 {
-	VectorOfInt Load2( int first, int last );
+	VectorOfInt LoadClosedRange1( int first, int last );
 }
 
-#endif // RANGE_LOAD2_HPP
+#endif // LOADCLOSEDRANGE1_HPP

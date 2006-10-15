@@ -117,10 +117,10 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\load1.cpp">
+				RelativePath=".\load_closed_range1.cpp">
 			</File>
 			<File
-				RelativePath=".\load2.cpp">
+				RelativePath=".\load_closed_range2.cpp">
 			</File>
 			<File
 				RelativePath=".\main.cpp">
@@ -137,10 +137,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\load1.hpp">
+				RelativePath=".\load_closed_range1.hpp">
 			</File>
 			<File
-				RelativePath=".\load2.hpp">
+				RelativePath=".\load_closed_range2.hpp">
 			</File>
 			<File
 				RelativePath=".\test_load.hpp">
