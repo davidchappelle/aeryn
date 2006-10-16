@@ -24,7 +24,7 @@ namespace Range
 {
 	namespace
 	{
-		inline void insert( VectorOfInt& cont, int value )
+		inline void append( VectorOfInt& cont, int value )
 		{
 			cont.push_back( value );
 		}
@@ -39,9 +39,9 @@ namespace Range
 		int i = first;
 		for( ; i != last; i+= direction )
 		{
-			insert( result, i );
+			append( result, i );
 		}
-		insert( result, i );
+		append( result, i );
 
 		return result;
 	}
