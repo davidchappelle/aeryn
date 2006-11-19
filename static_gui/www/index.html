@@ -1,0 +1,195 @@
+<html>
+	<head>
+		<title>Project Overview</title>
+		<style type="text/css"> /* <![CDATA[ */ @import "http://www.tigris.org/branding/css/tigris.css"; @import "http://www.tigris.org/branding/css/inst.css"; /* ]]> */ 
+	</style>
+		<link rel="stylesheet" type="text/css" href="http://www.tigris.org/branding/css/print.css"
+			media="print">
+			<script src="http://www.tigris.org/branding/scripts/tigris.js" type="text/javascript">
+			</script>
+	</head>
+	<body>
+		<p align= "center">
+			<a href="#what_is_aeryn">What is Aeryn?</a> | <a href="#what_do_i_need_to_build_aeryn">
+				What do I need to build Aeryn?</a> | <a href="#getting_aeryn">Getting Aeryn</a> 
+				| <a href="#license">License</a> | <a href="#documentation">
+				Documentation and Articles</a> | <a href="#contact">Contact</a> | <a href="#contributors">Contributors</a>
+				| <a href="#whos_using_aeryn"> Who's Using Aeryn?</a>	
+			<br>
+			<br>	
+			<br>
+		</p>
+		<p>
+			<h1>Aeryn - C++ Testing Framework</h1>
+			<a href="http://www.aeryn.co.uk/">http://www.aeryn.co.uk</a>
+			<br>
+			<br>
+			Created by Paul Grenyer
+			<br>
+			<br>
+			<br>
+		</p>
+		<p>
+			<b><a name="what_is_aeryn">What is Aeryn</a></b>
+			<br>
+			<br>
+			Aeryn is a C++ testing framework. Although it is primarily intended for unit 
+			testing, Aeryn is adaptable enough to handle integration testing and can be 
+			adapted for most other forms of C++ testing.
+			<br>
+			<br>
+			Aeryn is intended to be lightweight with minimal&nbsp;code needed to create a 
+			test fixture. Unlike other testing frameworks Aeryn does not require all test 
+			fixtures to be inherited from a particular class. Test fixtures can be 
+			standalone functions or standalone classes.
+			<br>
+			<br>
+			Aeryn is adaptable via context objects which can be passed to test fixtures 
+			prior to running and via its call back reporting interface.
+			<br>
+			<br>
+			<br>
+		</p>
+		<p>
+			<b><a name="what_do_i_need_to_build_aeryn">What do I need to build Aeryn?</a></b>
+			<br>
+			<br>
+			Aeryn uses up-to-date C++ techniques, including member function templates and 
+			therefore requires a modern compiler. It has been tested on, and provides <a href="http://www.gnu.org/software/make/">
+				make</a> files or project files for the following compilers:
+			<br>
+			<br>
+			<li>
+				<a href="http://msdn.microsoft.com/visualc/">Microsoft Visual C++ 7.1</a>
+			<li>
+				<a href="http://www.mingw.org/">MinGW</a>
+			<li>
+				<a href="http://gcc.gnu.org/">GNU G++</a>
+			<li>
+				<a href="http://www.apple.com/macosx/features/xcode/">XCode</a>
+
+			<br>
+			<br>	
+			<br>
+		</P>
+		<p>
+			<b><a name="getting_aeryn">Getting Aeryn</a></b>
+			<br>
+			<br>
+			The best way to get Aeryn is direct from the <a href="http://subversion.tigris.org/">Subversion</a>
+			repository using either the <a href="http://tortoisesvn.tigris.org/">TortoiseSVN</a> on 
+			Windows or the Subversion command line application on other platforms. See the 
+			<a href="download/aeryn_user_guide.pdf">Aeryn User Guide</a> or Tim Penhey's 
+			<a href="http://scorefirst.com/articles/annotatedpy/getting-aeryn.html">Getting Aeryn</a> for for more details.
+
+			<br>
+			<br>			
+
+			<table>
+				<tr><td>Repository address:</td><td><a href="http://aeryn.tigris.org/svn/aeryn/trunk/">http://aeryn.tigris.org/svn/aeryn/trunk/</a></td></tr>
+				<tr><td>Username:</td><td><code>guest</code></td></tr>
+				<tr><td>Password:</td><td><code>&lt;blank&gt;</code></td></tr>
+			</table>
+
+			<br>
+
+			If getting Aeryn direction from the repository you should also consider joining the commits mailing 
+			list by sending an email to <a href="mailto:commits-subscribe@aeryn.tigris.org">commits-subscribe@aeryn.tigris.org</a>.
+			This will send you a notification every time the Aeryn repository is updated.
+			<br>
+			<br>
+			Alternatively you can download one of the releases:
+			<br>
+			<br>
+				<table border="1">
+					<tr align="center">
+						<td width="200"><b>Version</b></td>
+						<td width="250"><b>Archive</b></td>
+						<td width="150"><b>Release Date</b></td>
+						<td width="300"><b>Release Notes</b></td>
+						<td width="600"><b>Tag</b></td>
+					</tr>
+					<tr align="center">
+						<td>2.1.1 </td>
+						<td><a href="download/aeryn2.1.1.zip">aeryn2.1.1.zip</a></td>
+						<td>10/12/2005</td>
+						<td><a href="download/Aeryn_2.1.1_Release_Notes.txt">Aeryn 2.1.1 Release Notes.txt</a></td>
+						<td>n/a </td>
+					</tr>
+					<tr align="center">
+						<td>2.1.2 </td>
+						<td><a href="download/aeryn2.1.2.zip">aeryn2.1.2.zip</a></td>
+						<td>11/09/2006</td>
+						<td><a href="download/Aeryn_2.1.2_Release_Notes.txt">Aeryn 2.1.2 Release Notes.txt</a></td>
+						<td><a href="http://aeryn.tigris.org/svn/aeryn/tags/aeryn_2_1_2">http://aeryn.tigris.org/svn/aeryn/tags/aeryn_2_1_2</a></td>
+					</tr>
+				</table>
+			<br>
+			<br>
+		</p>
+		<p>
+			<b><a name="License">License</a></b>
+			<br>
+			<br>
+			Aeryn is released under the <a href="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</a>.
+			<br>
+			<br>
+			<br>
+		</p>
+		<p>
+			<b><a name="documentation">Documentation and Articles</a></b>
+			<br>
+			<br>
+				<li><a href="download/aeryn_user_guide.pdf">Aeryn User Guide</a></li>
+				<li><a href="http://scorefirst.com/articles/py-checker.html">Annotated Python - Header Checker</a></li>
+			<br>
+			<br>
+			<br>
+		</P>
+		<p>
+			<b><a name="contact">Contact</a></b>
+			<br>
+			<br>
+			You can contact me at the following email address, <b>paul (at) paulgrenyer.co.uk</b>
+			and my website address is: <a href="http://www.paulgrenyer.co.uk/">http://www.paulgrenyer.co.uk/</a>
+			<br>
+			<br>
+			<br>
+		</p>
+		<p>
+			<b><a name="contributors">Contributors</a></b>
+			<br>
+			<br>
+			<ul>
+				<li><a href="http://homepage.ntlworld.com/rbyadf/">Adrian Fagg</a></li>
+				<li>Thaddaeus Frogley</li>
+				<li><a href="http://www.goodliffe.net/">Pete Goodliffe</a></li>
+				<li><a href="http://www.curbralan.com">Kevlin Henney</a></li>
+				<li><a href="http://www.all-the-johnsons.co.uk/">Paul Johnson</a></li>
+				<li><a href="http://scorefirst.com/">Tim Penhey</a></li>
+				<li>Steve Love</li>
+				<li><a href="http://www.justsoftwaresolutions.co.uk">Anthony Williams</a></li>
+				<li><a href="http://www.russel.org.uk">Russel Winder</li>
+			</ul>
+			<br>
+		</P>
+		<p>
+			<b><a name="whos_using_aeryn">Who's using Aeryn?</a></b>
+			<br>
+			<br>
+			<ul>
+				<li>
+					<a href="http://www.jaggersoft.com/">Jon Jagger</a> - Independant software 
+					consultant.
+					<br>
+					<br>
+				</li>
+				<li>
+					<a href="http://www.akaipro.com/">Akai Digital Technology Group</a> - 
+					Developers of audio equipment for the professional music industry.
+				</li>
+			</ul>
+			<br>
+		</P>
+	</body>
+</html>

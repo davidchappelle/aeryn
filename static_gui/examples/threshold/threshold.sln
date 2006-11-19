@@ -1,0 +1,48 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestClient", "TestClient\TestClient.vcproj", "{B89C6C93-9CC3-458F-BC27-3425F13F7956}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6804A229-DC27-4C9B-85D5-B71E217C72CA} = {6804A229-DC27-4C9B-85D5-B71E217C72CA}
+		{37ECFA81-2769-4971-889C-132578073A41} = {37ECFA81-2769-4971-889C-132578073A41}
+		{98D99EFB-85C3-4082-85EB-F52C78B5C145} = {98D99EFB-85C3-4082-85EB-F52C78B5C145}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "corelib", "..\..\corelib\corelib.vcproj", "{37ECFA81-2769-4971-889C-132578073A41}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ThresholdTests", "ThresholdTests\ThresholdTests.vcproj", "{98D99EFB-85C3-4082-85EB-F52C78B5C145}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Threshold", "Threshold\Threshold.vcproj", "{6804A229-DC27-4C9B-85D5-B71E217C72CA}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{B89C6C93-9CC3-458F-BC27-3425F13F7956}.Debug.ActiveCfg = Debug|Win32
+		{B89C6C93-9CC3-458F-BC27-3425F13F7956}.Debug.Build.0 = Debug|Win32
+		{B89C6C93-9CC3-458F-BC27-3425F13F7956}.Release.ActiveCfg = Release|Win32
+		{B89C6C93-9CC3-458F-BC27-3425F13F7956}.Release.Build.0 = Release|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Debug.ActiveCfg = Debug|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Debug.Build.0 = Debug|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Release.ActiveCfg = Release|Win32
+		{37ECFA81-2769-4971-889C-132578073A41}.Release.Build.0 = Release|Win32
+		{98D99EFB-85C3-4082-85EB-F52C78B5C145}.Debug.ActiveCfg = Debug|Win32
+		{98D99EFB-85C3-4082-85EB-F52C78B5C145}.Debug.Build.0 = Debug|Win32
+		{98D99EFB-85C3-4082-85EB-F52C78B5C145}.Release.ActiveCfg = Release|Win32
+		{98D99EFB-85C3-4082-85EB-F52C78B5C145}.Release.Build.0 = Release|Win32
+		{6804A229-DC27-4C9B-85D5-B71E217C72CA}.Debug.ActiveCfg = Debug|Win32
+		{6804A229-DC27-4C9B-85D5-B71E217C72CA}.Debug.Build.0 = Debug|Win32
+		{6804A229-DC27-4C9B-85D5-B71E217C72CA}.Release.ActiveCfg = Release|Win32
+		{6804A229-DC27-4C9B-85D5-B71E217C72CA}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
