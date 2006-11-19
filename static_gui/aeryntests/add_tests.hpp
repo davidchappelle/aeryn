@@ -25,7 +25,7 @@
 #ifndef AERYN_ADD_TESTS_HPP
 #define AERYN_ADD_TESTS_HPP
 
-#include <aeryn/test_runner.hpp>
+#include <aeryn/iadd_tests.hpp>
 
 namespace Aeryn
 {
@@ -41,7 +41,7 @@ namespace Aeryn
 	 *	\param testRunner The test runner to add the tests too.
 	 */
 	void AddTests
-		( Aeryn::TestRunner& testRunner );
+		( Aeryn::IAddTests& testRunner );
 }
 
 #endif // AERYN_ADD_TESTS_HPP

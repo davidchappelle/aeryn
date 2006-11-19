@@ -29,8 +29,7 @@
 #pragma warning ( disable : 4150 )
 #endif // _MSC_VER
 
-#include <aeryn/test_case.hpp>
-#include <aeryn/details/noncopyable.hpp>
+#include <aeryn/iadd_tests.hpp>
 #include <aeryn/report_factory.hpp>
 
 
@@ -107,7 +106,7 @@ namespace Aeryn
 	 *	The test case array must be terminated by a default constructed TestCase. This is so that the test 
 	 *	runner can detect when it has reached the end of the array.
 	 */
-	class TestRunner : private Utils::Noncopyable
+	class TestRunner : public IAddTests
 	{
 	private:
 		/**	\brief A store for test sets. */
@@ -133,35 +132,17 @@ namespace Aeryn
 		 */
 		~TestRunner();
 
-		/**	\brief Adds a test set and gives it a name. 
-		 *
-		 *	\param name The test set name.
-		 *	\param nullTerminatedArray A null terminated array of TestCase's.
-		 */
 		void Add
 			( const std::string& name,
 			  const TestCase nullTerminatedArray[] );
 
-		/**	\brief Adds a test set.
-		 *
-		 *	\param nullTerminatedArray A null terminated array of TestCase's.
-		 */
 		void Add
 			( const TestCase nullTerminatedArray[] );
 
-		/**	\brief Adds a single test case and gives it a name. 
-		 *
-		 *	\param name The test case name.
-		 *	\param singleTestCase A null terminated array of TestCase's.
-		 */
 		void Add
 			( const std::string& name, 
 			  const TestCase& singleTestCase );
 
-		/**	\brief Adds a single test case.
-		 *
-		 *	\param singleTestCase A null terminated array of TestCase's.
-		 */
 		void Add
 			( const TestCase& singleTestCase );
 		

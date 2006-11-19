@@ -216,6 +216,9 @@
 				RelativePath="..\include\aeryn\failed.hpp">
 			</File>
 			<File
+				RelativePath="..\include\aeryn\iadd_tests.hpp">
+			</File>
+			<File
 				RelativePath="..\include\aeryn\ireport.hpp">
 			</File>
 			<File

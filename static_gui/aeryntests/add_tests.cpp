@@ -36,9 +36,7 @@
 
 #include "add_tests.hpp"
 
-#include <aeryn/is_equal.hpp>
-#include <aeryn/test_registry.hpp>
-
+#include <aeryn/use_name.hpp>
 #include <iostream>
 
 namespace Aeryn
@@ -150,7 +148,7 @@ namespace Aeryn
 	//////////////////////////////////////////////////////////////////////////
 	void AddTests
 	( 
-		Aeryn::TestRunner& testRunner 
+		Aeryn::IAddTests& testRunner 
 	)
 	{
 		testRunner.Add( USE_NAME( reportTests ) );		
