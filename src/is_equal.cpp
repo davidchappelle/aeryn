@@ -23,6 +23,7 @@
  */	
 
 #include <aeryn/is_equal.hpp>
+#include <limits>
 
 namespace Aeryn
 {
@@ -46,6 +47,27 @@ namespace Aeryn
 			const bool isStreamable = true;
 #endif			
 			throw TestFailure( Print< isStreamable, IsEqualFunc >::Out< const char*, const char* >
+				( lhs, rhs, lhscode, rhscode ), line, file );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void IsEqual
+	( 
+		const double lhs, 
+		const double rhs,
+		const char* lhscode, 
+		const char* rhscode,
+		unsigned long line, 
+		const char* file 
+	)
+	{
+		const double eps = std::numeric_limits< double >::epsilon();
+		
+		if ( std::abs( lhs - rhs ) > eps )
+		{
+			using namespace details;
+			throw TestFailure( Print< true, IsEqualFunc >::template Out< double, double >
 				( lhs, rhs, lhscode, rhscode ), line, file );
 		}
 	}

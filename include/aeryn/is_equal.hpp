@@ -182,6 +182,25 @@ namespace Aeryn
 		const char* rhscode,
 		unsigned long line, 
 		const char* file );
+
+	/**	\brief Determines if doubles equal (==). Throws if they are not.
+	 *
+	 *	\param lhs double 1.
+	 *	\param rhs double 2.
+	 *	\param lhscode A textural representation of double 1.
+	 *	\param rhscode A textural representation of double 2.
+	 *	\param line The line from which IsEqual is being called.
+	 *	\param file The file from which IsEqual is being called.
+	 *	\throws TestFailure if double 1 and double 2 are not equal.
+	 */
+	void IsEqual
+	( 
+		const double lhs, 
+		const double rhs,
+		const char* lhscode, 
+		const char* rhscode,
+		unsigned long line, 
+		const char* file );
 }
 
 #endif // AERYN_IS_EQUAL_HPP

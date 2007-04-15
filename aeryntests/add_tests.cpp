@@ -69,6 +69,7 @@ namespace Aeryn
 		TestCase( "IsFalse( false )", IsFalseTest ),
 		TestCase( "IsFalse( true )", IsFalseFailTest ),
 		TestCase( "IsEqual( true )", IsEqualTest ),
+		TestCase( "IsEqual( double )", IsEqualDoubleTest ),
 		TestCase( "IsEqual( false )", IsEqualFailTest ),
 		TestCase( "IsNotEqual( false )", IsNotEqualTest ),
 		TestCase( "IsNotEqual( true )", IsNotEqualFailTest ),

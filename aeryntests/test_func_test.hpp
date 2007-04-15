@@ -59,6 +59,10 @@ namespace Aeryn
 	void IsNotEqualFailTest
 		();
 
+	/**	\brief Test for IS_EQUAL being passed two equivilent doudles. */
+	void IsEqualDoubleTest
+		();
+
 	/**	\brief Test for IS_EQUAL failure for non-streamable objects. */
 	void IsEqualMissingOutputOperator
 		();

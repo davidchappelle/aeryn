@@ -22,9 +22,9 @@
 *  \brief Definition of test function tests.
  */	
 
-#include <iostream>
 #include "test_func_test.hpp"
 #include <aeryn/test_funcs.hpp>
+#include <limits>
 
 namespace Aeryn
 {
@@ -174,6 +174,23 @@ namespace Aeryn
 #endif
 			IS_EQUAL( line, e.Line() );
 			IS_EQUAL( filename, e.File() );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void IsEqualDoubleTest
+		()
+	{
+		try
+		{
+			const double eps	= std::numeric_limits< double >::epsilon();
+			const double a		= 1.0;
+			const double b		= 1 + ( eps / 2 );
+			IS_EQUAL( a, b );			
+		}
+		catch( const TestFailure& )
+		{
+			FAILED( "IS_EQUAL( double ) failed." );
 		}
 	}
 
