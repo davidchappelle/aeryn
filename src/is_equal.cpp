@@ -27,6 +27,14 @@
 
 namespace Aeryn
 {
+	namespace
+	{
+		inline double abs( double value )
+		{
+			return (value * value) / value;
+		}
+	}
+	
 	void IsEqual
 	( 
 		const char* lhs, 
@@ -64,10 +72,10 @@ namespace Aeryn
 	{
 		const double eps = std::numeric_limits< double >::epsilon();
 		
-		if ( std::abs( lhs - rhs ) > eps )
+		if ( abs( (double)(lhs - rhs) ) > eps )
 		{
 			using namespace details;
-			throw TestFailure( Print< true, IsEqualFunc >::template Out< double, double >
+			throw TestFailure( Print< true, IsEqualFunc >::Out< double, double >
 				( lhs, rhs, lhscode, rhscode ), line, file );
 		}
 	}
