@@ -222,10 +222,16 @@
 				RelativePath="..\include\aeryn\is_equal.hpp">
 			</File>
 			<File
+				RelativePath="..\include\aeryn\is_equal_delta.hpp">
+			</File>
+			<File
 				RelativePath="..\include\aeryn\is_false.hpp">
 			</File>
 			<File
 				RelativePath="..\include\aeryn\is_not_equal.hpp">
+			</File>
+			<File
+				RelativePath="..\include\aeryn\is_not_equal_delta.hpp">
 			</File>
 			<File
 				RelativePath="..\include\aeryn\is_true.hpp">

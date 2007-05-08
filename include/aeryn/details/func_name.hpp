@@ -38,7 +38,9 @@ namespace Aeryn
 		enum FuncName
 		{
 			IsEqualFunc,
-			IsNotEqualFunc
+			IsNotEqualFunc,
+			IsEqualDeltaFunc,
+			IsNotEqualDeltaFunc
 		};
 	}
 }

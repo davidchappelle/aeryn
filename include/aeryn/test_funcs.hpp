@@ -29,6 +29,8 @@
 #include <aeryn/is_false.hpp>
 #include <aeryn/is_equal.hpp>
 #include <aeryn/is_not_equal.hpp>
+#include <aeryn/is_equal_delta.hpp>
+#include <aeryn/is_not_equal_delta.hpp>
 #include <aeryn/failed.hpp>
 #include <aeryn/throws_exception.hpp>
 #include <aeryn/does_not_throw_exception.hpp>

@@ -59,26 +59,5 @@ namespace Aeryn
 		}
 	}
 
-	//////////////////////////////////////////////////////////////////////////
-	void IsEqual
-	( 
-		const double lhs, 
-		const double rhs,
-		const char* lhscode, 
-		const char* rhscode,
-		unsigned long line, 
-		const char* file 
-	)
-	{
-		const double eps = std::numeric_limits< double >::epsilon();
-		
-		if ( abs( (double)(lhs - rhs) ) > eps )
-		{
-			using namespace details;
-			throw TestFailure( Print< true, IsEqualFunc >::Out< double, double >
-				( lhs, rhs, lhscode, rhscode ), line, file );
-		}
-	}
-
 	//////////////////////////////////////////////////////////////////////////	
 }

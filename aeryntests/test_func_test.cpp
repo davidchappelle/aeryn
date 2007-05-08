@@ -178,23 +178,6 @@ namespace Aeryn
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	void IsEqualDoubleTest
-		()
-	{
-		try
-		{
-			const double eps	= std::numeric_limits< double >::epsilon();
-			const double a		= 1.0;
-			const double b		= 1 + ( eps / 2 );
-			IS_EQUAL( a, b );			
-		}
-		catch( const TestFailure& )
-		{
-			FAILED( "IS_EQUAL( double ) failed." );
-		}
-	}
-
-	//////////////////////////////////////////////////////////////////////////
 	void IsNotEqualTest
 		()
 	{
@@ -269,6 +252,100 @@ namespace Aeryn
 		catch( const TestFailure& e )
 		{
 			IS_EQUAL( "IS_NOT_EQUAL(b,c)", e.Failure() );
+			IS_EQUAL( line, e.Line() );
+			IS_EQUAL( filename, e.File() );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void IsEqualDeltaTest
+		()
+	{
+		try
+		{
+			const double lhs	= 0.95;
+			const double rhs	= 1;
+			const double delta	= 0.1;
+			
+			IS_EQUAL_DELTA( lhs, lhs, delta );
+			IS_EQUAL_DELTA( lhs, rhs, delta );			
+			IS_EQUAL_DELTA( lhs, lhs + delta, delta );
+		}
+		catch( const TestFailure& )
+		{
+			FAILED( "IS_EQUAL_DELTA( pass ) failed." );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void IsEqualDeltaFailTest
+		()
+	{
+		unsigned long line = 0;
+		
+		try
+		{
+			const double lhs	= 0.85;
+			const double rhs	= 1;
+			const double delta	= 0.1;
+			
+			line = __LINE__; IS_EQUAL_DELTA( lhs, rhs, delta );	
+			FAILED( "IS_EQUAL_DELTA( fail ) failed." );
+		}
+		catch( const TestFailure& e )
+		{
+#ifdef NO_OUTPUT_OPERATOR_DETECTION
+			const std::string expectedResult = "IS_EQUAL_DELTA(lhs,rhs,delta)";
+			IS_EQUAL( expectedResult, e.Failure() );
+#else
+			IS_EQUAL( "The difference between '0.85' and '1' is greater than '0.1'", e.Failure() );
+#endif
+			IS_EQUAL( line, e.Line() );
+			IS_EQUAL( filename, e.File() );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void IsNotEqualDeltaTest
+		()
+	{
+		try
+		{
+			const double lhs	= 0.85;
+			const double rhs	= 1;
+			const double delta	= 0.1;
+			
+			IS_NOT_EQUAL_DELTA( lhs, rhs, delta );			
+		}
+		catch( const TestFailure& )
+		{
+			FAILED( "IS_NOT_EQUAL_DELTA( pass ) failed." );
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	void IsNotEqualDeltaFailTest
+		()
+	{
+		unsigned long line = 0;
+		
+		try
+		{
+			const double lhs	= 0.95;
+			const double rhs	= 1;
+			const double delta	= 0.1;
+			
+			line = __LINE__; IS_NOT_EQUAL_DELTA( lhs, rhs, delta );	
+			FAILED( "IS_NOT_EQUAL_DELTA( fail ) failed." );
+		}
+		catch( const TestFailure& e )
+		{
+#ifdef NO_OUTPUT_OPERATOR_DETECTION
+			const std::string expectedResult = "IS_NOT_EQUAL_DELTA(lhs,rhs,delta)";
+			IS_EQUAL( expectedResult, e.Failure() );
+#else
+			IS_EQUAL( "The difference between '0.95' and '1' is less than '0.1'", e.Failure() );
+#endif
 			IS_EQUAL( line, e.Line() );
 			IS_EQUAL( filename, e.File() );
 		}
