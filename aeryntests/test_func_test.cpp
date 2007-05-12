@@ -269,7 +269,7 @@ namespace Aeryn
 			
 			IS_EQUAL_DELTA( lhs, lhs, delta );
 			IS_EQUAL_DELTA( lhs, rhs, delta );			
-			IS_EQUAL_DELTA( lhs, lhs + delta, delta );
+			IS_EQUAL_DELTA( lhs, lhs + delta, delta + std::numeric_limits<double>::epsilon() );
 		}
 		catch( const TestFailure& )
 		{
