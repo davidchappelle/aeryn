@@ -52,7 +52,7 @@ $(LIB_FILE) : $(LIB_OBJS)
 	$(RANLIB) $(LIB_FILE)
 
 $(SHLIB_FILE) : $(SHLIB_OBJS) 
-	$(CXX) -shared -Wl,-soname,$(notdir $(SHLIB_SONAME)) $(CXXFLAGS)  $(LDFLAGS) -o $@ $(SHLIB_OBJS) $(LDLIBS)
+	$(CXX) -shared -Wl,-soname=$(notdir $(SHLIB_SONAME)) $(CXXFLAGS)  $(LDFLAGS) -o $@ $(SHLIB_OBJS) $(LDLIBS)
 
 ifndef COMSPEC 
 

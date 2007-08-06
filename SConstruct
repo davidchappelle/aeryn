@@ -66,7 +66,7 @@ def constructLibraryDependencies ( libraryName , env ) :
             fullPath = os.path.join ( libDir , fullName )
             soName = baseName + '.' + versionNumber.split ( '.' )[0]
             soPath = os.path.join ( libDir , soName )
-        e.Append ( SHLINKFLAGS = '-Wl,-soname,' +  soName )
+        e.Append ( SHLINKFLAGS = '-Wl,-soname=' +  soName )
         sharedLibrary = e.SharedLibrary ( libraryName , librarySource )
         if str ( sharedLibrary[0] ) != baseName :
             print "******************************************** PANIC NOW *****************************"
