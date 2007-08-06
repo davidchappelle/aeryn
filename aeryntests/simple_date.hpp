@@ -21,6 +21,14 @@
 #ifndef UTILITY_UTILITY_SIMPLE_DATE_HEADER
 #define UTILITY_UTILITY_SIMPLE_DATE_HEADER
 
+/*
+ *  RLW 2007-08-06 17:20
+ *
+ *  GCC on Solaris Sparc defines the symbol sun which interferes with this program's days of the week enum
+ *  definition.  We take the view that sun should be #defined always for simplicity.
+ */
+#undef sun
+
 //-----------------------------------------------------------------------------
 /** \file       simple_date.hpp
  *  \brief		simple_date declaration.
@@ -192,4 +200,3 @@ namespace utility
 //-----------------------------------------------------------------------------
 
 #endif // UTILITY_UTILITY_SIMPLE_DATE_HEADER
-
