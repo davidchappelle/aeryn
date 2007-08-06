@@ -88,9 +88,11 @@ def constructExecutableDependencies ( name , sources , libraries , env ) :
     main = e.Program ( 'main' , sources )
     e.InstallAs ( executable , main )
     if e [ 'PLATFORM' ] == 'darwin' :
-        Command ( 'test.execute' , executable , 'DYLD_LIBRARY_PATH=' + e [ 'LIB_DIR' ] [ 1: ] + ' $SOURCES' )
+        Command ( 'test.execute' , executable , 'DYLD_LIBRARY_PATH=' + e [ 'LIB_DIR' ] [ 1: ] + ' $SOURCE' )
+    elif e [ 'PLATFORM' ] == 'win32' :
+        Command ( 'test.execute' , executable , '$SOURCE' )
     else :
-        Command ( 'test.execute' , executable , 'LD_LIBRARY_PATH=' + e [ 'LIB_DIR' ] [ 1: ] + ' $SOURCES' )
+        Command ( 'test.execute' , executable , 'LD_LIBRARY_PATH=' + e [ 'LIB_DIR' ] [ 1: ] + ' $SOURCE' )
 
 env = Environment (
     CXXFLAGS = '-W -Wall -Werror -pedantic -Wcast-qual -Wcast-align -Wwrite-strings -Winline -finline-limit=1048576 -g3 -DNO_OUTPUT_OPERATOR_DETECTION' ,
