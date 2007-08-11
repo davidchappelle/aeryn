@@ -50,7 +50,7 @@ namespace Aeryn
 		typedef std::map< std::string, IReportPtr(*)() > ReportMap;
 
 		/**	\brief The name of the default test. */
-		static const std::string defaultTestName;
+		static const char* defaultTestName;
 
 		/** \brief Map of reports onto report name. */
 		ReportMap reportMap;

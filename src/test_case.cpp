@@ -30,7 +30,7 @@ namespace Aeryn
 	namespace
 	{
 		/**	\brief Default test case name. */
-		const std::string defaultTestName = "";
+		const char* defaultTestName = "";
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
