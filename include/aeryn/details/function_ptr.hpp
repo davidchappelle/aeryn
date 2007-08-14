@@ -158,8 +158,8 @@ namespace Aeryn
 				 *	\param function Pointer to the function.
 				 *	\param param Parameter to be passed to the function when called. Must be copyable.
 				 */
-				unary_adaptor(unary_function function, param_type param)
-					: adaptee(function), param( param )
+				unary_adaptor(unary_function function, param_type p)
+					: adaptee(function), param( p )
 				{
 				}
 

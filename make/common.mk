@@ -58,6 +58,7 @@ CXXFLAGS += \
 	-W \
 	-Wall \
 	-Werror \
+	-Wshadow \
 	-pedantic \
 	-Wcast-qual \
 	-Wcast-align \

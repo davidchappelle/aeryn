@@ -38,8 +38,8 @@ namespace utility
      *  validity check is made at that point. Therefore year objects can
      *  be any value.
      */
-	year::year( int value )
-		: value( value )
+	year::year( int v )
+		: value( v )
 	{
 	}
 

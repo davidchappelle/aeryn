@@ -43,8 +43,8 @@ namespace Aeryn
 			 *	\param function Member function pointer to the member function that will
 			 *	be called when the object is created.
 			 */
-			nullary_incarnate_function(void (target_type::*function)())
-				: function(function)
+			nullary_incarnate_function(void (target_type::*f)())
+				: function(f)
 			{
 			}
 
@@ -74,8 +74,8 @@ namespace Aeryn
 			 *	\param param The parameter that will be passed to the member function when
 			 *	it is called.
 			 */
-			unary_incarnate_function(void (target_type::*function)(), param_type param)
-				: function(function), param(param)
+			unary_incarnate_function(void (target_type::*f)(), param_type p)
+				: function(f), param(p)
 			{
 			}
 
