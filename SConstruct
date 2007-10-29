@@ -73,11 +73,13 @@ def constructLibraryDependencies ( libraryName , env ) :
             print 'produced = ' + str ( sharedLibrary[0] )
             print 'expected = ' + baseName
         e.InstallAs ( fullPath , sharedLibrary )
-        #  There appears to be a problem in SCons 0.97 which means the second of the following fails to work
-        #  -- which is a showstopper.  Hack round this for now by cheating.
+        #
+        #  There appears to be a problem in SCons 0.97 which means the second of the following fails to be
+        #  executed -- which is a showstopper.  Hack round this for now by cheating.
         #
         #e.Command ( basePath , fullPath , 'cd ' + libDir[1:] + ' && ln -s ' + fullName + ' ' + baseName )
-        #e.Command ( soPath , fullPath , 'cd ' + libDir[1:] + ' && ln -s ' + fullName + ' ' + soName )        
+        #e.Command ( soPath , fullPath , 'cd ' + libDir[1:] + ' && ln -s ' + fullName + ' ' + soName )
+        #
         e.Command ( [ basePath , soPath ] , fullPath , 'cd ' + libDir[1:] + ' && ln -s ' + fullName + ' ' + baseName + ' && ln -s ' + fullName + ' ' + soName)
 
 def constructExecutableDependencies ( name , sources , libraries , env ) :
