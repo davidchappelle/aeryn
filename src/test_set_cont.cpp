@@ -23,7 +23,7 @@
  */
 
 #include "test_set_cont.hpp"
-#include <numeric>
+#include <algorithm>
 
 namespace Aeryn
 {
@@ -32,21 +32,40 @@ namespace Aeryn
 		/**	\brief Default test set name. */
 		static const std::string defaultTestSetName = "Test Set";
 
-		/**	\brief Predicate used to count number of test cases.
+		/**	\brief Functor to count number of test cases.
 		 *
-		 *	\param total The total number of test cases counted so far.
-		 *	\param testSet A test set to add to the count.
-		 *	\return The new test case count.
+		 *	A better solution would be to use std::accumulate and an
+		 *	appropriate predicate. However, std::accumulate is not
+		 *	implemented correctly on for compilers, so this 
+		 *	std::for_each solution works just as well.
 		 */
-		template< class SizeT, class ValueT >
-		SizeT AccumTestCount
-		( 
-			SizeT total, 
-			const ValueT& testSet  
-		)
+		class AccumTestCount
 		{
-			return total += testSet.first.size();
-		}
+		private:
+			/**	\brief A reference to an object to hold the result. */
+			size_t& count_;
+
+		public:
+			/**	\brief Constructor 
+			 *
+			 *	\param count A reference to an object to hold the result.
+			 */
+			AccumTestCount( size_t& count )
+			: count_(count)
+			{}
+
+			/**	\brief Function operator.
+			 *
+			 *	Adds the number of tests in the supplied test set to
+			 *	the total count.
+			 *
+			 *	\brief testSet A test set.
+			 */
+			void operator()(TestSetCont::TestSet testSet )
+			{
+				count_ += testSet.first.size();
+			}
+		};
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -128,10 +147,10 @@ namespace Aeryn
 	TestSetCont::SizeType TestSetCont::TestCount
 		() const
 	{
-		return std::accumulate(	testSets_.begin(), 
-								testSets_.end(), 
-								0, 
-								AccumTestCount< TestCaseCont::size_type, TestSet > );		
+		size_t count = 0;
+		AccumTestCount accumTestCount(count);
+		std::for_each(testSets_.begin(), testSets_.end(), accumTestCount );
+		return count;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
