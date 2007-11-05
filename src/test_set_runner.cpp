@@ -35,7 +35,7 @@ namespace Aeryn
 	{
 		/**	\brief Aeryn copyright message. */
 		const std::string header =	"\n"
-									"Aeryn 2.1.2 (c) Paul Grenyer 2005-2006\n"
+									"Aeryn 2.1.2 (GE Fanuc) (c) Marauder Consulting 2007\n"
 									"http://www.aeryn.co.uk/\n";
 	}
 
