@@ -17,7 +17,13 @@
 
 import glob
 import os.path
+import platform
 import re
+
+unameResult = platform.uname ( )
+osName = unameResult[0]
+archName = re.sub ( 'i.86' , 'ix86' , unameResult[4].replace ( 'sun4u' , 'sparc' ) )
+discriminator = '_' + osName + '_' + archName
 
 versionNumber = open ( 'VERSION' ).readline ( ).strip ( )
 
@@ -27,7 +33,7 @@ testrunnerSrcDir = 'testrunner'
 mainSrcDir = 'extras/mainlib'
 testrunner2SrcDir = 'extras/testrunner2'
 
-buildDir = 'build'
+buildDir = 'build' + discriminator
 includeDir = 'include'
 
 binDir = os.path.join ( buildDir , 'bin' )
@@ -42,59 +48,50 @@ testrunner2BuildDir = os.path.join ( buildDir , testrunner2SrcDir )
 def constructLibraryDependencies ( libraryName , env ) :
     '''Create all the necessary SCons constructions to make the static and dynamic libraries.'''
     e = env.Copy ( )
-    libDir = e [ 'LIB_DIR' ]
     sourceDirectory = Dir ( '.' ).srcnode ( ).abspath
     librarySource = [ file.replace ( sourceDirectory + '/' , '' ) for file in glob.glob ( sourceDirectory + '/*.cpp' ) ]
-    staticLibrary = e.StaticLibrary ( libraryName , librarySource )
-    e.Install ( libDir , staticLibrary )
-    #  Building shared libraries on Windows is more trouble than it is worth.
-    if e [ 'PLATFORM' ] != 'win32' and e [ 'PLATFORM' ] != 'cygwin' :
+    staticLibrary = e.StaticLibrary ( os.path.join ( e [ 'LIB_DIR' ] , libraryName ) , librarySource )
+    #  Linux appears to deliver posix as the platform.
+    if e [ 'PLATFORM' ] in [ 'sunos' , 'posix' ] :
         versionNumber = e [ 'VERSION_NUMBER' ]
-        if e [ 'PLATFORM' ] == 'darwin' :
-            return
-            libraryNameBase = e.subst ( '$SHLIBPREFIX' ) + libraryName
-            baseName = libraryNameBase + e [ 'SHLIBSUFFIX' ]
-            basePath = os.path.join ( libDir , baseName )
-            fullName = libraryNameBase + '.' + versionNumber + e [ 'SHLIBSUFFIX' ]
-            fullPath = os.path.join ( libDir , fullName )
-            soName = libraryNameBase + '.' + versionNumber.split ( '.' )[0] + e [ 'SHLIBSUFFIX' ]
-            soPath = os.path.join ( libDir , soName )
-        else :
-            baseName = e.subst ( '$SHLIBPREFIX' ) + libraryName + e [ 'SHLIBSUFFIX' ]
-            basePath = os.path.join ( libDir , baseName )
-            fullName = baseName + '.' + versionNumber
-            fullPath = os.path.join ( libDir , fullName )
-            soName = baseName + '.' + versionNumber.split ( '.' )[0]
-            soPath = os.path.join ( libDir , soName )
+        baseName = e.subst ( '$SHLIBPREFIX' ) + libraryName + e [ 'SHLIBSUFFIX' ]
+        basePath = os.path.join ( e [ 'LIB_DIR' ] , baseName )
+        fullName = baseName + '.' + versionNumber
+        fullPath = os.path.join ( e [ 'LIB_DIR' ] , fullName )
+        soName = baseName + '.' + versionNumber.split ( '.' )[0]
+        soPath = os.path.join ( e [ 'LIB_DIR' ] , soName )
         e.Append ( SHLINKFLAGS = '-Wl,-soname=' +  soName )
+        #  SharedLibrary always appends e [ 'SHLIBSUFFIX' ] which is no good for a single step build.  Do
+        #  things in two stages.
         sharedLibrary = e.SharedLibrary ( libraryName , librarySource )
-        if str ( sharedLibrary[0] ) != baseName :
-            print "******************************************** PANIC NOW *****************************"
-            print 'produced = ' + str ( sharedLibrary[0] )
-            print 'expected = ' + baseName
         e.InstallAs ( fullPath , sharedLibrary )
         #
         #  There appears to be a problem in SCons 0.97 which means the second of the following fails to be
         #  executed -- which is a showstopper.  Hack round this for now by cheating.
         #
-        #e.Command ( basePath , fullPath , 'cd ' + libDir[1:] + ' && ln -s ' + fullName + ' ' + baseName )
-        #e.Command ( soPath , fullPath , 'cd ' + libDir[1:] + ' && ln -s ' + fullName + ' ' + soName )
+        #e.Command ( basePath , fullPath , 'cd ' + e [ 'LIB_DIR' ] [1:] + ' && ln -s ' + fullName + ' ' + baseName )
+        #e.Command ( soPath , fullPath , 'cd ' + e [ 'LIB_DIR' ] [1:] + ' && ln -s ' + fullName + ' ' + soName )
         #
-        e.Command ( [ basePath , soPath ] , fullPath , 'cd ' + libDir[1:] + ' && ln -s ' + fullName + ' ' + baseName + ' && ln -s ' + fullName + ' ' + soName)
+        e.Command ( [ basePath , soPath ] , fullPath , 'cd ' + e [ 'LIB_DIR' ] [1:] + ' && ln -s ' + fullName + ' ' + baseName + ' && ln -s ' + fullName + ' ' + soName)    
+    elif e [ 'PLATFORM' ] == 'darwin' :
+        e.Append ( SHLINKFLAGS = '-undefined dynamic_lookup' )
+        e.SharedLibrary ( os.path.join ( e [ 'LIB_DIR' ] , libraryName ) , librarySource )
+    elif e [ 'PLATFORM' ] in [ 'win32' , 'cygwin' ] :
+        pass # For the moment ignore shared libraries on Windows.
+    else :
+        raise ValueError , "PLATFORM had value " + e [ 'PLATFORM' ] + " which is not catered for"
 
 def constructExecutableDependencies ( name , sources , libraries , env ) :
-    e = env.Copy ( )
-    e.Replace ( LIBPATH = env [ 'LIB_DIR' ] )
-    e.Replace ( LIBS = libraries )
-    executable = os.path.join ( e [ 'BIN_DIR' ] , name )
-    main = e.Program ( 'main' , sources )
-    e.InstallAs ( executable , main )
-    if e [ 'PLATFORM' ] == 'darwin' :
-        Command ( 'test.execute' , executable , 'DYLD_LIBRARY_PATH=' + e [ 'LIB_DIR' ] [ 1: ] + ' $SOURCE' )
-    elif e [ 'PLATFORM' ] == 'win32' :
-        Command ( 'test.execute' , executable , '$SOURCE' )
+    executable = env.Program ( os.path.join ( env [ 'BIN_DIR' ] , name ) , sources , LIBPATH = env [ 'LIB_DIR' ] , LIBS = libraries )
+    if env [ 'PLATFORM' ] in [ 'sunos' , 'posix' ] :
+        commandString = 'LD_LIBRARY_PATH=' + env [ 'LIB_DIR' ] [ 1: ] + ' $SOURCE'
+    elif env [ 'PLATFORM' ] == 'darwin' :
+        commandString = 'DYLD_LIBRARY_PATH=' + env [ 'LIB_DIR' ] [ 1: ] + ' $SOURCE'
+    elif env [ 'PLATFORM' ] in [ 'win32' , 'cygwin' ] :
+        commandString = './$SOURCE'
     else :
-        Command ( 'test.execute' , executable , 'LD_LIBRARY_PATH=' + e [ 'LIB_DIR' ] [ 1: ] + ' $SOURCE' )
+        raise ValueError , "PLATFORM had value " + env [ 'PLATFORM' ] + " which is not catered for"
+    Command (  'test.execute' , executable , commandString )
 
 env = Environment (
     CXXFLAGS = '-W -Wall -Werror -pedantic -Wcast-qual -Wcast-align -Wwrite-strings -Winline -finline-limit=1048576 -g3 -DNO_OUTPUT_OPERATOR_DETECTION' ,
@@ -109,12 +106,14 @@ env = Environment (
 #if env [ 'PLATFORM' ] == 'win32' :
 #    env.Tool ( 'mingw' )
 
+env.SConsignFile ( '.sconsign' + discriminator )
+
 Export ( 'env' )
 
 SConscript ( os.path.join ( coreSrcDir, 'SConscript' ) , build_dir = coreBuildDir , duplicate = 0 )
 SConscript ( os.path.join ( testsSrcDir, 'SConscript' ) , build_dir = testsBuildDir , duplicate = 0 )
-SConscript ( os.path.join ( testrunnerSrcDir , 'SConscript' ) , build_dir = testrunnerBuildDir , duplicate = 0 )
 SConscript ( os.path.join ( mainSrcDir , 'SConscript' ) , build_dir = mainBuildDir , duplicate = 0 )
+SConscript ( os.path.join ( testrunnerSrcDir , 'SConscript' ) , build_dir = testrunnerBuildDir , duplicate = 0 )
 SConscript ( os.path.join ( testrunner2SrcDir , 'SConscript' ) , build_dir = testrunner2BuildDir , duplicate = 0 )
 
 def listEmacsSaveFiles ( ) :
