@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marauder.Aeryn.GUI", "Marauder.Aeryn.GUI\Marauder.Aeryn.GUI.csproj", "{95DE20BA-0529-4821-8B78-D48E15FD44B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marauder.Aeryn.Forms", "Marauder.Aeryn.Forms\Marauder.Aeryn.Forms.csproj", "{4B3F9418-6F45-4351-A90D-D69F10DF8699}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95DE20BA-0529-4821-8B78-D48E15FD44B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95DE20BA-0529-4821-8B78-D48E15FD44B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95DE20BA-0529-4821-8B78-D48E15FD44B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95DE20BA-0529-4821-8B78-D48E15FD44B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B3F9418-6F45-4351-A90D-D69F10DF8699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B3F9418-6F45-4351-A90D-D69F10DF8699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B3F9418-6F45-4351-A90D-D69F10DF8699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B3F9418-6F45-4351-A90D-D69F10DF8699}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
