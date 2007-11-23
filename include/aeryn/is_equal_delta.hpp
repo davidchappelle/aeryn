@@ -169,7 +169,7 @@ namespace Aeryn
 #else 
 			const bool isStreamable = IsStreamable< T >::result;
 #endif			
-			throw TestFailure( Print< isStreamable, IsEqualDeltaFunc >::Out< T >
+			throw TestFailure( Print< isStreamable, IsEqualDeltaFunc >::template Out< T >
 							( lhs, rhs, delta, lhscode, rhscode, deltacode ), line, file );
 		}		
 	}	
