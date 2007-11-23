@@ -22,7 +22,7 @@
  *	\brief main for test runner implementation for TestRegistry tests.
  *
  *	Aeryn supports the ability to register tests in any file using the TestRegistry (singleton) class
- *	and it's associated macros. testrunner2 is an example project using TestRegistry and this is its
+ *	and its associated macros. testrunner2 is an example project using TestRegistry and this is its
  *	main funtion.
  *
  *	\param argv An array of null-terminated strings representing command-line arguments entered by the 
