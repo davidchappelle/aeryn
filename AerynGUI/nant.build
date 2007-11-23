@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+  <project name="aeryngui" default="build" basedir=".">
+  <property name="debug" value="false" overwrite="false" />
+  <property name="build.dir" value="build" overwrite="false" />
+
+  <target name="clean" description="remove all generated files">
+    <delete dir = "${build.dir}" />
+  </target>
+    
+  <target name="rebuild"  description="rebuilds everything">
+    <call target="clean"/>
+    <call target="build"/>
+  </target>
+
+    <target name="build">
+      <call target="prepare"/>
+      <call target="forms"/>
+      <call target="gui"/>
+    </target>
+
+    <target name ="all">
+      <call target ="build"/>
+      <call target ="test"/>
+    </target>
+
+    <target name="prepare">
+      <mkdir dir="${build.dir}" />     
+<!--
+   <copy file ="thirdparty/NUnit/nunit.framework.dll" tofile = "${build.dir}/nunit.framework.dll" />
+--> 
+    </target>
+
+    <target name="forms" description="compiles the source code">
+
+    	
+    <csc target="library" output="${build.dir}/Marauder.Aeryn.Forms.dll" 
+     debug="${debug}">
+      <sources>
+        <include name="Marauder.Aeryn.Forms/*.cs" />
+      </sources>
+    </csc>
+	<!--
+    <csc target="library" output="${build.dir}/Marauder.aeryngui.FileSystem.Test.dll"
+     debug="${debug}">
+      <sources>
+        <include name="Marauder.aeryngui.FileSystem.Test/*.cs" />
+      </sources>
+      <references>
+        <include name="${build.dir}/Marauder.aeryngui.FileSystem.dll" />
+        <include name="${build.dir}/nunit.framework.dll" />  
+      </references>   
+    </csc>
+ -->
+  </target>
+
+    <target name="gui" description="compiles the source code">
+       <csc target="winexe" output="${build.dir}/Marauder.Aeryn.Gui.exe" debug="${debug}">
+        <sources>
+          <include name="Marauder.Aeryn.GUI/*.cs" />
+        </sources>
+         <references>
+           <include name="${build.dir}/Marauder.Aeryn.Forms.dll" />
+         </references>
+       </csc>
+    </target>
+
+  <target name="test">
+<!--
+    <nunit2>
+      <formatter type="Xml" usefile="false"/>
+      <test assemblyname="${build.dir}/Marauder.aeryngui.FileSystem.Test.dll"/>
+    </nunit2>
+ -->
+  </target>
+</project>
