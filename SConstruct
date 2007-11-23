@@ -30,8 +30,8 @@ versionNumber = open ( 'VERSION' ).readline ( ).strip ( )
 coreSrcDir = 'src'
 testsSrcDir = 'aeryntests'
 testrunnerSrcDir = 'testrunner'
-mainSrcDir = 'extras/mainlib'
-testrunner2SrcDir = 'extras/testrunner2'
+mainSrcDir = os.path.join ( 'extras' , 'mainlib' )
+testrunner2SrcDir = os.path.join ( 'extras' , 'testrunner2' )
 
 buildDir = 'build' + discriminator
 includeDir = 'include'
@@ -88,7 +88,7 @@ def constructExecutableDependencies ( name , sources , libraries , env ) :
     elif env [ 'PLATFORM' ] == 'darwin' :
         commandString = 'DYLD_LIBRARY_PATH=' + env [ 'LIB_DIR' ] [ 1: ] + ' $SOURCE'
     elif env [ 'PLATFORM' ] in [ 'win32' , 'cygwin' ] :
-        commandString = './$SOURCE'
+        commandString = os.path.join ( '.' , '$SOURCE' )
     else :
         raise ValueError , "PLATFORM had value " + env [ 'PLATFORM' ] + " which is not catered for"
     Command (  'test.execute' , executable , commandString )
