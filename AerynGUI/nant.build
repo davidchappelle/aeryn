@@ -60,7 +60,7 @@
   </target>
 
     <target name="dummy_test_exe" description="compiles the source code">
-      <csc target="winexe" output="${build.dir}/Marauder.Aeryn.DummyTestExe.exe.exe" debug="${debug}">
+      <csc target="winexe" output="${build.dir}/Marauder.Aeryn.DummyTestExe.exe" debug="${debug}">
         <sources>
           <include name="Marauder.Aeryn.DummyTestExe/*.cs" />
         </sources>

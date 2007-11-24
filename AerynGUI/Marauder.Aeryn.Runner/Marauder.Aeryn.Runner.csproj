@@ -35,6 +35,7 @@
   <ItemGroup>
     <Compile Include="IExecute.cs" />
     <Compile Include="ITestSetVisitor.cs" />
+    <Compile Include="ProcessExecuter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestSetReader.cs" />
   </ItemGroup>
