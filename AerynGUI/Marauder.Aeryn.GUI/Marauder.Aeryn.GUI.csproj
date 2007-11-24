@@ -62,6 +62,14 @@
       <Project>{4B3F9418-6F45-4351-A90D-D69F10DF8699}</Project>
       <Name>Marauder.Aeryn.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Marauder.Aeryn.Runner.Tests\Marauder.Aeryn.Runner.Tests.csproj">
+      <Project>{A167A278-FB43-44E5-8ACC-ABA63E8AEBB6}</Project>
+      <Name>Marauder.Aeryn.Runner.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Marauder.Aeryn.Runner\Marauder.Aeryn.Runner.csproj">
+      <Project>{203335D6-E248-484F-A3E7-4F3DBF622935}</Project>
+      <Name>Marauder.Aeryn.Runner</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -71,4 +79,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>$(SolutionDir)/thirdparty/nunit/nunit-console.exe $(TargetDir)/Marauder.Aeryn.Runner.Tests.dll</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -2,8 +2,16 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marauder.Aeryn.GUI", "Marauder.Aeryn.GUI\Marauder.Aeryn.GUI.csproj", "{95DE20BA-0529-4821-8B78-D48E15FD44B3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A167A278-FB43-44E5-8ACC-ABA63E8AEBB6} = {A167A278-FB43-44E5-8ACC-ABA63E8AEBB6}
+		{203335D6-E248-484F-A3E7-4F3DBF622935} = {203335D6-E248-484F-A3E7-4F3DBF622935}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marauder.Aeryn.Forms", "Marauder.Aeryn.Forms\Marauder.Aeryn.Forms.csproj", "{4B3F9418-6F45-4351-A90D-D69F10DF8699}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marauder.Aeryn.Runner", "Marauder.Aeryn.Runner\Marauder.Aeryn.Runner.csproj", "{203335D6-E248-484F-A3E7-4F3DBF622935}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marauder.Aeryn.Runner.Tests", "Marauder.Aeryn.Runner.Tests\Marauder.Aeryn.Runner.Tests.csproj", "{A167A278-FB43-44E5-8ACC-ABA63E8AEBB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +27,14 @@ Global
 		{4B3F9418-6F45-4351-A90D-D69F10DF8699}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B3F9418-6F45-4351-A90D-D69F10DF8699}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B3F9418-6F45-4351-A90D-D69F10DF8699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{203335D6-E248-484F-A3E7-4F3DBF622935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{203335D6-E248-484F-A3E7-4F3DBF622935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{203335D6-E248-484F-A3E7-4F3DBF622935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{203335D6-E248-484F-A3E7-4F3DBF622935}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A167A278-FB43-44E5-8ACC-ABA63E8AEBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A167A278-FB43-44E5-8ACC-ABA63E8AEBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A167A278-FB43-44E5-8ACC-ABA63E8AEBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A167A278-FB43-44E5-8ACC-ABA63E8AEBB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

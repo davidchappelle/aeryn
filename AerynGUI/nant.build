@@ -14,6 +14,8 @@
 
     <target name="build">
       <call target="prepare"/>
+      <call target="runner"/>
+      <call target="runner_tests"/>
       <call target="forms"/>
       <call target="gui"/>
     </target>
@@ -25,32 +27,34 @@
 
     <target name="prepare">
       <mkdir dir="${build.dir}" />     
-<!--
-   <copy file ="thirdparty/NUnit/nunit.framework.dll" tofile = "${build.dir}/nunit.framework.dll" />
---> 
+      <copy file ="thirdparty/NUnit/nunit.framework.dll" tofile = "${build.dir}/nunit.framework.dll" />
     </target>
 
-    <target name="forms" description="compiles the source code">
+    <target name="runner" description="compiles the source code">
+      <csc target="library" output="${build.dir}/Marauder.Aeryn.Runner.dll" debug="${debug}">
+        <sources>
+          <include name="Marauder.Aeryn.Runner/*.cs" />
+        </sources>
+      </csc>
+    </target>
 
-    	
-    <csc target="library" output="${build.dir}/Marauder.Aeryn.Forms.dll" 
-     debug="${debug}">
+    <target name="runner_tests" description="compiles the source code">
+      <csc target="library" output="${build.dir}/Marauder.Aeryn.Runner.Tests.dll" debug="${debug}">
+        <sources>
+          <include name="Marauder.Aeryn.Runner.Tests/*.cs" />
+        </sources>
+        <references>
+          <include name="${build.dir}/nunit.framework.dll" />
+        </references>
+      </csc>
+    </target>
+    
+    <target name="forms" description="compiles the source code">    	
+    <csc target="library" output="${build.dir}/Marauder.Aeryn.Forms.dll" debug="${debug}">
       <sources>
         <include name="Marauder.Aeryn.Forms/*.cs" />
       </sources>
     </csc>
-	<!--
-    <csc target="library" output="${build.dir}/Marauder.aeryngui.FileSystem.Test.dll"
-     debug="${debug}">
-      <sources>
-        <include name="Marauder.aeryngui.FileSystem.Test/*.cs" />
-      </sources>
-      <references>
-        <include name="${build.dir}/Marauder.aeryngui.FileSystem.dll" />
-        <include name="${build.dir}/nunit.framework.dll" />  
-      </references>   
-    </csc>
- -->
   </target>
 
     <target name="gui" description="compiles the source code">
@@ -66,11 +70,10 @@
     </target>
 
   <target name="test">
-<!--
     <nunit2>
       <formatter type="Xml" usefile="false"/>
-      <test assemblyname="${build.dir}/Marauder.aeryngui.FileSystem.Test.dll"/>
+      <test assemblyname="${build.dir}/Marauder.Aeryn.Runner.Tests.dll"/>
     </nunit2>
- -->
   </target>
 </project>
+
