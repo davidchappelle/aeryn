@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Marauder.Aeryn.Runner
 {
-    class TestSetReader
+    public class TestSetReader
     {
     }
 }
