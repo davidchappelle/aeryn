@@ -37,6 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExecuteFake.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestSetReaderTest.cs" />
   </ItemGroup>
@@ -54,4 +55,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)Tests\$(ConfigurationName)</PostBuildEvent>
+  </PropertyGroup>
 </Project>
