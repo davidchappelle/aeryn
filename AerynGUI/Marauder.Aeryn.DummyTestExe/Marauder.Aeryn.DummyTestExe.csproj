@@ -4,11 +4,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A167A278-FB43-44E5-8ACC-ABA63E8AEBB6}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{ACF41479-4F84-4D46-BF67-76E099D06210}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Marauder.Aeryn.Runner.Tests</RootNamespace>
-    <AssemblyName>Marauder.Aeryn.Runner.Tests</AssemblyName>
+    <RootNamespace>Marauder.Aeryn.DummyTestExe</RootNamespace>
+    <AssemblyName>Marauder.Aeryn.DummyTestExe</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,22 +28,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.4.3.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\thirdparty\NUnit\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExecuteFake.cs" />
-    <Compile Include="ExecuteTest.cs" />
+    <Compile Include="EntryPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestSetReaderTest.cs" />
-    <Compile Include="TestSetVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Marauder.Aeryn.Runner.Tests\Marauder.Aeryn.Runner.Tests.csproj">
+      <Project>{A167A278-FB43-44E5-8ACC-ABA63E8AEBB6}</Project>
+      <Name>Marauder.Aeryn.Runner.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Marauder.Aeryn.Runner\Marauder.Aeryn.Runner.csproj">
       <Project>{203335D6-E248-484F-A3E7-4F3DBF622935}</Project>
       <Name>Marauder.Aeryn.Runner</Name>

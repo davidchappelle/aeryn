@@ -17,6 +17,7 @@
       <call target="runner"/>
       <call target="runner_tests"/>
       <call target="forms"/>
+      <call target="dummy_test_exe"/>      
       <call target="gui"/>
     </target>
 
@@ -57,6 +58,18 @@
       </sources>
     </csc>
   </target>
+
+    <target name="dummy_test_exe" description="compiles the source code">
+      <csc target="winexe" output="${build.dir}/Marauder.Aeryn.DummyTestExe.exe.exe" debug="${debug}">
+        <sources>
+          <include name="Marauder.Aeryn.DummyTestExe/*.cs" />
+        </sources>
+        <references>
+          <include name="${build.dir}/Marauder.Aeryn.Runner.dll" />
+          <include name="${build.dir}/Marauder.Aeryn.Runner.Tests.dll" />
+        </references>
+      </csc>
+    </target>
 
     <target name="gui" description="compiles the source code">
        <csc target="winexe" output="${build.dir}/Marauder.Aeryn.Gui.exe" debug="${debug}">
