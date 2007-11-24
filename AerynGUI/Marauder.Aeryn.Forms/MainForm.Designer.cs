@@ -31,7 +31,7 @@ namespace Marauder.Aeryn.Forms
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.testSets = new System.Windows.Forms.TreeView();
+            this.testSetsTreeView = new System.Windows.Forms.TreeView();
             this.testSetGroupBox = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -57,19 +57,19 @@ namespace Marauder.Aeryn.Forms
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
-            // testSets
+            // testSetsTreeView
             // 
-            this.testSets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.testSetsTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.testSets.Location = new System.Drawing.Point(29, 61);
-            this.testSets.Name = "testSets";
-            this.testSets.Size = new System.Drawing.Size(275, 399);
-            this.testSets.TabIndex = 1;
+            this.testSetsTreeView.Location = new System.Drawing.Point(29, 61);
+            this.testSetsTreeView.Name = "testSetsTreeView";
+            this.testSetsTreeView.Size = new System.Drawing.Size(275, 399);
+            this.testSetsTreeView.TabIndex = 1;
             // 
             // testSetGroupBox
             // 
@@ -85,7 +85,7 @@ namespace Marauder.Aeryn.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(679, 502);
-            this.Controls.Add(this.testSets);
+            this.Controls.Add(this.testSetsTreeView);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.testSetGroupBox);
             this.MainMenuStrip = this.menuStrip1;
@@ -103,7 +103,7 @@ namespace Marauder.Aeryn.Forms
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.TreeView testSets;
+        private System.Windows.Forms.TreeView testSetsTreeView;
         private System.Windows.Forms.GroupBox testSetGroupBox;
     }
 }

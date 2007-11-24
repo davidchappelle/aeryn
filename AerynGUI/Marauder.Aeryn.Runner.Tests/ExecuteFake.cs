@@ -38,6 +38,20 @@ namespace Marauder.Aeryn.Runner.Tests
             xmlWriter.WriteElementString("Test", "Test 3");
             xmlWriter.WriteElementString("Test", "Test 4");
             xmlWriter.WriteEndElement();
+
+/*           for (int i = 0; i < 200; ++i)
+            {
+                xmlWriter.WriteStartElement("TestSet");
+                xmlWriter.WriteAttributeString("name", string.Format("Test set {0}", i ) );
+
+                for (int j = 0; j < 10; ++j)
+                {
+                    xmlWriter.WriteElementString("Test", string.Format("Test {0}",j));
+                }
+
+                xmlWriter.WriteEndElement();
+            }*/
+
             xmlWriter.WriteEndElement();
 
 
