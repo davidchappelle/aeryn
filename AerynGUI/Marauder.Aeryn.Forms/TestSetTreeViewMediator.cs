@@ -64,13 +64,13 @@ namespace Marauder.Aeryn.Forms
             parent.Invoke(addTestSet, new object[] { name });
         }
 
-        public void AddTestSet(string name)
+        private void AddTestSet(string name)
         {
             currentTestSetNode = rootTestSetNode.Nodes.Add(name);
             treeView.ExpandAll();
         }
 
-        public void AddTest(string name)
+        private void AddTest(string name)
         {
             currentTestSetNode.Nodes.Add(name);
             treeView.ExpandAll();

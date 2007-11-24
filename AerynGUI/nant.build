@@ -56,6 +56,9 @@
       <sources>
         <include name="Marauder.Aeryn.Forms/*.cs" />
       </sources>
+      <references>
+        <include name="${build.dir}/Marauder.Aeryn.Runner.dll" />
+      </references>
     </csc>
   </target>
 
@@ -78,7 +81,6 @@
         </sources>
          <references>
            <include name="${build.dir}/Marauder.Aeryn.Forms.dll" />
-           <include name="System.Windows.Forms.dll" />
          </references>
        </csc>
     </target>
