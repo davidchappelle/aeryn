@@ -82,7 +82,7 @@
           <include name="Marauder.Aeryn.GUI/*.cs" />
         </sources>
          <references>
-           <include name="Marauder.Aeryn.Forms.dll" />
+           <include name="${build.dir}/Marauder.Aeryn.Forms.dll" />
            <include name="System.Windows.Forms.dll" />
            <include name="System.Drawing.dll" />
          </references>

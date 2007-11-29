@@ -33,7 +33,11 @@ namespace Marauder.Aeryn.Forms
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testSetsTreeView = new System.Windows.Forms.TreeView();
             this.testSetGroupBox = new System.Windows.Forms.GroupBox();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.testGroupBox = new System.Windows.Forms.GroupBox();
+            this.totalTestCountLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
+            this.testGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -73,12 +77,44 @@ namespace Marauder.Aeryn.Forms
             // 
             // testSetGroupBox
             // 
+            this.testSetGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.testSetGroupBox.Location = new System.Drawing.Point(13, 39);
             this.testSetGroupBox.Name = "testSetGroupBox";
             this.testSetGroupBox.Size = new System.Drawing.Size(309, 441);
             this.testSetGroupBox.TabIndex = 2;
             this.testSetGroupBox.TabStop = false;
-            this.testSetGroupBox.Text = "Test Sets";
+            // 
+            // progressBar
+            // 
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.Location = new System.Drawing.Point(6, 22);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(326, 23);
+            this.progressBar.TabIndex = 3;
+            // 
+            // testGroupBox
+            // 
+            this.testGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.testGroupBox.Controls.Add(this.totalTestCountLabel);
+            this.testGroupBox.Controls.Add(this.progressBar);
+            this.testGroupBox.Location = new System.Drawing.Point(329, 39);
+            this.testGroupBox.Name = "testGroupBox";
+            this.testGroupBox.Size = new System.Drawing.Size(338, 441);
+            this.testGroupBox.TabIndex = 4;
+            this.testGroupBox.TabStop = false;
+            // 
+            // totalTestCountLabel
+            // 
+            this.totalTestCountLabel.AutoSize = true;
+            this.totalTestCountLabel.Location = new System.Drawing.Point(7, 52);
+            this.totalTestCountLabel.Name = "totalTestCountLabel";
+            this.totalTestCountLabel.Size = new System.Drawing.Size(28, 13);
+            this.totalTestCountLabel.TabIndex = 4;
+            this.totalTestCountLabel.Text = "Test";
             // 
             // MainForm
             // 
@@ -88,11 +124,14 @@ namespace Marauder.Aeryn.Forms
             this.Controls.Add(this.testSetsTreeView);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.testSetGroupBox);
+            this.Controls.Add(this.testGroupBox);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.testGroupBox.ResumeLayout(false);
+            this.testGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -105,5 +144,8 @@ namespace Marauder.Aeryn.Forms
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.TreeView testSetsTreeView;
         private System.Windows.Forms.GroupBox testSetGroupBox;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.GroupBox testGroupBox;
+        private System.Windows.Forms.Label totalTestCountLabel;
     }
 }

@@ -12,15 +12,17 @@ namespace Marauder.Aeryn.Forms
         private TreeView treeView;
         private TreeNode rootTestSetNode;
         private TreeNode currentTestSetNode;
+        private Stats stats;
 
         delegate void LoadTreeDelegate(string path);
         delegate void AddTestSetDelegate(string name);
         delegate void AddSetDelegate(string name);
 
-        public TestSetTreeViewMediator(MainForm parent, TreeView treeView)
+        public TestSetTreeViewMediator(MainForm parent, TreeView treeView, Stats stats)
         {
             this.parent = parent;
             this.treeView = treeView;
+            this.stats = stats;
         }
 
         public void Load( string path)
@@ -73,6 +75,7 @@ namespace Marauder.Aeryn.Forms
         private void AddTest(string name)
         {
             currentTestSetNode.Nodes.Add(name);
+            stats.IncTestCount();
             treeView.ExpandAll();
         }
     }
