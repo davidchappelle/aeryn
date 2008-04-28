@@ -196,7 +196,7 @@ def selectCommandParameters ( ) :
 
 Alias ( 'install' ,
         includeFiles ( ) + [ Install ( installLibDir , installProducts ) ] ,
-        createLibraryLinks ( selectCommandParameters ( ) )
+        createLibraryLinks ( selectCommandParameters ( ) ) if env['PLATFORM'] in [ 'sunos' , 'posix' ] else None
         )
 
 Default ( 'test' )
