@@ -52,6 +52,9 @@ env.SConsignFile ( '.sconsign' + discriminator )
 
 Export ( 'env' )
 
+def createLibraryLinks ( ( directory , baseName , soName , fullName ) ) :
+    return 'cd %s && rm -f %s %s && ln -s %s %s && ln -s %s %s' %  ( directory , baseName , soName , fullName , baseName , fullName , soName )
+    
 def libraryLinks ( path , libraryName ) :
     '''Return all the names and paths of the shared library and symbolic links for Solaris and Linux.
     Sets up the link command.'''
@@ -61,7 +64,7 @@ def libraryLinks ( path , libraryName ) :
     fullPath = os.path.join ( path , fullName )
     soName = baseName + '.' + versionNumber.split ( '.' )[0]
     soPath = os.path.join ( path , soName )
-    env.Command ( [ basePath , soPath ] , fullPath , 'cd ' + ( path[1:] if path[0] == '#' else path )  + ' && rm -f ' + baseName + ' ' + soName + ' && ln -s ' + fullName + ' ' + baseName + ' && ln -s ' + fullName + ' ' + soName )
+    env.Command ( [ basePath , soPath ] , fullPath , createLibraryLinks ( ( ( path[1:] if path[0] == '#' else path ) , baseName , soName , fullName ) ) )
     return ( baseName , basePath , soName , soPath , fullName , fullPath )
 
 def constructLibraryDependencies ( libraryName ) :
@@ -189,11 +192,11 @@ def includeFiles ( ) :
 
 def selectCommandParameters ( ) :
     ( baseName , basePath , soName , soPath , fullName , fullPath ) = libraryLinks ( installLibDir , 'aeryn_core' )
-    return  ( installLibDir , fullName , baseName , fullName , soName )
+    return  ( installLibDir , baseName , soName , fullName )
 
 Alias ( 'install' ,
         includeFiles ( ) + [ Install ( installLibDir , installProducts ) ] ,
-        'cd %s && ln -s %s %s && ln -s %s %s' % selectCommandParameters ( )
+        createLibraryLinks ( selectCommandParameters ( ) )
         )
 
 Default ( 'test' )
