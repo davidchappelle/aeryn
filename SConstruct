@@ -21,6 +21,10 @@ import platform
 import re
 import sys
 
+#  So as to support concurrent builds using different architectures in the same tree (i.e. shared
+#  fielstore), we create a discrminator to be used for the build target directory and the SCons control
+#  files.
+
 unameResult = platform.uname ( )
 osName = unameResult[0]
 archName = re.sub ( 'i.86' , 'ix86' , unameResult[4].replace ( 'sun4u' , 'sparc' ) )
