@@ -1,4 +1,4 @@
-# -*- mode:python encoding: UTF-8 -*-
+# -*- coding:utf-8 mode:python -*-
 
 #  Aeryn2 -- a unit test framework for C++.
 #
@@ -15,7 +15,6 @@
 #  You should have received a copy of the GNU General Public License along with this program.  If not, see
 #  <http://www.gnu.org/licenses/>.
 
-import glob
 import os.path
 import platform
 import re
