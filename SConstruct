@@ -1,4 +1,4 @@
-# -*- coding:utf-8 mode:python -*-
+# -*- coding: utf-8  mode: python -*-
 
 #  Aeryn2 -- a unit test framework for C++.
 #
@@ -211,6 +211,5 @@ The possible targets are:
     test
     install
 
-Default target is test.
+The default target is test.
 ''' )
-
