@@ -23,6 +23,7 @@
  */	
 
 #include <aeryn/is_not_equal.hpp>
+#include <cstring>
 
 namespace Aeryn
 {

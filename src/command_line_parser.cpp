@@ -24,6 +24,7 @@
 
 #include <aeryn/command_line_parser.hpp>
 #include <cassert>
+#include <cstdlib>
 #include <sstream>
 
 namespace Aeryn

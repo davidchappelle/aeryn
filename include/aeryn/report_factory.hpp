@@ -32,6 +32,7 @@
 #include <aeryn/ireport.hpp>
 #include <map>
 #include <cassert>
+#include <memory>
 
 namespace Aeryn
 {

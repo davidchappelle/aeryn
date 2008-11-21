@@ -24,6 +24,7 @@
 
 #include <aeryn/is_equal.hpp>
 #include <limits>
+#include <cstring>
 
 namespace Aeryn
 {

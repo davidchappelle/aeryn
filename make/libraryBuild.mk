@@ -30,7 +30,7 @@ SHLIB_SONAME = $(LIB_DEST)lib$(LIB_NAME).dll
 
 #  Building shared libraries on Windows seems vastly too complicated so don't.
 
-all : initialize $(LIB_FILE) # $(SHLIB_FILE)
+all : initialize $(LIB_FILE)
 
 else
 
