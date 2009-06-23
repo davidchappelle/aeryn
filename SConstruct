@@ -178,10 +178,8 @@ def installsOfIncludeFiles ( ) :
            installList += [ Install ( os.path.join ( installIncDir , '..' , root ) , os.path.join ( root , f ) ) ]
     return installList
 
-Alias ( 'installWithoutTesting' ,
-        installsOfIncludeFiles ( )
-        + [ Install ( installLibDir , installProducts ) ]
-        + commandsForLibraryLinks ( installLibDir , createLibraryLinkNames ( installLibDir , 'aeryn_core' ) ) if env['PLATFORM'] in [ 'sunos' , 'posix' ] else [ ]
+Alias ( 'installWithoutTesting' , installsOfIncludeFiles ( ) + [ Install ( installLibDir , installProducts ) ] +
+        ( commandsForLibraryLinks ( installLibDir , createLibraryLinkNames ( installLibDir , 'aeryn_core' ) ) if env['PLATFORM'] in [ 'sunos' , 'posix' ] else [ ] )
         )
 
 Alias ( 'install' , [ 'runTests' , 'installWithoutTesting' ] )
