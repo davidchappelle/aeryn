@@ -126,15 +126,13 @@ def constructLibraryDependencies ( libraryName ) :
     installProducts += [ staticLibrary ]
     #  Linux appears to deliver posix as the platform.
     if e['PLATFORM'] in [ 'sunos' , 'posix' ] :
-        ( baseName , basePath , soName , soPath , fullName , fullPath ) = createLibraryLinkNames ( '#' + buildLibDir , libraryName )
-        commandsForLibraryLinks ( buildLibDir , ( baseName , basePath , soName , soPath , fullName , fullPath ) )
+        ( baseName , basePath , soName , soPath , fullName , fullPath ) = allTheNames = createLibraryLinkNames ( '#' + buildLibDir , libraryName )
         e.Append ( SHLINKFLAGS = '-Wl,-soname=' +  soName )
         #  SharedLibrary always appends e [ 'SHLIBSUFFIX' ] which is no good for a single step build.  Do
         #  things in two stages.
-        sharedLibrary = e.SharedLibrary ( libraryName , librarySource )
-        e.InstallAs ( fullPath , sharedLibrary )
-        buildProducts += [ basePath , soPath , fullPath ] 
-        installProducts += [ fullPath ] 
+        sharedLibrary = e.InstallAs ( fullPath , e.SharedLibrary ( libraryName , librarySource ) )
+        buildProducts += [ sharedLibrary ] + commandsForLibraryLinks ( buildLibDir , allTheNames )
+        installProducts += [ sharedLibrary ]
     elif e['PLATFORM'] == 'darwin' :
         e.Append ( SHLINKFLAGS = '-undefined dynamic_lookup' )
         sharedLibrary = e.SharedLibrary ( os.path.join ( '#' + buildLibDir , libraryName ) , librarySource )
@@ -187,7 +185,6 @@ Alias ( 'installWithoutTesting' ,
         )
 
 Alias ( 'install' , [ 'runTests' , 'installWithoutTesting' ] )
-
 
 def listEmacsSaveFiles ( ) :
     fileList = [ ]
