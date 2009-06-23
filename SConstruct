@@ -1,8 +1,8 @@
-# -*- coding: utf-8  mode: python -*-
+# -*- mode:python; coding:utf-8; -*-
 
 #  Aeryn2 -- a unit test framework for C++.
 #
-#   Copyright © 2005,2007-8 Russel Winder
+#   Copyright © 2005,2007-9 Russel Winder
 #  
 #  This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 #  General Public License as published by the Free Software Foundation, either version 3 of the License, or
@@ -18,22 +18,23 @@
 import os.path
 import platform
 import re
-import sys
 
-#  So as to support concurrent builds using different architectures in the same tree (i.e. shared
-#  fielstore), we create a discrminator to be used for the build target directory and the SCons control
-#  files.
+try :
+    versionNumber = file ( 'VERSION' ).readline ( ).strip ( )
+except :
+    print 'Version file not present, build will not be undertaken.'
+    Exit ( 1 )
+
+#  Support concurrent builds for different platforms in the same tree (i.e. shared fielstore) by creating a
+#  discrminator that is used to provide platform specific names for the build directory and the SCons
+#  control files.  This does not provide for concurrent builds using the same platform of course.
 
 unameResult = platform.uname ( )
 osName = unameResult[0]
 archName = re.sub ( 'i.86' , 'ix86' , unameResult[4].replace ( 'sun4u' , 'sparc' ) )
 discriminator = '_' + osName + '_' + archName
 
-try :
-    versionNumber = file ( 'VERSION' ).readline ( ).strip ( )
-except :
-    print 'Version file not present, build will not be undertaken.'
-    sys.exit ( 1 )
+#  The project directory structure.
 
 coreSrcDir = 'src'
 incSrcDir = 'include'
@@ -45,109 +46,6 @@ testrunner2SrcDir = os.path.join ( 'extras' , 'testrunner2' )
 buildDir = 'build' + discriminator
 buildBinDir = os.path.join ( buildDir , 'bin' )
 buildLibDir = os.path.join ( buildDir , 'lib' )
-
-env = Environment (
-    CXXFLAGS = '-W -Wall -Werror -pedantic -Wcast-qual -Wcast-align -Wwrite-strings -Winline -finline-limit=1048576 -g3 -DNO_OUTPUT_OPERATOR_DETECTION' ,
-    CPPPATH = [ '#' + incSrcDir ] ,
-    )
-
-env.SConsignFile ( '.sconsign' + discriminator )
-
-Export ( 'env' )
-
-def createLibraryLinks ( ( directory , baseName , soName , fullName ) ) :
-    return 'cd %s && rm -f %s %s && ln -s %s %s && ln -s %s %s' %  ( directory , baseName , soName , fullName , baseName , fullName , soName )
-    
-def libraryLinks ( path , libraryName ) :
-    '''Return all the names and paths of the shared library and symbolic links for Solaris and Linux.
-    Sets up the link command.'''
-    baseName = env.subst ( '$SHLIBPREFIX' ) + libraryName + env['SHLIBSUFFIX' ]
-    basePath = os.path.join ( path , baseName )
-    fullName = baseName + '.' + versionNumber
-    fullPath = os.path.join ( path , fullName )
-    soName = baseName + '.' + versionNumber.split ( '.' )[0]
-    soPath = os.path.join ( path , soName )
-    env.Command ( [ basePath , soPath ] , fullPath , createLibraryLinks ( ( ( path[1:] if path[0] == '#' else path ) , baseName , soName , fullName ) ) )
-    return ( baseName , basePath , soName , soPath , fullName , fullPath )
-
-def constructLibraryDependencies ( libraryName ) :
-    '''Create all the necessary constructions to make the static and dynamic libraries.
-    Return a tuple containing the build product list, the test product list and the install product list.'''
-    #  This will be called in subdirectories so ensure all paths are given # prefixes.
-    e = env.Clone ( )
-    librarySource = Glob ( '*.cpp' )
-    buildProducts = [ ]
-    testProducts = [ ]
-    installProducts = [ ]
-    staticLibrary = e.StaticLibrary ( os.path.join ( '#' + buildLibDir , libraryName ) , librarySource )
-    buildProducts += [ staticLibrary ]
-    installProducts += [ staticLibrary ]
-    #  Linux appears to deliver posix as the platform.
-    if e['PLATFORM'] in [ 'sunos' , 'posix' ] :
-        ( baseName , basePath , soName , soPath , fullName , fullPath ) = libraryLinks ( '#' + buildLibDir , libraryName )
-        e.Append ( SHLINKFLAGS = '-Wl,-soname=' +  soName )
-        #  SharedLibrary always appends e [ 'SHLIBSUFFIX' ] which is no good for a single step build.  Do
-        #  things in two stages.
-        sharedLibrary = e.SharedLibrary ( libraryName , librarySource )
-        e.InstallAs ( fullPath , sharedLibrary )
-        buildProducts += [ basePath , soPath , fullPath ] 
-        installProducts += [ fullPath ] 
-    elif e['PLATFORM'] == 'darwin' :
-        e.Append ( SHLINKFLAGS = '-undefined dynamic_lookup' )
-        sharedLibrary = e.SharedLibrary ( os.path.join ( '#' + buildLibDir , libraryName ) , librarySource )
-        buildProducts += [ sharedLibrary ] 
-        installProducts += [ sharedLibrary ] 
-    elif e['PLATFORM'] in [ 'win32' , 'cygwin' ] : pass # For the moment ignore shared libraries on Windows.
-    else : raise ValueError , "PLATFORM had value " + e['PLATFORM'] + " which is not catered for."
-    return ( buildProducts , testProducts , installProducts )
-env['ConstructLibraryDependencies'] = constructLibraryDependencies
-
-def constructExecutableDependencies ( name , sources , libraries ) :
-    '''Create all the necessary constructions to make the executables used for testing.
-    Return a tuple containing the build product list, the test product list and the install product list.'''
-    #  This will be called in subdirectories so ensure all paths are given # prefixes.
-    buildProducts = [ ]
-    testProducts = [ ]
-    installProducts = [ ]
-    executable = env.Program ( os.path.join ( '#' + buildBinDir , name ) , sources , LIBPATH = '#' + buildLibDir , LIBS = libraries )
-    buildProducts += [ executable ]
-    if env['PLATFORM'] in [ 'sunos' , 'posix' ] : commandString = 'LD_LIBRARY_PATH=' + buildLibDir + ' $SOURCE'
-    elif env['PLATFORM'] == 'darwin' : commandString = 'DYLD_LIBRARY_PATH=' + buildLibDir + ' $SOURCE'
-    elif env['PLATFORM'] in [ 'win32' , 'cygwin' ] : commandString = os.path.join ( '.' , '$SOURCE' )
-    else : raise ValueError , "PLATFORM had value " + env['PLATFORM'] + " which is not catered for"
-    testProducts += [ Command (  'test.execute' , executable , commandString ) ]
-    return  ( buildProducts , testProducts , installProducts )
-env['ConstructExecutableDependencies'] = constructExecutableDependencies
-
-buildProducts = [ ]
-testProducts = [ ]
-installProducts = [ ]
-
-def processSConscript ( sconscript , buildDir , install = False ) :
-    '''Issue the SConscript calls and process the return values.
-    Each call returns a tuple of the build product list, the test product list and the install product list.
-    Only install selected install products.'''
-    global buildProducts
-    global testProducts
-    global installProducts
-    ( b , t , i ) = SConscript ( sconscript , build_dir = buildDir , duplicate = 0 )
-    buildProducts += b
-    testProducts += t
-    if install : installProducts += i
-
-processSConscript ( os.path.join ( coreSrcDir, 'SConscript' ) , os.path.join ( buildDir , coreSrcDir ) , True )
-processSConscript ( os.path.join ( testsSrcDir, 'SConscript' ) , os.path.join ( buildDir , testsSrcDir ) )
-processSConscript ( os.path.join ( mainSrcDir , 'SConscript' ) , os.path.join ( buildDir , mainSrcDir ) )
-processSConscript ( os.path.join ( testrunnerSrcDir , 'SConscript' ) , os.path.join ( buildDir , testrunnerSrcDir ) )
-processSConscript ( os.path.join ( testrunner2SrcDir , 'SConscript' ) , os.path.join ( buildDir , testrunner2SrcDir ) )
-
-def listEmacsSaveFiles ( ) :
-    fileList = [ ]
-    for root , dirs , files in os.walk ( '.' ) :
-        fileList = fileList + [ os.path.join ( root , f ) for f in files if re.compile ( ".*~" ).search ( f ) ]
-    return fileList
-
-Clean ( '.' , [ listEmacsSaveFiles ( ) , buildDir ] )
 
 #  Deduce the installation locations.  There is a default.  This can be overridden using environment
 #  variables.  This can be overwritten using the content of a file in the current directory.  This can be
@@ -183,33 +81,132 @@ if ARGUMENTS.has_key ( 'prefix' ) :
 installIncDir = ARGUMENTS.get ( 'installIncDir' , installIncDir )
 installLibDir = ARGUMENTS.get ( 'installLibDir' , installLibDir )
 
-Alias ( 'build' , buildProducts )
-Alias ( 'test' , testProducts )
 
-def includeFiles ( ) :
+env = Environment (
+    CXXFLAGS = '-W -Wall -Werror -pedantic -Wcast-qual -Wcast-align -Wwrite-strings -Winline -finline-limit=1048576 -g3 -DNO_OUTPUT_OPERATOR_DETECTION' ,
+    CPPPATH = [ '#' + incSrcDir ] ,
+    )
+
+env.SConsignFile ( '.sconsign' + discriminator )
+
+Export ( 'env' )
+
+#  Dynamic libraries on Linux and Solaris have a full name.  There are symbolic links to this for the soname
+#  and a basename with no version information.  This function creates and returns a list of Commands for
+#  achieving the goal.  The way in which this and the following function are used in two entirely different
+#  contexts leads to the rather bizarre code and parameter structure.
+
+def commandsForLibraryLinks ( directory , ( baseName , basePath , soName , soPath , fullName , fullPath ) ) :
+    '''Return the list of Commands for creating appropriate symbolic links to a dynamic library.'''
+    return [ 
+        env.Command ( basePath , fullPath , 'cd %s && rm -f %s && ln -s %s %s' %  ( directory , baseName , fullName , baseName ) ) ,
+        env.Command ( soPath , fullPath , 'cd %s && rm -f %s && ln -s %s %s' %  ( directory , soName , fullName , soName ) ) ,
+        ]
+    
+def createLibraryLinkNames ( path , libraryName ) :
+    '''Return all the names and paths of the shared library and symbolic links for Solaris and Linux.'''
+    baseName = env.subst ( '$SHLIBPREFIX' ) + libraryName + env['SHLIBSUFFIX' ]
+    basePath = os.path.join ( path , baseName )
+    fullName = baseName + '.' + versionNumber
+    fullPath = os.path.join ( path , fullName )
+    soName = baseName + '.' + versionNumber.split ( '.' )[0]
+    soPath = os.path.join ( path , soName )
+    return ( baseName , basePath , soName , soPath , fullName , fullPath )
+
+def constructLibraryDependencies ( libraryName ) :
+    '''Create all the necessary constructions to make the static and dynamic libraries.
+    Return a tuple containing the build product list and the install product list.'''
+    #  This will be called in subdirectories so ensure all paths are given # prefixes.
+    e = env.Clone ( )
+    librarySource = Glob ( '*.cpp' )
+    buildProducts = [ ]
+    installProducts = [ ]
+    staticLibrary = e.StaticLibrary ( os.path.join ( '#' + buildLibDir , libraryName ) , librarySource )
+    buildProducts += [ staticLibrary ]
+    installProducts += [ staticLibrary ]
+    #  Linux appears to deliver posix as the platform.
+    if e['PLATFORM'] in [ 'sunos' , 'posix' ] :
+        ( baseName , basePath , soName , soPath , fullName , fullPath ) = createLibraryLinkNames ( '#' + buildLibDir , libraryName )
+        commandsForLibraryLinks ( buildLibDir , ( baseName , basePath , soName , soPath , fullName , fullPath ) )
+        e.Append ( SHLINKFLAGS = '-Wl,-soname=' +  soName )
+        #  SharedLibrary always appends e [ 'SHLIBSUFFIX' ] which is no good for a single step build.  Do
+        #  things in two stages.
+        sharedLibrary = e.SharedLibrary ( libraryName , librarySource )
+        e.InstallAs ( fullPath , sharedLibrary )
+        buildProducts += [ basePath , soPath , fullPath ] 
+        installProducts += [ fullPath ] 
+    elif e['PLATFORM'] == 'darwin' :
+        e.Append ( SHLINKFLAGS = '-undefined dynamic_lookup' )
+        sharedLibrary = e.SharedLibrary ( os.path.join ( '#' + buildLibDir , libraryName ) , librarySource )
+        buildProducts += [ sharedLibrary ] 
+        installProducts += [ sharedLibrary ] 
+    elif e['PLATFORM'] in [ 'win32' , 'cygwin' ] : pass # For the moment ignore shared libraries on Windows.
+    else : raise ValueError , "PLATFORM had value " + e['PLATFORM'] + " which is not catered for."
+    return ( buildProducts , installProducts )
+env['ConstructLibraryDependencies'] = constructLibraryDependencies
+
+def constructExecutableDependencies ( name , sources , libraries ) :
+    '''Create all the necessary constructions to make the executables used for testing.
+    Return the list of build products.'''
+    #  This will be called in subdirectories so ensure all paths are given # prefixes.
+    return env.Program ( os.path.join ( '#' + buildBinDir , name ) , sources , LIBPATH = '#' + buildLibDir , LIBS = libraries )
+env['ConstructExecutableDependencies'] = constructExecutableDependencies
+
+( buildProducts , installProducts ) = SConscript ( os.path.join ( coreSrcDir, 'SConscript' ) , variant_dir = os.path.join ( buildDir , coreSrcDir ) , duplicate = 0 )
+
+Alias ( 'build' , buildProducts )
+
+testBuildProducts = \
+  SConscript ( os.path.join ( mainSrcDir , 'SConscript' ) , variant_dir = os.path.join ( buildDir , mainSrcDir ) , duplicate = 0 ) \
+  + SConscript ( os.path.join ( testsSrcDir, 'SConscript' ) , variant_dir = os.path.join ( buildDir , testsSrcDir ) , duplicate = 0 )
+
+testExecuteProducts = \
+  SConscript ( os.path.join ( testrunnerSrcDir , 'SConscript' ) , variant_dir = os.path.join ( buildDir , testrunnerSrcDir ) , duplicate = 0 ) \
+  + SConscript ( os.path.join ( testrunner2SrcDir , 'SConscript' ) , variant_dir = os.path.join ( buildDir , testrunner2SrcDir ) , duplicate = 0 )
+
+Alias ( 'buildTests' , [ buildProducts , testBuildProducts , testExecuteProducts ] )
+
+if env['PLATFORM'] in [ 'sunos' , 'posix' ] : commandPrefix = 'LD_LIBRARY_PATH=' + buildLibDir
+elif env['PLATFORM'] == 'darwin' : commandPrefix = 'DYLD_LIBRARY_PATH=' + buildLibDir 
+elif env['PLATFORM'] in [ 'win32' , 'cygwin' ] : commandPrefix = ''
+else : raise ValueError , "PLATFORM had value " + env['PLATFORM'] + " which is not catered for"
+
+Command ( 'runTests' , 'buildTests' , [ commandPrefix + ' ' + item.abspath for item in testExecuteProducts ] )
+
+def installsOfIncludeFiles ( ) :
     installList = [ ]
     for root , dirs , files in os.walk ( incSrcDir ) :
         for f in files :
            installList += [ Install ( os.path.join ( installIncDir , '..' , root ) , os.path.join ( root , f ) ) ]
     return installList
 
-def selectCommandParameters ( ) :
-    ( baseName , basePath , soName , soPath , fullName , fullPath ) = libraryLinks ( installLibDir , 'aeryn_core' )
-    return  ( installLibDir , baseName , soName , fullName )
-
-Alias ( 'install' ,
-        includeFiles ( ) + [ Install ( installLibDir , installProducts ) ] ,
-        createLibraryLinks ( selectCommandParameters ( ) ) if env['PLATFORM'] in [ 'sunos' , 'posix' ] else None
+Alias ( 'installWithoutTesting' ,
+        installsOfIncludeFiles ( )
+        + [ Install ( installLibDir , installProducts ) ]
+        + commandsForLibraryLinks ( installLibDir , createLibraryLinkNames ( installLibDir , 'aeryn_core' ) ) if env['PLATFORM'] in [ 'sunos' , 'posix' ] else [ ]
         )
 
-Default ( 'test' )
+Alias ( 'install' , [ 'runTests' , 'installWithoutTesting' ] )
+
+
+def listEmacsSaveFiles ( ) :
+    fileList = [ ]
+    for root , dirs , files in os.walk ( '.' ) :
+        fileList = fileList + [ os.path.join ( root , f ) for f in files if re.compile ( ".*~" ).search ( f ) ]
+    return fileList
+
+Clean ( '.' , [ listEmacsSaveFiles ( ) , buildDir ] )
+
+Default ( 'runTests' )
 
 Help ( '''
 The possible targets are:
 
     build
-    test
+    buildTests
+    runTests
     install
+    installWithoutTesting
 
 The default target is test.
 ''' )
