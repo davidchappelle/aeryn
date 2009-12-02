@@ -83,7 +83,7 @@ installLibDir = ARGUMENTS.get ( 'installLibDir' , installLibDir )
 
 
 env = Environment (
-    CXXFLAGS = '-W -Wall -Werror -pedantic -Wcast-qual -Wcast-align -Wwrite-strings -Winline -finline-limit=1048576 -g3 -DNO_OUTPUT_OPERATOR_DETECTION' ,
+    CXXFLAGS = [ '-W' , '-Wall' , '-Werror' , '-pedantic' , '-Wcast-qual' , '-Wcast-align' , '-Wwrite-strings' , '-Winline' , '-finline-limit=1048576' , '-g3' , '-DNO_OUTPUT_OPERATOR_DETECTION' ] ,
     CPPPATH = [ '#' + incSrcDir ] ,
     )
 
