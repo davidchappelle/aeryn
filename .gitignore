@@ -1,4 +1,11 @@
-.sconsign*dblite
-build_*
-local.build.options
-*~
+/build
+/build_*_*
+/.sconsign*.dblite
+/aeryntests/*.os
+/aeryntests/.sconsign
+/corelib/*.os
+/extras/mainlib/*.os
+/extras/testrunner2/.sconsign
+/include/aeryn/.sconsign
+/include/aeryn/details/.sconsign
+/src/.sconsign
