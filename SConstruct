@@ -2,8 +2,8 @@
 
 #  Aeryn2 -- a unit test framework for C++.
 #
-#   Copyright © 2005,2007-9 Russel Winder
-#  
+#   Copyright © 2005,2007-9,2012 Russel Winder
+#
 #  This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 #  General Public License as published by the Free Software Foundation, either version 3 of the License, or
 #  (at your option) any later version.
@@ -85,33 +85,12 @@ installLibDir = ARGUMENTS.get ( 'installLibDir' , installLibDir )
 env = Environment (
     CXXFLAGS = [ '-W' , '-Wall' , '-Werror' , '-pedantic' , '-Wcast-qual' , '-Wcast-align' , '-Wwrite-strings' , '-Winline' , '-finline-limit=1048576' , '-g3' , '-DNO_OUTPUT_OPERATOR_DETECTION' ] ,
     CPPPATH = [ '#' + incSrcDir ] ,
+    SHLIBVERSION = versionNumber,
     )
 
 env.SConsignFile ( '.sconsign' + discriminator )
 
 Export ( 'env' )
-
-#  Dynamic libraries on Linux and Solaris have a full name.  There are symbolic links to this for the soname
-#  and a basename with no version information.  This function creates and returns a list of Commands for
-#  achieving the goal.  The way in which this and the following function are used in two entirely different
-#  contexts leads to the rather bizarre code and parameter structure.
-
-def commandsForLibraryLinks ( directory , ( baseName , basePath , soName , soPath , fullName , fullPath ) ) :
-    '''Return the list of Commands for creating appropriate symbolic links to a dynamic library.'''
-    return [ 
-        env.Command ( basePath , fullPath , 'cd %s && rm -f %s && ln -s %s %s' %  ( directory , baseName , fullName , baseName ) ) ,
-        env.Command ( soPath , fullPath , 'cd %s && rm -f %s && ln -s %s %s' %  ( directory , soName , fullName , soName ) ) ,
-        ]
-    
-def createLibraryLinkNames ( path , libraryName ) :
-    '''Return all the names and paths of the shared library and symbolic links for Solaris and Linux.'''
-    baseName = env.subst ( '$SHLIBPREFIX' ) + libraryName + env['SHLIBSUFFIX' ]
-    basePath = os.path.join ( path , baseName )
-    fullName = baseName + '.' + versionNumber
-    fullPath = os.path.join ( path , fullName )
-    soName = baseName + '.' + versionNumber.split ( '.' )[0]
-    soPath = os.path.join ( path , soName )
-    return ( baseName , basePath , soName , soPath , fullName , fullPath )
 
 def constructLibraryDependencies ( libraryName ) :
     '''Create all the necessary constructions to make the static and dynamic libraries.
@@ -126,18 +105,15 @@ def constructLibraryDependencies ( libraryName ) :
     installProducts += [ staticLibrary ]
     #  Linux appears to deliver posix as the platform.
     if e['PLATFORM'] in [ 'sunos' , 'posix' ] :
-        ( baseName , basePath , soName , soPath , fullName , fullPath ) = allTheNames = createLibraryLinkNames ( '#' + buildLibDir , libraryName )
-        e.Append ( SHLINKFLAGS = '-Wl,-soname=' +  soName )
-        #  SharedLibrary always appends e [ 'SHLIBSUFFIX' ] which is no good for a single step build.  Do
-        #  things in two stages.
-        sharedLibrary = e.InstallAs ( fullPath , e.SharedLibrary ( libraryName , librarySource ) )
-        buildProducts += [ sharedLibrary ] + commandsForLibraryLinks ( buildLibDir , allTheNames )
+        sharedLibrary = e.SharedLibrary ( os.path.join ( '#' + buildLibDir , libraryName ) , librarySource )
+        buildProducts += [ sharedLibrary ]
         installProducts += [ sharedLibrary ]
     elif e['PLATFORM'] == 'darwin' :
         e.Append ( SHLINKFLAGS = '-undefined dynamic_lookup' )
-        sharedLibrary = e.SharedLibrary ( os.path.join ( '#' + buildLibDir , libraryName ) , librarySource )
-        buildProducts += [ sharedLibrary ] 
-        installProducts += [ sharedLibrary ] 
+        #sharedLibrary = e.SharedLibrary ( os.path.join ( '#' + buildLibDir , libraryName ) , librarySource )
+        sharedLibrary = e.SharedLibrary ( os.path.join ( '#' + buildLibDir , libraryName ) , librarySource)
+        buildProducts += [ sharedLibrary ]
+        installProducts += [ sharedLibrary ]
     elif e['PLATFORM'] in [ 'win32' , 'cygwin' ] : pass # For the moment ignore shared libraries on Windows.
     else : raise ValueError , "PLATFORM had value " + e['PLATFORM'] + " which is not catered for."
     return ( buildProducts , installProducts )
@@ -165,7 +141,7 @@ testExecuteProducts = \
 Alias ( 'buildTests' , [ buildProducts , testBuildProducts , testExecuteProducts ] )
 
 if env['PLATFORM'] in [ 'sunos' , 'posix' ] : commandPrefix = 'LD_LIBRARY_PATH=' + buildLibDir
-elif env['PLATFORM'] == 'darwin' : commandPrefix = 'DYLD_LIBRARY_PATH=' + buildLibDir 
+elif env['PLATFORM'] == 'darwin' : commandPrefix = 'DYLD_LIBRARY_PATH=' + buildLibDir
 elif env['PLATFORM'] in [ 'win32' , 'cygwin' ] : commandPrefix = ''
 else : raise ValueError , "PLATFORM had value " + env['PLATFORM'] + " which is not catered for"
 
@@ -178,9 +154,9 @@ def installsOfIncludeFiles ( ) :
            installList += [ Install ( os.path.join ( installIncDir , '..' , root ) , os.path.join ( root , f ) ) ]
     return installList
 
-Alias ( 'installWithoutTesting' , installsOfIncludeFiles ( ) + [ Install ( installLibDir , installProducts ) ] +
-        ( commandsForLibraryLinks ( installLibDir , createLibraryLinkNames ( installLibDir , 'aeryn_core' ) ) if env['PLATFORM'] in [ 'sunos' , 'posix' ] else [ ] )
-        )
+Alias ( 'installWithoutTesting' , installsOfIncludeFiles ( ) + [ Install ( installLibDir , installProducts ) ] ) # +
+#        ( commandsForLibraryLinks ( installLibDir , createLibraryLinkNames ( installLibDir , 'aeryn_core' ) ) if env['PLATFORM'] in [ 'sunos' , 'posix' ] else [ ] )
+#        )
 
 Alias ( 'install' , [ 'runTests' , 'installWithoutTesting' ] )
 
