@@ -60,16 +60,6 @@ namespace Aeryn
 		{
 			return false;
 		}
-
-		/**	\brief Output operator for A.
-		 *
-		 *	\param os An output streem.
-		 *	\return os.
-		 */
-		std::ostream& operator<<( std::ostream& os, const A& )
-		{
-			return os;
-		}
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
